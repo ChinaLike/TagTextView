@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TagTextView">
+        <attr name="tvt_left_top_radius" format="dimension" />
+        <attr name="tvt_left_bottom_radius" format="dimension" />
+        <attr name="tvt_right_top_radius" format="dimension" />
+        <attr name="tvt_right_bottom_radius" format="dimension" />
+        <attr name="tvt_radius" format="dimension" />
+        <attr name="tvt_tag_left_padding" format="dimension" />
+        <attr name="tvt_tag_top_padding" format="dimension" />
+        <attr name="tvt_tag_right_padding" format="dimension" />
+        <attr name="tvt_tag_bottom_padding" format="dimension" />
+        <attr name="tvt_tag_padding" format="dimension" />
+        <attr name="tvt_tag_background_color" format="color" />
+        <attr name="tvt_tag_space" format="dimension" />
+        <attr name="tvt_text_space" format="dimension" />
+        <attr name="tvt_tag_location" format="enum">
+            <enum name="start" value="1"/>
+            <enum name="end" value="2"/>
+        </attr>
+        <attr name="tvt_tag_start_background_color" format="color"/>
+        <attr name="tvt_tag_end_background_color" format="color"/>
+        <attr name="tvt_tag_text_size" format="dimension"/>
+        <attr name="tvt_tag_text_color" format="color"/>
+        <attr name="tvt_first_tag_left_space" format="dimension"/>
+        <attr name="tvt_tag_text" format="string"/>
+        <attr name="tvt_tag_image" format="reference"/>
+        <attr name="tvt_tag_width" format="dimension"/>
+        <attr name="tvt_tag_height" format="dimension"/>
+    </declare-styleable>
+
+</resources>

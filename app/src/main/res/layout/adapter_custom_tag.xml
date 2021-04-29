@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_tag_bg"
+    android:gravity="center"
+    android:id="@+id/rootView"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tagText"
+        android:layout_width="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_height="wrap_content"
+        android:text="标签" />
+
+</LinearLayout>

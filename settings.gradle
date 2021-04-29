@@ -1,0 +1,3 @@
+include ':TagTextView'
+include ':app'
+rootProject.name = "TagTextViewDemo"
