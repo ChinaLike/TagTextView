@@ -4,10 +4,7 @@
 
 TagTextView主要是给TextView前面（或结尾）添加一个（或多个）字符串或者图片标签的库，以下是Demo中的一些示例图片
 
-![image](https://github.com/ChinaLike/TagTextView/blob/main/screenshots/device-2021-04-29-173038.png)
-![image](https://github.com/ChinaLike/TagTextView/blob/main/screenshots/device-2021-04-29-173219.png)
-![image](https://github.com/ChinaLike/TagTextView/blob/main/screenshots/device-2021-04-29-173236.png)
-![image](https://github.com/ChinaLike/TagTextView/blob/main/screenshots/device-2021-04-29-173254.png)
+![image](https://github.com/ChinaLike/TagTextView/blob/main/screenshots/screenshot.jpg)
 
 ## 如何使用
 
