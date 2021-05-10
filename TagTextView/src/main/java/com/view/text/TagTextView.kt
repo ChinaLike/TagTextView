@@ -225,7 +225,7 @@ class TagTextView : AppCompatTextView, ITagText {
                         tagStartBackgroundColor = getColor(attr, Color.TRANSPARENT)
                     }
                     R.styleable.TagTextView_tvt_tag_end_background_color -> {
-                        tagEndBackgroundColor = getDimensionPixelOffset(attr, Color.TRANSPARENT)
+                        tagEndBackgroundColor = getColor(attr, Color.TRANSPARENT)
                     }
                     R.styleable.TagTextView_tvt_tag_text_size -> {
                         tagTextSize = getDimension(
