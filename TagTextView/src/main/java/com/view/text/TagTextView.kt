@@ -152,7 +152,7 @@ class TagTextView : AppCompatTextView, ITagText {
      */
     private var tagImage: Drawable? = null
 
-    constructor(context: Context) : super(context)
+    constructor(context: Context) : this(context,null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
