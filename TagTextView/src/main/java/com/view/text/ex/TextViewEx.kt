@@ -267,6 +267,7 @@ fun TextView.setSpecificTextColor(
                         ds.color = it
                     }
                     ds.isUnderlineText = entity.isUnderlineText
+                    ds.clearShadowLayer()
                 }
 
             }, entity.startIndex, entity.endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
