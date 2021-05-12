@@ -220,12 +220,12 @@ class MainActivity : AppCompatActivity() {
 
         //下划线
         findViewById<AppCompatTextView>(R.id.tagTextView17).apply {
-            setUnderline(0,10)
+            setUnderline()
         }
 
         //删除线
         findViewById<AppCompatTextView>(R.id.tagTextView19).apply {
-            setDeleteLine(intArrayOf(0,15))
+            setDeleteLine()
         }
         //设置制定文本颜色和点击响应
         findViewById<AppCompatTextView>(R.id.tagTextView20).apply {

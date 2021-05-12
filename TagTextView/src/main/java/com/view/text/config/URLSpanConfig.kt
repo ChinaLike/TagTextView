@@ -8,7 +8,7 @@ import com.view.text.constants.SpanType
  * @author like
  * @date 4/27/21 2:16 PM
  */
-data class URLSpanConfig(
+class URLSpanConfig @JvmOverloads constructor(
     var startIndex: Int,
     var endIndex: Int,
     var type: SpanType,

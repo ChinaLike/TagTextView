@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.*
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
@@ -128,7 +129,7 @@ fun TextView.setUnderline(startIndex: Int, endIndex: Int) {
 fun TextView.setUnderline(vararg indexRang: IntArray) {
     val spannableString = SpannableString(text)
     indexRang?.forEach {
-        if (it.size == 2 && it[0] >= 0 && it[0] < text.length && it[1] > it[0] && it[1] < text.length) {
+        if (it.size == 2 && it[0] >= 0 && it[0] <= text.length && it[1] > it[0] && it[1] <= text.length) {
             spannableString.setSpan(
                 UnderlineSpan(),
                 it[0],
@@ -175,7 +176,7 @@ fun TextView.setDeleteLine(startIndex: Int, endIndex: Int) {
 fun TextView.setDeleteLine(vararg indexRang: IntArray) {
     val spannableString = SpannableString(text)
     indexRang?.forEach {
-        if (it.size == 2 && it[0] >= 0 && it[0] < text.length && it[1] > it[0] && it[1] < text.length) {
+        if (it.size == 2 && it[0] >= 0 && it[0] <= text.length && it[1] > it[0] && it[1] <= text.length) {
             spannableString.setSpan(
                 StrikethroughSpan(),
                 it[0],
@@ -248,7 +249,7 @@ fun TextView.setSpecificTextColor(
     movementMethod = LinkMovementMethod.getInstance()
     data?.indices.forEach { index ->
         val entity = data[index]
-        if (entity.startIndex >= 0 && entity.startIndex < text.length && entity.endIndex > entity.startIndex && entity.endIndex < text.length) {
+        if (entity.startIndex >= 0 && entity.startIndex <= text.length && entity.endIndex > entity.startIndex && entity.endIndex <= text.length) {
             spannableString.setSpan(
                 ForegroundColorSpan(entity.color ?: Color.RED),
                 entity.startIndex,
@@ -313,7 +314,7 @@ fun TextView.setURLSpan(data: MutableList<URLSpanConfig>?) {
     movementMethod = LinkMovementMethod.getInstance()
     val spannableString = SpannableString(text)
     data?.forEach {
-        if (it.startIndex >= 0 && it.startIndex < text.length && it.endIndex > it.startIndex && it.endIndex < text.length) {
+        if (it.startIndex >= 0 && it.startIndex <= text.length && it.endIndex > it.startIndex && it.endIndex <= text.length) {
             var typeText: String = when (it.type) {
                 SpanType.EMAIL -> "mailto:"
                 SpanType.GEO -> "geo:"

@@ -7,7 +7,7 @@ import androidx.annotation.ColorInt
  * @author like
  * @date 4/27/21 2:30 PM
  */
-data class SpanConfig(
+class SpanConfig @JvmOverloads constructor(
     var startIndex: Int,
     var endIndex: Int,
     @ColorInt
