@@ -7,13 +7,13 @@ import android.graphics.drawable.Drawable
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.*
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import com.view.text.OnTagClickListener
 import com.view.text.adapter.BaseTagAdapter
 import com.view.text.adapter.SimpleTagAdapter
 import com.view.text.config.SpanConfig
@@ -200,18 +200,19 @@ fun TextView.setDeleteLine() {
  * @param [color] 指定文本颜色
  * @param [specificText] 指定文本
  * @param [isUnderlineText] 是否显示下划线
- * @param [onClick] 点击事件
+ * @param [onTagClickListener] 点击事件
  */
+@JvmOverloads
 fun TextView.setSpecificTextColor(
     @ColorInt color: Int,
     specificText: String,
     isUnderlineText: Boolean = false,
-    onClick: (index: Int) -> Unit = {}
+    onTagClickListener: OnTagClickListener? = null
 ) {
     val startIndex = text.indexOf(specificText)
     if (startIndex >= 0) {
         val endIndex = startIndex + specificText.length
-        setSpecificTextColor(color, startIndex, endIndex, isUnderlineText, onClick)
+        setSpecificTextColor(color, startIndex, endIndex, isUnderlineText, onTagClickListener)
     }
 }
 
@@ -221,29 +222,29 @@ fun TextView.setSpecificTextColor(
  * @param [startIndex] 开始下标
  * @param [endIndex] 结束下标
  * @param [isUnderlineText] 是否显示下划线
- * @param [onClick] 点击事件
+ * @param [onTagClickListener] 点击事件
  */
 fun TextView.setSpecificTextColor(
     @ColorInt color: Int,
     startIndex: Int,
     endIndex: Int,
     isUnderlineText: Boolean = false,
-    onClick: (index: Int) -> Unit = {}
+    onTagClickListener: OnTagClickListener? = null
 ) {
     setSpecificTextColor(
         mutableListOf(SpanConfig(startIndex, endIndex, color, isUnderlineText)),
-        onClick
+        onTagClickListener
     )
 }
 
 /**
  * 设置指定文字颜色并点击
  * @param [data] 自定义文本样式
- * @param [onClick] 点击事件
+ * @param [onTagClickListener] 点击事件
  */
 fun TextView.setSpecificTextColor(
     data: MutableList<SpanConfig>,
-    onClick: (index: Int) -> Unit = {}
+    onTagClickListener: OnTagClickListener? = null
 ) {
     val spannableString = SpannableStringBuilder(text)
     movementMethod = LinkMovementMethod.getInstance()
@@ -259,7 +260,7 @@ fun TextView.setSpecificTextColor(
             spannableString.setSpan(object : ClickableSpan() {
 
                 override fun onClick(widget: View) {
-                    onClick(index)
+                    onTagClickListener?.onTagClick(index)
                 }
 
                 override fun updateDrawState(ds: TextPaint) {
@@ -271,6 +272,14 @@ fun TextView.setSpecificTextColor(
                 }
 
             }, entity.startIndex, entity.endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+    }
+    //设置文本的点击事件
+    onTagClickListener?.let {
+        setOnClickListener {
+            if (selectionStart == -1 && selectionEnd ==-1){
+                onTagClickListener.onTagClick(-1)
+            }
         }
     }
     text = spannableString

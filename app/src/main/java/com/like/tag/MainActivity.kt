@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import com.view.text.OnTagClickListener
 import com.view.text.TagTextView
 import com.view.text.adapter.BaseTagAdapter
 import com.view.text.config.SpanConfig
@@ -29,6 +30,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<TagTextView>(R.id.simpleTagTextView).apply {
             text = "荣耀V40轻奢版 5G 超级快充 6400万超清四摄 8GB+128GB钛空银 移动联通电信5G 双卡双待手机"
             setTextTag("新品")
+            setOnClickListener {
+                Toast.makeText(this@MainActivity,"文本本点击",Toast.LENGTH_SHORT).show()
+            }
         }
         //简单标签，支持一个字符串（自定义内边距）
         findViewById<TagTextView>(R.id.customSimpleTagTextView).apply {
@@ -229,10 +233,22 @@ class MainActivity : AppCompatActivity() {
         }
         //设置制定文本颜色和点击响应
         findViewById<AppCompatTextView>(R.id.tagTextView20).apply {
-            setSpecificTextColor(mutableListOf(SpanConfig(0,2), SpanConfig(17,26,Color.GREEN,true))){
-                Toast.makeText(this@MainActivity,"第${it}被点击",Toast.LENGTH_SHORT).show()
-            }
+            setSpecificTextColor(mutableListOf(SpanConfig(0,2), SpanConfig(17,26,Color.GREEN,true)),object :OnTagClickListener{
+                /**
+                 * 被点击Tag 响应，-1 表示文本被点击了
+                 * @param [tagIndex] 指定文本点击的下标
+                 */
+                override fun onTagClick(tagIndex: Int) {
+                    if (tagIndex == -1){
+                        Toast.makeText(this@MainActivity,"文本本点击",Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(this@MainActivity,"第${tagIndex}被点击",Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            })
         }
+
         //设置超链
         findViewById<AppCompatTextView>(R.id.tagTextView21).apply {
 //            setURLSpan(0,11,SpanType.TEL,"15934345454",Color.RED)

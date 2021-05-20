@@ -313,6 +313,15 @@ class TagTextView : AppCompatTextView, ITagText {
     }
 
     /**
+     * 重写点击事件
+     */
+    override fun setOnClickListener(l: OnClickListener?) {
+        if (selectionStart == -1 && selectionEnd == -1) {
+            super.setOnClickListener(l)
+        }
+    }
+
+    /**
      * 把属性转化成Config
      */
     private fun attrToConfig():TagConfig {
