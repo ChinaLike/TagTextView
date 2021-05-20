@@ -174,7 +174,7 @@ TagTextView主要是给TextView前面（或结尾）添加一个（或多个）�
 	
 	所有文本都设置删除线
 
--  setSpecificTextColor(@ColorInt color: Int,specificText: String，isUnderlineText: Boolean = false,onClick: (index: Int) -> Unit = {})
+-  setSpecificTextColor(@ColorInt color: Int,specificText: String，isUnderlineText: Boolean = false,onTagClickListener: OnTagClickListener? = null)
 
 	设置指定文字颜色
 	
@@ -186,7 +186,7 @@ TagTextView主要是给TextView前面（或结尾）添加一个（或多个）�
 	
 	onClick:点击事件响应，可选	
 
--  setSpecificTextColor(@ColorInt color: Int,startIndex: Int，endIndex: Int,isUnderlineText: Boolean = false,onClick: (index: Int) -> Unit = {})
+-  setSpecificTextColor(@ColorInt color: Int,startIndex: Int，endIndex: Int,isUnderlineText: Boolean = false,onTagClickListener: OnTagClickListener? = null)
 
 	设置指定文字颜色
 	
@@ -200,7 +200,7 @@ TagTextView主要是给TextView前面（或结尾）添加一个（或多个）�
 	
 	onClick:点击事件响应，可选	
 
--  setSpecificTextColor(data: MutableList<SpanConfig>,onClick: (index: Int) -> Unit = {})
+-  setSpecificTextColor(data: MutableList<SpanConfig>,onTagClickListener: OnTagClickListener? = null)
 
 	设置指定文字颜色
 	
