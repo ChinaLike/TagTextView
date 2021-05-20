@@ -184,7 +184,7 @@ TagTextView主要是给TextView前面（或结尾）添加一个（或多个）�
 	
 	isUnderlineText:是否显示下划线，可选，默认值false
 	
-	onClick:点击事件响应，可选	
+	onTagClickListener:点击事件响应，可选	
 
 -  setSpecificTextColor(@ColorInt color: Int,startIndex: Int，endIndex: Int,isUnderlineText: Boolean = false,onTagClickListener: OnTagClickListener? = null)
 
@@ -198,7 +198,7 @@ TagTextView主要是给TextView前面（或结尾）添加一个（或多个）�
 	
 	isUnderlineText:是否显示下划线，可选，默认值false
 	
-	onClick:点击事件响应，可选	
+	onTagClickListener:点击事件响应，可选	
 
 -  setSpecificTextColor(data: MutableList<SpanConfig>,onTagClickListener: OnTagClickListener? = null)
 
@@ -206,7 +206,7 @@ TagTextView主要是给TextView前面（或结尾）添加一个（或多个）�
 	
 	data:自定义多个指定文本的颜色
 	
-	onClick:点击事件响应，可选
+	onTagClickListener:点击事件响应，可选
 
 
 -  setURLSpan(startIndex: Int,endIndex: Int,type: SpanType,linkText: String,@ColorInt color: Int? = null,isUnderlineText: Boolean = false)
