@@ -34,7 +34,7 @@ import org.jetbrains.annotations.NotNull
  * @author like
  * @date 4/20/21 2:18 PM
  */
-class TagTextView : AppCompatTextView, ITagText {
+open class TagTextView : AppCompatTextView, ITagText {
 
     /**
      * 标签左上圆角
