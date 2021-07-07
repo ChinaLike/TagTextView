@@ -19,7 +19,7 @@ TagTextView主要是给TextView前面（或结尾）添加一个（或多个）�
 > Step 2. 然后在 build.gradle(Module:XXX) 的 dependencies 添加:
 
 	dependencies {
-           implementation 'com.github.ChinaLike:TagTextView:0.0.2'
+           implementation 'com.github.ChinaLike:TagTextView:0.1.0'
 	}
 
 ## API说明
