@@ -21,6 +21,8 @@ TagTextView主要是给TextView前面（或结尾）添加一个（或多个）�
 	dependencies {
            implementation 'com.github.ChinaLike:TagTextView:0.1.0'
 	}
+	
+详细使用请参照[Wiki](https://github.com/ChinaLike/TagTextView/wiki/TagTextView%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3#%E7%A4%BA%E4%BE%8B%E4%BB%8B%E7%BB%8D)
 
 ## API说明
 
