@@ -2,32 +2,18 @@ package com.view.text
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
-import android.os.Build
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ImageSpan
 import android.util.AttributeSet
-import android.util.TypedValue
-import android.view.Gravity
-import android.view.View
-import android.widget.LinearLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import com.core.util.DensityUtil
 import com.view.text.adapter.BaseTagAdapter
 import com.view.text.base.ITagText
 import com.view.text.config.TagConfig
 import com.view.text.constants.TagLocation
 import com.view.text.ex.setTextTag
-import com.view.text.span.CenterImageSpan
-import com.view.text.utils.DensityUtil
-import org.jetbrains.annotations.NotNull
 
 /**
  * 标签文本
@@ -161,8 +147,8 @@ open class TagTextView : AppCompatTextView, ITagText {
         attrs,
         defStyleAttr
     ) {
-        tagRightPadding = DensityUtil.dp2px(context, 10F).toInt()
-        tagLeftPadding = DensityUtil.dp2px(context, 10F).toInt()
+        tagRightPadding = DensityUtil.dp2px(context, 10F)
+        tagLeftPadding = DensityUtil.dp2px(context, 10F)
         attrs?.let { init(it) }
         //设置文本
         tagText?.let {

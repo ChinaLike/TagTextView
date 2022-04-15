@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import com.core.util.DensityUtil
 import com.view.text.OnTagClickListener
 import com.view.text.TagTextView
 import com.view.text.adapter.BaseTagAdapter
@@ -19,7 +20,6 @@ import com.view.text.config.URLSpanConfig
 import com.view.text.constants.SpanType
 import com.view.text.constants.TagLocation
 import com.view.text.ex.*
-import com.view.text.utils.DensityUtil
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,8 +50,8 @@ class MainActivity : AppCompatActivity() {
             tagRightPadding = DensityUtil.dp2px(this@MainActivity, 15F).toInt()
             tagTopPadding = DensityUtil.dp2px(this@MainActivity, 1F).toInt()
             tagBottomPadding = DensityUtil.dp2px(this@MainActivity, 1F).toInt()
-            leftBottomRadius = DensityUtil.dp2px(this@MainActivity, 15F)
-            rightTopRadius = DensityUtil.dp2px(this@MainActivity, 15F)
+            leftBottomRadius = DensityUtil.dp2px(this@MainActivity, 15F).toFloat()
+            rightTopRadius = DensityUtil.dp2px(this@MainActivity, 15F).toFloat()
             tagBackgroundColor = Color.parseColor("#FFB800")
             text = "荣耀V40轻奢版 5G 超级快充 6400万超清四摄 8GB+128GB钛空银 移动联通电信5G 双卡双待手机"
             setTextTag("新品")
@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<TagTextView>(R.id.tagTextView7).apply {
             tagSpace = DensityUtil.dp2px(this@MainActivity, 10F).toInt()
             textSpace = DensityUtil.dp2px(this@MainActivity, 5F).toInt()
-            radius = DensityUtil.dp2px(this@MainActivity, 2F)
+            radius = DensityUtil.dp2px(this@MainActivity, 2F).toFloat()
             tagPadding = DensityUtil.dp2px(this@MainActivity, 5F).toInt()
             setTextColor(Color.parseColor("#FF6718"))
             text = "荣耀V40轻奢版 5G 超级快充 6400万超清四摄 8GB+128GB钛空银 移动联通电信5G 双卡双待手机"
@@ -139,7 +139,7 @@ class MainActivity : AppCompatActivity() {
                                     setTextColor(Color.RED)
                                     setTextSize(
                                         TypedValue.COMPLEX_UNIT_PX,
-                                        DensityUtil.sp2px(this@MainActivity, 10F)
+                                        DensityUtil.sp2px(this@MainActivity, 10F).toFloat()
                                     )
                                 }
                             }
@@ -218,7 +218,7 @@ class MainActivity : AppCompatActivity() {
             setTextTag(TagConfig().apply {
                 tagStartBackgroundColor = Color.parseColor("#FF0000")
                 tagEndBackgroundColor = Color.parseColor("#00FF00")
-                radius = DensityUtil.dp2px(this@MainActivity,2F)
+                radius = DensityUtil.dp2px(this@MainActivity,2F).toFloat()
             }, "新品")
         }
 
