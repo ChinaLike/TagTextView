@@ -30,4 +30,44 @@
         <attr name="tvt_tag_height" format="dimension"/>
     </declare-styleable>
 
+    <declare-styleable name="TagTextView1">
+        <attr name="tvtType" format="enum">
+            <enum name="TEXT" value="0"/>
+            <enum name="IMAGE" value="1"/>
+            <enum name="TEXT_IMAGE" value="2"/>
+            <enum name="URL" value="3"/>
+        </attr>
+        <attr name="tvtRadius" format="dimension"/>
+        <attr name="tvtLeftTopRadius" format="dimension" />
+        <attr name="tvtLeftBottomRadius" format="dimension" />
+        <attr name="tvtRightTopRadius" format="dimension" />
+        <attr name="tvtRightBottomRadius" format="dimension" />
+        <attr name="tvtPadding" format="dimension"/>
+        <attr name="tvtTopPadding" format="dimension" />
+        <attr name="tvtRightPadding" format="dimension" />
+        <attr name="tvtBottomPadding" format="dimension" />
+        <attr name="tvtLeftPadding" format="dimension" />
+        <attr name="tvtBackgroundColor" format="color" />
+        <attr name="tvtStartGradientBackgroundColor" format="color"/>
+        <attr name="tvtEndGradientBackgroundColor" format="color"/>
+        <attr name="tvtStrokeWidth" format="dimension" />
+        <attr name="tvtStrokeColor" format="color"/>
+        <attr name="tvtTextSize" format="dimension"/>
+        <attr name="tvtTextColor" format="color"/>
+        <attr name="tvtWidth" format="dimension"/>
+        <attr name="tvtHeight" format="dimension"/>
+        <attr name="tvtAlign" format="enum">
+            <enum name="BASELINE" value="0"/>
+            <enum name="CENTER" value="1"/>
+            <enum name="BOTTOM" value="2"/>
+        </attr>
+        <attr name="tvtText" format="string"/>
+        <attr name="tvtImageResource" format="reference"/>
+        <attr name="tvtImageUrl" format="string"/>
+        <attr name="tvtPosition" format="integer"/>
+        <attr name="tvtMarginLeft" format="dimension"/>
+        <attr name="tvtMarginRight" format="dimension"/>
+        <attr name="tvtTextMarginImage" format="dimension"/>
+    </declare-styleable>
+
 </resources>
