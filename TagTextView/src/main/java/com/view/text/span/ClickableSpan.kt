@@ -1,4 +1,4 @@
-package com.view.temp.span
+package com.view.text.span
 
 import android.graphics.Color
 import android.text.TextPaint

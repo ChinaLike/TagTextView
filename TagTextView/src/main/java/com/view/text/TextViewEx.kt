@@ -1,30 +1,33 @@
-package com.view.temp
+package com.view.text
 
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
+import android.text.TextUtils
 import android.text.style.ReplacementSpan
 import android.text.style.StrikethroughSpan
 import android.text.style.UnderlineSpan
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.ColorInt
-import com.view.temp.config.Align
-import com.view.temp.config.LinkType
-import com.view.temp.config.TagConfig
-import com.view.temp.config.Type
-import com.view.temp.movement.ClickableMovementMethod
-import com.view.temp.span.CenterImageSpan
-import com.view.temp.span.ClickableSpan
-import com.view.temp.span.GlideImageSpan
-import com.view.temp.span.URLSpan
-import com.view.temp.view.TagItemView
-import com.view.text.ex.convertViewToBitmap
+import com.view.text.config.Align
+import com.view.text.config.LinkType
+import com.view.text.config.TagConfig
+import com.view.text.config.Type
+import com.view.text.movement.ClickableMovementMethod
+import com.view.text.span.CenterImageSpan
+import com.view.text.span.ClickableSpan
+import com.view.text.span.GlideImageSpan
+import com.view.text.span.URLSpan
+import com.view.text.view.TagItemView
 
 /**
  * 插入占位标签
@@ -36,6 +39,7 @@ private const val TAG: String = "T"
  * @param [config] 标签配置
  */
 fun TextView.addTag(config: TagConfig) {
+    verifyText(this)
     val builder = createSpannableStringBuilder(this, config.position)
     val newPosition = insertPlaceholder(builder, config.position)
     val imageSpan = createSpan(this, config)
@@ -61,6 +65,7 @@ fun TextView.addTag(
     marginLeft: Int = 0,
     marginRight: Int = 0
 ) {
+    verifyText(this)
     val builder = createSpannableStringBuilder(this, position)
     val newPosition = insertPlaceholder(builder, position)
     val imageSpan = CenterImageSpan(createDrawable(view)).apply {
@@ -237,7 +242,12 @@ fun TextView.setURLSpan(
         LinkType.SMS -> "sms:"
         LinkType.TEL -> "tel:"
     }
-    builder.setSpan(URLSpan("$url${linkText}",color,isUnderlineText),startIndex,endIndex,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+    builder.setSpan(
+        URLSpan("$url${linkText}", color, isUnderlineText),
+        startIndex,
+        endIndex,
+        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
 }
 
 /**
@@ -286,14 +296,35 @@ private fun createSpan(textView: TextView, config: TagConfig): ReplacementSpan {
     return when (config.type) {
         Type.URL -> GlideImageSpan(
             textView,
-            config.imageUrl ?: throw NullPointerException("当type=Type.URL时必须设置imageUrl")
+            config.imageUrl ?: throw NullPointerException("当type=Type.URL时,必须设置imageUrl")
         ).apply {
             setAlign(config.align)
-            setDrawableSize(config.width ?: 0, config.height)
+            setDrawableSize(config.width?:textView.textSize.toInt(), config.height?:textView.textSize.toInt())
             setMarginHorizontal(config.marginLeft, config.marginRight)
+        }
+        Type.IMAGE -> {
+            when {
+                config.imageResource != null -> {
+                    CenterImageSpan(textView.context, config.imageResource!!)
+                }
+                config.imageDrawable != null -> {
+                    CenterImageSpan(config.imageDrawable!!)
+                }
+                config.imageBitmap != null -> {
+                    CenterImageSpan(textView.context, config.imageBitmap!!)
+                }
+                else -> {
+                    throw NullPointerException("当type=Type.IMAGE时，必须设置【imageResource】、【imageDrawable】、【imageBitmap】其中一项")
+                }
+            }.apply {
+                setAlign(config.align)
+                setDrawableSize(config.imageWidth, config.imageHeight)
+                setMarginHorizontal(config.marginLeft, config.marginRight)
+            }
         }
         else -> CenterImageSpan(createDrawable(createItemView(textView.context, config))).apply {
             setAlign(config.align)
+            setDrawableSize(config.width, config.height)
             setMarginHorizontal(config.marginLeft, config.marginRight)
         }
     }
@@ -308,24 +339,20 @@ private fun createItemView(context: Context, config: TagConfig): View {
     }
     //设置内边距
     tagItemView.setPadding(
-        config.leftPadding ?: config.padding,
-        config.topPadding ?: config.padding,
-        config.rightPadding ?: config.padding,
-        config.bottomPadding ?: config.padding
+        config.padding ?: config.leftPadding,
+        config.padding ?: config.topPadding,
+        config.padding ?: config.rightPadding,
+        config.padding ?: config.bottomPadding
     )
     //圆角
     val cornerRadii = floatArrayOf(
-        config.leftTopRadius?.toFloat() ?: config.radius.toFloat(),
-        config.leftTopRadius?.toFloat() ?: config.radius.toFloat(),
-        config.rightTopRadius?.toFloat() ?: config.radius.toFloat(),
-        config.rightTopRadius?.toFloat() ?: config.radius.toFloat(),
-        config.rightBottomRadius?.toFloat() ?: config.radius.toFloat(),
-        config.rightBottomRadius?.toFloat() ?: config.radius.toFloat(),
-        config.leftBottomRadius?.toFloat() ?: config.radius.toFloat(),
-        config.leftBottomRadius?.toFloat() ?: config.radius.toFloat()
+        config?.radius ?: config.leftTopRadius, config?.radius ?: config.leftTopRadius,
+        config?.radius ?: config.rightTopRadius, config?.radius ?: config.rightTopRadius,
+        config?.radius ?: config.rightBottomRadius, config?.radius ?: config.rightBottomRadius,
+        config?.radius ?: config.leftBottomRadius, config?.radius ?: config.leftBottomRadius
     )
     val gradientDrawable = GradientDrawable().apply {
-        this.cornerRadii = cornerRadii
+        setCornerRadii(cornerRadii)
         this.colors =
             intArrayOf(
                 config.startGradientBackgroundColor ?: config.backgroundColor,
@@ -334,6 +361,7 @@ private fun createItemView(context: Context, config: TagConfig): View {
         if (config.strokeWidth > 0) {
             setStroke(config.strokeWidth, config.strokeColor)
         }
+        orientation = config.gradientOrientation
     }
     tagItemView.background = gradientDrawable
     return tagItemView
@@ -348,4 +376,31 @@ private fun createDrawable(view: View): Drawable {
         setBounds(0, 0, view.width, view.height)
     }
 }
+
+/**
+ * 校验文本，需要预先设置文本
+ */
+private fun verifyText(textView: TextView) {
+    if (TextUtils.isEmpty(textView.text)) {
+        throw NullPointerException("请优先设置TextView的text")
+    }
+}
+
+/**
+ * 把View转化成Bitmap
+ */
+private fun View.convertViewToBitmap(): Bitmap {
+    measure(
+        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+    )
+    layout(0, 0, measuredWidth, measuredHeight)
+    val bitmap =
+        Bitmap.createBitmap(measuredWidth, measuredHeight, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(bitmap)
+    draw(canvas)
+    canvas.save()
+    return bitmap
+}
+
 

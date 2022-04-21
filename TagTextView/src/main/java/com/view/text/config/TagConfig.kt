@@ -1,120 +1,202 @@
 package com.view.text.config
 
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import androidx.annotation.ColorInt
-import com.view.text.constants.TagLocation
+import androidx.annotation.Dimension
+import androidx.annotation.DrawableRes
+import com.core.util.dp
+import com.core.util.sp
 
 /**
- * 标签配置
+ * 每一个标签Item的配置
  * @author like
- * @date 4/26/21 10:02 AM
+ * @date 4/15/22 10:07 AM
  */
-class TagConfig {
+data class TagConfig(val type: Type) {
+
+    /**
+     * 文字大小
+     */
+    @Dimension(unit = Dimension.PX)
+    var textSize: Float? = null
+
+    /**
+     * 文字的颜色
+     */
+    @ColorInt
+    var textColor: Int = Color.WHITE
+
+    /**
+     * 标签的宽度
+     */
+    var width: Int? = null
+
+    /**
+     * 标签的高度
+     */
+    var height: Int? = null
+
+    /**
+     * 标签的圆角
+     */
+    var radius: Float? = null
+
+    /**
+     * 默认圆角大小
+     */
+    private val defaultRadius = 2.dp.toFloat()
 
     /**
      * 标签左上圆角
      */
-    var leftTopRadius: Float? = null
+    var leftTopRadius: Float = defaultRadius
 
     /**
      * 标签左下圆角
      */
-    var leftBottomRadius: Float? = null
+    var leftBottomRadius: Float = defaultRadius
 
     /**
      * 标签右上圆角
      */
-    var rightTopRadius: Float? = null
+    var rightTopRadius: Float = defaultRadius
 
     /**
      * 标签右下圆角
      */
-    var rightBottomRadius: Float? = null
+    var rightBottomRadius: Float = defaultRadius
 
     /**
-     * 标签圆角
+     * 内边距
      */
-    var radius: Float = 9999F
+    var padding: Int? = null
 
     /**
-     * 标签左边内边距
+     * 默认内边距
      */
-    var tagLeftPadding: Int? = null
+    private val defaultPadding = 5.dp
 
     /**
-     * 标签顶部内边距
+     * 上内边距
      */
-    var tagTopPadding: Int? = null
+    var topPadding: Int = 0
 
     /**
-     * 标签右边内边距
+     * 右内边距
      */
-    var tagRightPadding: Int? = null
+    var rightPadding: Int = defaultPadding
 
     /**
-     * 标签底部内边距
+     * 下内边距
      */
-    var tagBottomPadding: Int? = null
+    var bottomPadding: Int = 0
 
     /**
-     * 标签内边距
+     * 左内边距
      */
-    var tagPadding: Int = 0
+    var leftPadding: Int = defaultPadding
 
     /**
-     * 标签背景颜色
+     * 背景颜色
      */
     @ColorInt
-    var tagBackgroundColor: Int = Color.GRAY
+    var backgroundColor: Int = Color.GRAY
 
     /**
-     * 标签之间的间隙
+     * 开始渐变颜色
      */
-    var tagSpace: Int = 0
+    @ColorInt
+    var startGradientBackgroundColor: Int? = null
 
     /**
-     * 文本与标签的间距
+     * 结束渐变颜色
      */
-    var textSpace: Int = 0
+    @ColorInt
+    var endGradientBackgroundColor: Int? = null
 
     /**
-     * 最左边间距
+     * 渐变方向
      */
-    var firstTagLeftSpace: Int = 0
+    var gradientOrientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT
 
     /**
-     * 标签位置
+     * 边框大小
      */
-    var tagLocation: Int = TagLocation.START
+    var strokeWidth: Int = 0
 
     /**
-     * 标签渐变开始颜色
+     * 边框颜色
      */
-    var tagStartBackgroundColor: Int? = null
+    @ColorInt
+    var strokeColor: Int = Color.GRAY
 
     /**
-     * 标签渐变结束颜色
+     * 图片在文字那一个方向，默认 左侧
      */
-    var tagEndBackgroundColor: Int? = null
+    var imageAlignText: Orientation = Orientation.LEFT
 
     /**
-     * 标签大小，单位 px
+     * 图片的宽度，不设置为宽度自适应
      */
-    var tagTextSize: Float? = null
+    var imageWidth: Int? = null
 
     /**
-     * 标签文字颜色
+     * 图片的高度，不设置为高度自适应
      */
-    var tagTextColor: Int = Color.WHITE
+    var imageHeight: Int? = null
 
     /**
-     * 标签宽度
+     * 标签对其方式
      */
-    var tagWidth:Int? = null
+    var align: Align = Align.CENTER
 
     /**
-     * 标签高度
+     * 文本，[type] 为[Type.TEXT] 或[Type.TEXT_IMAGE]可用
      */
-    var tagHeight:Int? = null
+    var text: String = ""
+
+    /**
+     * 本地图片，[type] 为[Type.IMAGE] 或[Type.TEXT_IMAGE]可用
+     */
+    @DrawableRes
+    var imageResource: Int? = null
+
+    /**
+     * 图片Drawable，[type] 为[Type.IMAGE] 或[Type.TEXT_IMAGE]可用
+     */
+    var imageDrawable: Drawable? = null
+
+    /**
+     * 图片Bitmap，[type] 为[Type.IMAGE] 或[Type.TEXT_IMAGE]可用
+     */
+    var imageBitmap: Bitmap? = null
+
+    /**
+     * 图片的网络Url，[type] 为[Type.URL]可用
+     */
+    var imageUrl: String? = null
+
+    /**
+     * 显示位置
+     */
+    var position: Int = 0
+
+    /**
+     * 设置距离左边
+     */
+    var marginLeft: Int = 0
+
+    /**
+     * 设置距离右边
+     */
+    var marginRight: Int = 0
+
+    /**
+     * 设置文字距离图片的距离，当[type]=[Type.TEXT_IMAGE]时有效
+     */
+    var textMarginImage: Int = 0
 
 }

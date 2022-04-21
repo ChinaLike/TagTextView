@@ -1,4 +1,4 @@
-package com.view.temp.movement;
+package com.view.text.movement;
 
 import android.text.Layout;
 import android.text.NoCopySpan;

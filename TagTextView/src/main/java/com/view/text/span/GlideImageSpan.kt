@@ -1,4 +1,4 @@
-package com.view.temp.span
+package com.view.text.span
 
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -7,11 +7,12 @@ import android.graphics.drawable.Drawable
 import android.text.style.ReplacementSpan
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
-import com.view.temp.config.Align
+import com.view.text.config.Align
 import java.util.concurrent.atomic.AtomicReference
 
 /**

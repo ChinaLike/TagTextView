@@ -1,8 +1,7 @@
-package com.view.temp.span
+package com.view.text.span
 
 import android.graphics.Color
 import android.text.TextPaint
-import android.text.style.ClickableSpan
 import android.text.style.URLSpan
 import android.view.View
 import androidx.annotation.ColorInt

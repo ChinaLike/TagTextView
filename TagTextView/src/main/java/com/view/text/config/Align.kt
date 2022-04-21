@@ -1,4 +1,4 @@
-package com.view.temp.config
+package com.view.text.config
 
 /**
  * 标签对其方式
