@@ -19,6 +19,12 @@
 
         <include layout="@layout/layout_url_style" />
 
+        <include layout="@layout/layout_xml" />
+
+        <include layout="@layout/layout_ex_function" />
+
+        <include layout="@layout/layout_recycler_view" />
+
     </LinearLayout>
 
 

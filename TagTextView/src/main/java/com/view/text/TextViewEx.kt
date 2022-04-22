@@ -229,7 +229,8 @@ fun TextView.setURLSpan(
     @ColorInt color: Int? = null,
     isUnderlineText: Boolean = false
 ) {
-    if (startIndex < 0 || endIndex <= 0 || endIndex < startIndex) {
+    val textLength = text.length
+    if (textLength == 0 || startIndex < 0 || endIndex <= 0 || endIndex < startIndex || startIndex >= textLength || endIndex > textLength) {
         return
     }
     val builder = SpannableStringBuilder(text)
@@ -248,6 +249,7 @@ fun TextView.setURLSpan(
         endIndex,
         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
     )
+    text = builder
 }
 
 /**

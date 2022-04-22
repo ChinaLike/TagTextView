@@ -39,8 +39,7 @@ open class TagTextView @JvmOverloads constructor(
             config = when (type) {
                 Type.TEXT.ordinal -> TagConfig(Type.TEXT)
                 Type.IMAGE.ordinal -> TagConfig(Type.IMAGE)
-                Type.TEXT_IMAGE.ordinal -> TagConfig(Type.TEXT)
-                Type.URL.ordinal -> TagConfig(Type.URL)
+                Type.TEXT_IMAGE.ordinal -> TagConfig(Type.TEXT_IMAGE)
                 else -> null
             }
 
@@ -133,9 +132,6 @@ open class TagTextView @JvmOverloads constructor(
                     }
                     R.styleable.TagTextView_tvtImageResource -> {
                         config?.imageDrawable = getDrawable(attr)
-                    }
-                    R.styleable.TagTextView_tvtImageUrl -> {
-                        config?.imageUrl = getString(attr)
                     }
                     R.styleable.TagTextView_tvtPosition -> {
                         position = getInt(attr, 0)

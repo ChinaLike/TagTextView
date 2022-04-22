@@ -6,7 +6,6 @@
             <enum name="TEXT" value="0"/>
             <enum name="IMAGE" value="1"/>
             <enum name="TEXT_IMAGE" value="2"/>
-            <enum name="URL" value="3"/>
         </attr>
         <attr name="tvtRadius" format="dimension"/>
         <attr name="tvtLeftTopRadius" format="dimension" />
@@ -34,7 +33,6 @@
         </attr>
         <attr name="tvtText" format="string"/>
         <attr name="tvtImageResource" format="reference"/>
-        <attr name="tvtImageUrl" format="string"/>
         <attr name="tvtPosition" format="integer"/>
         <attr name="tvtMarginLeft" format="dimension"/>
         <attr name="tvtMarginRight" format="dimension"/>

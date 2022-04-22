@@ -1,16 +1,20 @@
 package com.like.tag
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.core.util.dp
 import com.core.util.sp
-import com.view.text.addTag
-import com.view.text.config.Align
-import com.view.text.config.Orientation
-import com.view.text.config.TagConfig
-import com.view.text.config.Type
+import com.view.text.*
+import com.view.text.config.*
+import kotlinx.android.synthetic.main.layout_ex_function.*
 import kotlinx.android.synthetic.main.layout_image_style.*
+import kotlinx.android.synthetic.main.layout_recycler_view.*
 import kotlinx.android.synthetic.main.layout_text_image_style.*
 import kotlinx.android.synthetic.main.layout_text_style.*
 import kotlinx.android.synthetic.main.layout_url_style.*
@@ -27,6 +31,22 @@ class MainActivity : AppCompatActivity() {
         textImageStyle()
         //网络图片
         urlStyle()
+        //扩展方法
+        exFun()
+        //列表中的使用
+        recyclerViewStyle()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.custom_menu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.javaBtn){
+            startActivity(Intent(this,JavaActivity::class.java))
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     /**
@@ -184,6 +204,10 @@ class MainActivity : AppCompatActivity() {
         text_tv12.addTag(tv12Config)
         text_tv12.addTag(tv12Config1)
         text_tv12.addTag(tv12Config2)
+
+        //1.13 支持自定义View
+        val view = LayoutInflater.from(this).inflate(R.layout.custom_text_view, null)
+        text_tv13.addTag(view, position = 5)
     }
 
     /**
@@ -352,7 +376,7 @@ class MainActivity : AppCompatActivity() {
 
         //4.4 自定义位置
         val tv4Config = TagConfig(Type.URL).apply {
-            imageUrl = "https://i.postimg.cc/DyjsBr3v/image.png"
+            imageUrl = "https://i.postimg.cc/VvNYQSHk/20180317074635221.png"
             position = 5
         }
         url_tv4.addTag(tv4Config)
@@ -371,6 +395,137 @@ class MainActivity : AppCompatActivity() {
         }
         url_tv5.addTag(tv5Config)
         url_tv5.addTag(tv5Config1)
+    }
+
+    /**
+     * 扩展方法使用
+     */
+    private fun exFun() {
+
+        //设置下划线
+        ex_tv1.setUnderline("荣耀V40轻奢版")//指定字符串，且默认匹配第一个
+        ex_tv1.setUnderline("5G", false)//指定字符串，且默认匹配最后一个
+        ex_tv1.setUnderline(17, 26)
+
+        //设置删除线
+        ex_tv2.setDeleteLine("荣耀V40轻奢版")//指定字符串，且默认匹配第一个
+        ex_tv2.setDeleteLine("5G", false)//指定字符串，且默认匹配最后一个
+        ex_tv2.setDeleteLine(17, 26)
+
+        //指定文本颜色
+        ex_tv3.setSpecificTextColor(Color.parseColor("#FF0040"), "荣耀V40轻奢版")//指定字符串，且默认匹配第一个
+        ex_tv3.setSpecificTextColor(Color.parseColor("#3813C2"), "5G", false)//指定字符串，且默认匹配最后一个
+        ex_tv3.setSpecificTextColor(Color.parseColor("#C346C2"), "双卡双待", isUnderlineText = true) {
+            Toast.makeText(this, "双卡双待被点击", Toast.LENGTH_SHORT).show()
+        }//指定文本，并设置下划线，可响应点击事件
+        ex_tv3.setSpecificTextColor(Color.parseColor("#FFC600"), "移动联通电信") {
+            Toast.makeText(this, "移动联通电信被点击", Toast.LENGTH_SHORT).show()
+        }//指定文本，可响应点击事件
+        ex_tv3.setSpecificTextColor(Color.parseColor("#4C83FF"), 12, 16) {
+            Toast.makeText(this, "超级快充被点击", Toast.LENGTH_SHORT).show()
+        }//指定下标，可响应点击事件
+
+        //设置超链
+        ex_tv4.text = "电话链接-邮箱链接-网络链接-短信链接-彩信链接-地图链接"
+        ex_tv4.setURLSpan(0, 4, LinkType.TEL, "10086", Color.parseColor("#FF0040"))//电话链接
+        ex_tv4.setURLSpan(
+            5,
+            9,
+            LinkType.EMAIL,
+            "10086@mail.com",
+            Color.parseColor("#3813C2"),
+            true
+        )//邮件链接
+        ex_tv4.setURLSpan(
+            10,
+            14,
+            LinkType.HTTP,
+            "http://baidu.com",
+            Color.parseColor("#C346C2"),
+            true
+        )//网络连接
+        ex_tv4.setURLSpan(15, 19, LinkType.SMS, "10086", Color.parseColor("#4C83FF"), false)//短信链接
+        ex_tv4.setURLSpan(20, 24, LinkType.MMS, "10086", Color.parseColor("#58CFFB"), true)//彩信链接
+        ex_tv4.setURLSpan(
+            ex_tv4.text.length - 4,
+            ex_tv4.text.length,
+            LinkType.GEO,
+            "10086",
+            Color.parseColor("#49C628"),
+            true
+        )//地图链接
+
+    }
+
+    /**
+     * 列表
+     */
+    private fun recyclerViewStyle() {
+        recyclerView.adapter = TestAdapter(this, getData())
+    }
+
+    private fun getData(): MutableList<ItemBean> {
+        val list: MutableList<ItemBean> = mutableListOf()
+
+        list.add(
+            ItemBean(
+                "HUAWEI nova 8 SE 6400万高清四摄 支持66W超级快充 6.5英寸OLED大屏 8GB+128GB幻夜黑华为手机 标配无充",
+                "https://img14.360buyimg.com/n0/jfs/t1/112159/2/24025/88731/625ed1f3E0c9e092d/bc0200a21ea5ab66.jpg",
+                TagConfig(Type.TEXT).apply {
+                    text = "新品"
+                    backgroundColor = Color.parseColor("#FA742B")
+                })
+        )
+
+        list.add(
+            ItemBean(
+                "华为智选 NZone s7pro 5G手机 【S7 Pro+】星空蓝8+128GB 官方标配",
+                "https://img14.360buyimg.com/n0/jfs/t1/144481/18/22264/36775/61ac564cEb081b02c/67f89db3846cbb59.jpg")
+        )
+
+        list.add(
+            ItemBean(
+                "华为智选 NZone s7pro 5G手机 【S7 Pro+】星空蓝8+128GB 官方标配",
+                "https://img14.360buyimg.com/n0/jfs/t1/147378/17/24994/68806/623c09b8E25d4d8d6/c98c30744541e85d.jpg",
+                TagConfig(Type.TEXT_IMAGE).apply {
+                    text = "钻石用户"
+                    imageResource = R.mipmap.icon_1
+                    backgroundColor = Color.parseColor("#FA742B")
+                })
+        )
+
+        list.add(
+            ItemBean(
+                "华为智选 NZone s7pro 5G手机 【S7 Pro+】星空蓝8+128GB 官方标配",
+                "https://img14.360buyimg.com/n0/jfs/t1/204262/20/17633/41667/61ac564bEef77131c/4f64d67793fde772.jpg")
+        )
+
+        list.add(
+            ItemBean(
+                "华为nova8se 麒麟710A芯片 搭载HarmonyOS系统 幻夜黑 8GB+128GB（66W充电套装+耳机套装）",
+                "https://img14.360buyimg.com/n0/jfs/t1/132208/19/27529/193053/625d4efdEc356624c/ccf19294cd5ae141.jpg",
+                TagConfig(Type.IMAGE).apply {
+                    imageResource = R.mipmap.icon_3
+                    imageWidth = 20.dp
+                    imageHeight = 20.dp
+                    marginRight = 20.dp
+                })
+        )
+
+        list.add(
+            ItemBean(
+                "华为nova8se 麒麟710A芯片 搭载HarmonyOS系统 幻夜黑 8GB+128GB（66W充电套装+耳机套装）",
+                "https://img14.360buyimg.com/n0/jfs/t1/112159/2/24025/88731/625ed1f3E0c9e092d/bc0200a21ea5ab66.jpg",
+                TagConfig(Type.TEXT).apply {
+                    text="新品"
+                    startGradientBackgroundColor = Color.parseColor("#F6D242")
+                    endGradientBackgroundColor = Color.parseColor("#FF52E5")
+                    radius = 5.dp.toFloat()
+                })
+        )
+
+
+        return list
     }
 
 }

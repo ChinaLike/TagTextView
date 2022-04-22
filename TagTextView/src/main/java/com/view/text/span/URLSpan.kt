@@ -18,19 +18,10 @@ class URLSpan @JvmOverloads constructor(
 ) : URLSpan(url) {
 
     /**
-     * 点击事件
-     */
-    var onClick: () -> Unit = {}
-
-    /**
      * 点击后的背景颜色
      */
     @ColorInt
     var bgColor: Int = Color.TRANSPARENT
-
-    override fun onClick(widget: View) {
-        onClick()
-    }
 
     override fun updateDrawState(ds: TextPaint) {
         color?.apply(ds::setColor)
