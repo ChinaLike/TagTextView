@@ -82,42 +82,300 @@ SDK主要用于在TextView的指定位置添加文本、图片、图文、网络
 
 ### TagConfig属性
 
-| <div style="width:200pt">API</div>    | <div style="width:200pt">类型</div>      | <div style="width:200pt">默认值</div>           | <div style="width:200pt">描述</div>                 | <div style="width:200pt">版本说明</div> | <div style="width:500pt">说明</div>   ｜                                                                                                                       |
-|------------------------------|---------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|--------------------------|----------|--------------------------------------------------------------------|
-| type                         | Type                                                                                                                            |                                         | 标签类型                 |          | TEXT-文本，IMAGE-图片，TEXT_IMAGE-图文结合，URL-网络链接           |
-| textSize                     | Float                                                                                                                           |                                         | 标签上文本的字体大小     |          | 单位PX，不传就和TextView的textSize保持一致                         |
-| textColor                    | Int                                                                                                                             | Color.WHITE                             | 标签上文本的字体颜色     |          |                                                                    |
-| width                        | Int                                                                                                                             |                                         | 标签宽度                 |          | 不设置自动适应                                                     |
-| height                       | Int                                                                                                                             |                                         | 标签宽度                 |          | 不设置自动适应                                                     |
-| radius                       | Float                                                                                                                           |                                         | 标签的圆角               |          | 默认值：2dp                                                        |
-| leftTopRadius                | Float                                                                                                                           | 2dp                                     | 标签左上的圆角           |          |                                                                    |
-| leftBottomRadius             | Float                                                                                                                           | 2dp                                     | 标签左下的圆角           |          |                                                                    |
-| rightTopRadius               | Float                                                                                                                           | 2dp                                     | 标签右上的圆角           |          |                                                                    |
-| rightBottomRadius            | Float                                                                                                                           | 2dp                                     | 标签右下的圆角           |          |                                                                    |
-| padding                      | Int                                                                                                                             |                                         | 标签的内边距             |          | 默认值：topPadding=0，rightPadding=5,bottomPadding=0,leftPadding=5 |
-| topPadding                   | Int                                                                                                                             | 0dp                                     | 标签的上内边距           |          |                                                                    |
-| rightPadding                 | Int                                                                                                                             | 5dp                                     | 标签的右内边距           |          |                                                                    |
-| bottomPadding                | Int                                                                                                                             | 0dp                                     | 标签的下内边距           |          |                                                                    |
-| leftPadding                  | Int                                                                                                                             | 5dp                                     | 标签的左内边距           |          |                                                                    |
-| backgroundColor              | Int                                                                                                                             | Color.GRAY                              | 标签的背景颜色           |          |                                                                    |
-| startGradientBackgroundColor | Int                                                                                                                             |                                         | 标签的渐变开始颜色       |          |                                                                    |
-| endGradientBackgroundColor   | Int                                                                                                                             |                                         | 标签的渐变结束颜色       |          |                                                                    |
-| gradientOrientation          | GradientDrawable.Orientation                                                                                                    | GradientDrawable.Orientation.LEFT_RIGHT | 标签的渐变样式           |          |                                                                    |
-| strokeWidth                  | Int                                                                                                                             | 0                                       | 标签的边框宽度           |          |                                                                    |
-| strokeColor                  | Int                                                                                                                             | Color.GRAY                              | 标签的边框颜色           |          | strokeWidth>0有效                                                  |
-| imageAlignText               | [Orientation](https://github.com/ChinaLike/TagTextView/blob/main/TagTextView/src/main/java/com/view/text/config/Orientation.kt) | Orientation.LEFT                        | 图片在文字的那一个方向   |          |                                                                    |
-| imageWidth                   | Int                                                                                                                             |                                         | 图片的宽度               |          | 不设置图片自适应                                                   |
-| imageHeight                  | Int                                                                                                                             |                                         | 图片的高度               |          | 不设置图片自适应                                                   |
-| align                        | [Align](https://github.com/ChinaLike/TagTextView/blob/main/TagTextView/src/main/java/com/view/text/config/Align.kt)             | Align.CENTER                            | 标签的对其方式           |          |                                                                    |
-| text                         | String                                                                                                                          |                                         | 标签文本                 |          | type为TYPE.TEXT、TYPE.TEXT_IMAGE有效                               |
-| imageResource                | Int                                                                                                                             |                                         | 标签图片                 |          | type为TYPE.IMAGE、TYPE.TEXT_IMAGE有效                              |
-| imageDrawable                | Drawable                                                                                                                        |                                         | 标签图片                 |          | type为TYPE.IMAGE、TYPE.TEXT_IMAGE有效                              |
-| imageBitmap                  | Bitmap                                                                                                                          |                                         | 标签图片                 |          | type为TYPE.IMAGE、TYPE.TEXT_IMAGE有效                              |
-| imageUrl                     | String                                                                                                                          |                                         | 标签网络图片链接         |          | type为TYPE.URL有效                                                 |
-| position                     | Int                                                                                                                             | 0                                       | 标签显示位置             |          | 多次添加依次排序                                                   |
-| marginLeft                   | Int                                                                                                                             | 0dp                                     | 标签距离左边距离         |          |                                                                    |
-| marginRight                  | Int                                                                                                                             | 0dp                                     | 标签距离右边距离         |          |                                                                    |
-| textMarginImage              | Int                                                                                                                             | 0dp                                     | 标签内文字距离图片的距离 |          | type为Type.TEXT_IMAGE有效                                          |
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#9ABAD9;border-spacing:0;}
+.tg td{background-color:#EBF5FF;border-color:#9ABAD9;border-style:solid;border-width:1px;color:#444;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#409cff;border-color:#9ABAD9;border-style:solid;border-width:1px;color:#fff;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0pky">API</th>
+    <th class="tg-0pky">类型</th>
+    <th class="tg-0pky">默认值</th>
+    <th class="tg-0pky">描述</th>
+    <th class="tg-0pky">版本说明</th>
+    <th class="tg-0pky">说明</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0pky">type</td>
+    <td class="tg-0pky">Type</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">标签类型</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">TEXT-文本，IMAGE-图片，TEXT_IMAGE-图文结合，URL-网络链接</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">textSize</td>
+    <td class="tg-0pky">Float</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">标签上文本的字体大小</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">单位PX，不传就和TextView的textSize保持一致</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">textColor</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky">Color.WHITE</td>
+    <td class="tg-0pky">标签上文本的字体颜色</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">width</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">标签宽度</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">不设置自动适应</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">height</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">标签宽度</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">不设置自动适应</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">radius</td>
+    <td class="tg-0pky">Float</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">标签的圆角</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">默认值：2dp</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">leftTopRadius</td>
+    <td class="tg-0pky">Float</td>
+    <td class="tg-0pky">2dp</td>
+    <td class="tg-0pky">标签左上的圆角</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">leftBottomRadius</td>
+    <td class="tg-0pky">Float</td>
+    <td class="tg-0pky">2dp</td>
+    <td class="tg-0pky">标签左下的圆角</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">rightTopRadius</td>
+    <td class="tg-0pky">Float</td>
+    <td class="tg-0pky">2dp</td>
+    <td class="tg-0pky">标签右上的圆角</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">rightBottomRadius</td>
+    <td class="tg-0pky">Float</td>
+    <td class="tg-0pky">2dp</td>
+    <td class="tg-0pky">标签右下的圆角</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">padding</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">标签的内边距</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">默认值：topPadding=0，rightPadding=5,bottomPadding=0,leftPadding=5</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">topPadding</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky">0dp</td>
+    <td class="tg-0pky">标签的上内边距</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">rightPadding</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky">5dp</td>
+    <td class="tg-0pky">标签的右内边距</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">bottomPadding</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky">0dp</td>
+    <td class="tg-0pky">标签的下内边距</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">leftPadding</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky">5dp</td>
+    <td class="tg-0pky">标签的左内边距</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">backgroundColor</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky">Color.GRAY</td>
+    <td class="tg-0pky">标签的背景颜色</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">startGradientBackgroundColor</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">标签的渐变开始颜色</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">endGradientBackgroundColor</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">标签的渐变结束颜色</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">gradientOrientation</td>
+    <td class="tg-0pky">GradientDrawable.Orientation</td>
+    <td class="tg-0pky">GradientDrawable.Orientation.LEFT_RIGHT</td>
+    <td class="tg-0pky">标签的渐变样式</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">strokeWidth</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky">0</td>
+    <td class="tg-0pky">标签的边框宽度</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">strokeColor</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky">Color.GRAY</td>
+    <td class="tg-0pky">标签的边框颜色</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">strokeWidth&gt;0有效</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">imageAlignText</td>
+    <td class="tg-0pky"><a href="https://github.com/ChinaLike/TagTextView/blob/main/TagTextView/src/main/java/com/view/text/config/Orientation.kt"><span style="color:#905">[Orientation](https://github.com/ChinaLike/TagTextView/blob/main/TagTextView/src/main/java/com/view/text/config/Orientation.kt)</span></a></td>
+    <td class="tg-0pky">Orientation.LEFT</td>
+    <td class="tg-0pky">图片在文字的那一个方向</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">imageWidth</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">图片的宽度</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">不设置图片自适应</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">imageHeight</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">图片的高度</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">不设置图片自适应</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">align</td>
+    <td class="tg-0pky"><a href="https://github.com/ChinaLike/TagTextView/blob/main/TagTextView/src/main/java/com/view/text/config/Align.kt"><span style="color:#905">[Align](https://github.com/ChinaLike/TagTextView/blob/main/TagTextView/src/main/java/com/view/text/config/Align.kt)</span></a></td>
+    <td class="tg-0pky">Align.CENTER</td>
+    <td class="tg-0pky">标签的对其方式</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">text</td>
+    <td class="tg-0pky">String</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">标签文本</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">type为TYPE.TEXT、TYPE.TEXT_IMAGE有效</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">imageResource</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">标签图片</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">type为TYPE.IMAGE、TYPE.TEXT_IMAGE有效</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">imageDrawable</td>
+    <td class="tg-0pky">Drawable</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">标签图片</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">type为TYPE.IMAGE、TYPE.TEXT_IMAGE有效</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">imageBitmap</td>
+    <td class="tg-0pky">Bitmap</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">标签图片</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">type为TYPE.IMAGE、TYPE.TEXT_IMAGE有效</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">imageUrl</td>
+    <td class="tg-0pky">String</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">标签网络图片链接</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">type为TYPE.URL有效</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">position</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky">0</td>
+    <td class="tg-0pky">标签显示位置</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">多次添加依次排序</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">marginLeft</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky">0dp</td>
+    <td class="tg-0pky">标签距离左边距离</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">marginRight</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky">0dp</td>
+    <td class="tg-0pky">标签距离右边距离</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">textMarginImage</td>
+    <td class="tg-0pky">Int</td>
+    <td class="tg-0pky">0dp</td>
+    <td class="tg-0pky">标签内文字距离图片的距离</td>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">type为Type.TEXT_IMAGE有效</td>
+  </tr>
+</tbody>
+</table>
 
 ### 方法
 
