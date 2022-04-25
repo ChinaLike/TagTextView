@@ -50,33 +50,33 @@ SDK主要用于在TextView的指定位置添加文本、图片、图文、网络
 | ---------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | `tvt_type` | enum  |   | 标签类型 |   | text-文本标签，image-图片标签，textImage-图文 |
 | `tvt_radius` | dimension  |   | 标签圆角 |   | `tvt_type`为text、textImage时有效 |
-| `tvt_left_top_radius` | dimension  |   | 标签左上角圆角 |   | `tvt_type`为text、textImage，且`tvt_radius`未设置有效 |
-| `tvt_left_bottom_radius` | dimension  |   | 标签左下角圆角 |   | `tvt_type`为text、textImage，且`tvt_radius`未设置有效 |
-| `tvt_right_top_radius` | dimension  |   | 标签右上角圆角 |   | `tvt_type`为text、textImage，且`tvt_radius`未设置有效 |
-| `tvt_right_bottom_radius` | dimension  |   | 标签右下角圆角 |   | `tvt_type`为text、textImage，且`tvt_radius`未设置有效 |
+| `tvt_left_top_radius` | dimension  | 2dp  | 标签左上角圆角 |   | `tvt_type`为text、textImage，且`tvt_radius`未设置有效 |
+| `tvt_left_bottom_radius` | dimension  |  2dp | 标签左下角圆角 |   | `tvt_type`为text、textImage，且`tvt_radius`未设置有效 |
+| `tvt_right_top_radius` | dimension  |  2dp  | 标签右上角圆角 |   | `tvt_type`为text、textImage，且`tvt_radius`未设置有效 |
+| `tvt_right_bottom_radius` | dimension  | 2dp  | 标签右下角圆角 |   | `tvt_type`为text、textImage，且`tvt_radius`未设置有效 |
 | `tvt_padding` | dimension  |   | 标签内边距 |   | `tvt_type`为text、textImage时有效 |
-| `tvt_top_padding` | dimension  |   | 标签上内边距 |   | `tvt_type`为text、textImage，且`tvt_padding`未设置有效 |
-| `tvt_right_padding` | dimension  |   | 标签右内边距 |   | `tvt_type`为text、textImage，且`tvt_padding`未设置有效 |
-| `tvt_bottom_padding` | dimension  |   | 标签下内边距 |   | `tvt_type`为text、textImage，且`tvt_padding`未设置有效 |
-| `tvt_left_padding` | dimension  |   | 标签左内边距 |   | `tvt_type`为text、textImage，且`tvt_padding`未设置有效 |
-| `tvt_background_color` | color  |   | 标签背景颜色 |   | `tvt_type`为text、textImage时有效 |
+| `tvt_top_padding` | dimension  |  0dp | 标签上内边距 |   | `tvt_type`为text、textImage，且`tvt_padding`未设置有效 |
+| `tvt_right_padding` | dimension  |  5dp  | 标签右内边距 |   | `tvt_type`为text、textImage，且`tvt_padding`未设置有效 |
+| `tvt_bottom_padding` | dimension  | 0dp  | 标签下内边距 |   | `tvt_type`为text、textImage，且`tvt_padding`未设置有效 |
+| `tvt_left_padding` | dimension  |  5dp | 标签左内边距 |   | `tvt_type`为text、textImage，且`tvt_padding`未设置有效 |
+| `tvt_background_color` | color  |  Color.GRAY  | 标签背景颜色 |   | `tvt_type`为text、textImage时有效 |
 | `tvt_start_gradient_background_color` | color  |   | 标签渐变开始颜色 |   | `tvt_type`为text、textImage时有效 |
 | `tvt_end_gradient_background_color` | color  |   | 标签渐变结束颜色 |   | `tvt_type`为text、textImage时有效 |
 | `tvt_stroke_width` | dimension  |   | 标签边框宽度 |   | `tvt_type`为text、textImage时有效 |
-| `tvt_stroke_color` | color  |   | 标签边框颜色 |   | `tvt_type`为text、textImage，且`tvt_stroke_width`>0有效 |
+| `tvt_stroke_color` | color  |  Color.GRAY  | 标签边框颜色 |   | `tvt_type`为text、textImage，且`tvt_stroke_width`>0有效 |
 | `tvt_text_size` | dimension  |   | 文本字体大小 |   | `tvt_type`为text、textImage有效 |
-| `tvt_text_color` | color  |   | 文本字体颜色 |   | `tvt_type`为text、textImage有效 |
+| `tvt_text_color` | color  |  Color.WHITE  | 文本字体颜色 |   | `tvt_type`为text、textImage有效 |
 | `tvt_width` | dimension  |   | 标签宽度 |   | `tvt_type`为text、textImage有效 |
 | `tvt_height` | dimension  |   | 标签高度 |   | `tvt_type`为text、textImage有效 |
-| `tvt_align` | enum  |   | 标签与文本对其方式 |   | baseline-基线对其（默认），center-中心对其，bottom-底部对其 |
+| `tvt_align` | enum  |  Align.CENTER | 标签与文本对其方式 |   | baseline-基线对其，center-中心对其，bottom-底部对其 |
 | `tvt_text` | string  |   | 标签文本 |   | `tvt_type`为text、textImage有效 |
 | `tvt_image_resource` | reference  |   | 标签图片 |   | `tvt_type`为image、textImage有效 |
-| `tvt_position` | integer  |   | 标签显示位置 |   | 默认在文本最前面 |
-| `tvt_margin_left` | dimension  |   | 标签距离左侧距离 |   |  |
-| `tvt_margin_right` | dimension  |   | 标签距离右侧距离 |   |  |
-| `tvt_text_margin_image` | dimension  |   | 文本与图片的距离 |   | `tvt_type`为textImage有效 |
+| `tvt_position` | integer  |  0 | 标签显示位置 |   | 默认在文本最前面 |
+| `tvt_margin_left` | dimension  |  0 | 标签距离左侧距离 |   |  |
+| `tvt_margin_right` | dimension  | 0 | 标签距离右侧距离 |   |  |
+| `tvt_text_margin_image` | dimension  |  0dp  | 文本与图片的距离 |   | `tvt_type`为textImage有效 |
 | `tvt_layout` | reference  |   | 自定义View标签 |   | 不设置`tvt_type`时有效 |
-| `tvt_image_align_text` | enum  |   | 图片与文字的位置关系 |   | `tvt_type`为textImage有效，left-图片在文字的左边（默认），top-图片在文字上边，right-图片在文字的右边，bottom-图片在文字的下边 |
+| `tvt_image_align_text` | enum  |  Orientation.LEFT  | 图片与文字的位置关系 |   | `tvt_type`为textImage有效，left-图片在文字的左边（默认），top-图片在文字上边，right-图片在文字的右边，bottom-图片在文字的下边 |
 | `tvt_image_width` | dimension  |   | 图片的宽度 |   | `tvt_type`为image、textImage时有效 |
 | `tvt_image_height` | dimension  |   | 图片的高度 |   | `tvt_type`为image、textImage时有效 |
 
@@ -86,51 +86,55 @@ SDK主要用于在TextView的指定位置添加文本、图片、图文、网络
 | ---------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | type | Type  |   | 标签类型 |   | TEXT-文本，IMAGE-图片，TEXT_IMAGE-图文结合，URL-网络链接 |
 | textSize | Float  |   | 标签上文本的字体大小 |   | 单位PX，不传就和TextView的textSize保持一致 |
-| textColor | Int  |   | 标签上文本的字体颜色 |   | 默认值：Color.WHITE |
+| textColor | Int  | Color.WHITE  | 标签上文本的字体颜色 |   |  |
 | width | Int  |   | 标签宽度 |   | 不设置自动适应 |
 | height | Int  |   | 标签宽度 |   | 不设置自动适应 |
 | radius | Float  |   | 标签的圆角 |   | 默认值：2dp |
-| leftTopRadius | Float  |   | 标签左上的圆角 |   | 默认值：2dp |
-| leftBottomRadius | Float  |   | 标签左下的圆角 |   | 默认值：2dp |
-| rightTopRadius | Float  |   | 标签右上的圆角 |   | 默认值：2dp |
-| rightBottomRadius | Float  |   | 标签右下的圆角 |   | 默认值：2dp |
+| leftTopRadius | Float  |  2dp | 标签左上的圆角 |   |  |
+| leftBottomRadius | Float  |  2dp | 标签左下的圆角 |   |  |
+| rightTopRadius | Float  |  2dp | 标签右上的圆角 |   |  |
+| rightBottomRadius | Float  | 2dp  | 标签右下的圆角 |   |  |
 | padding | Int  |   | 标签的内边距 |   | 默认值：topPadding=0，rightPadding=5,bottomPadding=0,leftPadding=5 |
-| topPadding | Int  |   | 标签的上内边距 |   | 默认值：0dp |
-| rightPadding | Int  |   | 标签的右内边距 |   | 默认值：5dp |
-| bottomPadding | Int  |   | 标签的下内边距 |   | 默认值：0dp |
-| leftPadding | Int  |   | 标签的左内边距 |   | 默认值：5dp |
-| backgroundColor | Int  |   | 标签的背景颜色 |   | 默认值：Color.GRAY |
+| topPadding | Int  | 0dp  | 标签的上内边距 |   |  |
+| rightPadding | Int  |  5dp | 标签的右内边距 |   |  |
+| bottomPadding | Int  | 0dp  | 标签的下内边距 |   |  |
+| leftPadding | Int  | 5dp  | 标签的左内边距 |   |  |
+| backgroundColor | Int  |  Color.GRAY | 标签的背景颜色 |   |  |
 | startGradientBackgroundColor | Int  |   | 标签的渐变开始颜色 |   |  |
 | endGradientBackgroundColor | Int  |   | 标签的渐变结束颜色 |   |  |
-| gradientOrientation | GradientDrawable.Orientation  |   | 标签的渐变样式 |   |  |
-| strokeWidth | Int  |   | 标签的边框宽度 |   |  |
-| strokeColor | Int  |   | 标签的边框颜色 |   | strokeWidth>0有效 |
-| imageAlignText | [Orientation](/src/main/java/com/view/text/config/Orientation.kt)  |   | 图片在文字的那一个方向 |   | 默认值：Orientation.LEFT |
+| gradientOrientation | GradientDrawable.Orientation  | GradientDrawable.Orientation.LEFT_RIGHT  | 标签的渐变样式 |   |  |
+| strokeWidth | Int  |  0  | 标签的边框宽度 |   |  |
+| strokeColor | Int  |  Color.GRAY | 标签的边框颜色 |   | strokeWidth>0有效 |
+| imageAlignText | [Orientation](https://github.com/ChinaLike/TagTextView/blob/main/TagTextView/src/main/java/com/view/text/config/Orientation.kt)  |  Orientation.LEFT  | 图片在文字的那一个方向 |   |  |
 | imageWidth | Int  |   | 图片的宽度 |   | 不设置图片自适应 |
 | imageHeight | Int  |   | 图片的高度 |   | 不设置图片自适应 |
-| align | [Align](/src/main/java/com/view/text/config/Align.kt)  |   | 标签的对其方式  |   | 默认值：Align.CENTER |
+| align | [Align](https://github.com/ChinaLike/TagTextView/blob/main/TagTextView/src/main/java/com/view/text/config/Align.kt)  |  Align.CENTER  | 标签的对其方式  |   |  |
 | text | String  |   | 标签文本 |   | type为TYPE.TEXT、TYPE.TEXT_IMAGE有效 |
 | imageResource | Int  |   | 标签图片 |   | type为TYPE.IMAGE、TYPE.TEXT_IMAGE有效 |
 | imageDrawable | Drawable  |   | 标签图片 |   | type为TYPE.IMAGE、TYPE.TEXT_IMAGE有效 |
 | imageBitmap | Bitmap  |   | 标签图片 |   | type为TYPE.IMAGE、TYPE.TEXT_IMAGE有效 |
 | imageUrl | String  |   | 标签网络图片链接 |   | type为TYPE.URL有效 |
-| position | Int  |   | 标签显示位置 |   | 默认值：0，多次添加依次排序 |
-| marginLeft | Int  |   | 标签距离左边距离 |   | 默认值：0 |
-| marginRight | Int  |   | 标签距离右边距离 |   | 默认值：0 |
-| textMarginImage | Int  |   | 标签内文字距离图片的距离 |   | 默认值：0，type为Type.TEXT_IMAGE有效 |
+| position | Int  |  0 | 标签显示位置 |   | 多次添加依次排序 |
+| marginLeft | Int  |  0dp | 标签距离左边距离 |   |  |
+| marginRight | Int  |  0dp | 标签距离右边距离 |   |  |
+| textMarginImage | Int  | 0dp  | 标签内文字距离图片的距离 |   | type为Type.TEXT_IMAGE有效 |
 
 ### 方法
 
 - addTag(config:TagConfig)
     
-    添加标签
+    + 添加标签
+    
+    + 属性介绍
     
     config:标签的样式配置,参考[TagConfig](#TagConfig属性)
     
 - addTag(view:View,position:Int,align:Align,marginLeft:Int,marginRight:Int)
 
-    添加自定义标签
+    + 添加自定义标签
     
+    + 属性介绍
+        
     view:自定义View
     
     position:显示位置，默认：0
@@ -143,28 +147,42 @@ SDK主要用于在TextView的指定位置添加文本、图片、图文、网络
     
 - addTextTag(block: TagConfig.() -> Unit)
 
-    添加文本标签
+    + 添加文本标签
+    
+    + 属性介绍
+    
     block:标签自定义参数
     
 - addImageTag(block: TagConfig.() -> Unit)
 
-    添加图标标签
+    + 添加图标标签
+    
+    + 属性介绍
+    
     block: 标签自定义参数
     
 - addTextImageTag(block: TagConfig.() -> Unit)
 
-    添加图文标签
+    + 添加图文标签
+    
+    + 属性介绍
+    
     block: 标签自定义参数
 
     
 - addUrlTag(block: TagConfig.() -> Unit)
 
-    添加图文标签
+    + 添加图文标签
+    
+    + 属性介绍
+    
     block: 标签自定义参数
 
 -  setUnderline(underlineText: String? = null, isFirst: Boolean = true) 
 
-	设置文本下划线
+	+ 设置文本下划线
+	
+	+ 属性介绍
 	
 	underlineText:需要加下划线的文本,不设置则匹配所有文本
 	
@@ -172,7 +190,9 @@ SDK主要用于在TextView的指定位置添加文本、图片、图文、网络
 
 -  setUnderline(startIndex: Int, endIndex: Int)
 
-	设置文本下划线
+	+ 设置文本下划线
+	
+	+ 属性介绍
 	
 	startIndex:开始下标
 	
@@ -180,13 +200,17 @@ SDK主要用于在TextView的指定位置添加文本、图片、图文、网络
 
 -  setDeleteLine(deleteLineText: String? = null, isFirst: Boolean = true)
 
-	设置文本删除线
+	+ 设置文本删除线
+	
+	+ 属性介绍
 	
 	deleteLineText:需要加删除线的文本，不设置则匹配所有文本
 
 -  setDeleteLine(startIndex: Int, endIndex: Int)
 
-	设置文本删除线
+	+ 设置文本删除线
+	
+	+ 属性介绍
 	
 	startIndex:开始下标
 	
@@ -194,7 +218,9 @@ SDK主要用于在TextView的指定位置添加文本、图片、图文、网络
 
 -  setSpecificTextColor(@ColorInt color: Int,specificText: String,isFirst: Boolean = true,isUnderlineText: Boolean = false,click: () -> Unit = {})
 
-	设置指定文字颜色
+	+ 设置指定文字颜色
+	
+	+ 属性介绍
 	
 	color:制定文本颜色
 	
@@ -208,7 +234,9 @@ SDK主要用于在TextView的指定位置添加文本、图片、图文、网络
 
 -  setSpecificTextColor(@ColorInt color: Int,startIndex: Int，endIndex: Int,isUnderlineText: Boolean = false,click: () -> Unit = {})
 
-	设置指定文字颜色
+	+ 设置指定文字颜色
+	
+	+ 属性介绍
 	
 	color:制定文本颜色
 	
@@ -222,13 +250,15 @@ SDK主要用于在TextView的指定位置添加文本、图片、图文、网络
 
 -  setURLSpan(startIndex: Int,endIndex: Int,type: LinkType,linkText: String,@ColorInt color: Int? = null,isUnderlineText: Boolean = false)
 
-	设置超链
+	+ 设置超链
+	
+	+ 属性介绍
 	
 	startIndex:开始下标
 	
 	endIndex:结束下标
 	
-	type:超链接类型，参考[LinkType](/src/main/java/com/view/text/config/LinkType.kt)
+	type:超链接类型，参考[LinkType](https://github.com/ChinaLike/TagTextView/blob/main/TagTextView/src/main/java/com/view/text/config/LinkType.kt)
 	
 	linkText:链接文本 ，比如跳转电话，只需要传入电话号码就可以
 	
