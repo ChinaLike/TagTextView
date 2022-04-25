@@ -38,13 +38,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.custom_menu,menu)
+        menuInflater.inflate(R.menu.custom_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.javaBtn){
-            startActivity(Intent(this,JavaActivity::class.java))
+        if (item.itemId == R.id.javaBtn) {
+            startActivity(Intent(this, JavaActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }
@@ -168,12 +168,12 @@ class MainActivity : AppCompatActivity() {
         text_tv11.addTag(tv11Config)
 
         //1.12 添加多个文本标签
-        val tv12Config = TagConfig(Type.TEXT).apply {
+        text_tv12.addTextTag {
             text = "新品"
             startGradientBackgroundColor = Color.parseColor("#F0E68C")
             endGradientBackgroundColor = Color.parseColor("#FFD700")
         }
-        val tv12Config1 = TagConfig(Type.TEXT).apply {
+        text_tv12.addTextTag {
             text = "精品"
             startGradientBackgroundColor = Color.parseColor("#FFA07A")
             endGradientBackgroundColor = Color.parseColor("#FF0040")
@@ -181,7 +181,7 @@ class MainActivity : AppCompatActivity() {
             marginLeft = 5.dp
             strokeColor = Color.parseColor("#228B22")
         }
-        val tv12Config2 = TagConfig(Type.TEXT).apply {
+        text_tv12.addTextTag {
             text = "限时销售"
             startGradientBackgroundColor = Color.parseColor("#87CEFA")
             endGradientBackgroundColor = Color.parseColor("#00BFFF")
@@ -201,9 +201,6 @@ class MainActivity : AppCompatActivity() {
             rightBottomRadius = 5.dp.toFloat()
             position = 6
         }
-        text_tv12.addTag(tv12Config)
-        text_tv12.addTag(tv12Config1)
-        text_tv12.addTag(tv12Config2)
 
         //1.13 支持自定义View
         val view = LayoutInflater.from(this).inflate(R.layout.custom_text_view, null)
@@ -253,20 +250,17 @@ class MainActivity : AppCompatActivity() {
         image_tv5.addTag(tv5Config)
 
         //2.6 支持多个图片
-        val tv6Config = TagConfig(Type.IMAGE).apply {
+        image_tv6.addImageTag {
             imageResource = R.mipmap.icon_new1
         }
-        val tv6Config1 = TagConfig(Type.IMAGE).apply {
+        image_tv6.addImageTag {
             imageResource = R.mipmap.icon_new2
             position = 5
         }
-        val tv6Config2 = TagConfig(Type.IMAGE).apply {
+        image_tv6.addImageTag {
             imageResource = R.mipmap.icon_new3
             position = 11
         }
-        image_tv6.addTag(tv6Config)
-        image_tv6.addTag(tv6Config1)
-        image_tv6.addTag(tv6Config2)
     }
 
     /**
@@ -330,15 +324,14 @@ class MainActivity : AppCompatActivity() {
         text_image_tv5.addTag(tv5Config)
 
         //3.6 支持多个
-        val tv6Config = TagConfig(Type.TEXT_IMAGE).apply {
+        text_image_tv6.addTextImageTag {
             imageResource = R.mipmap.icon_3
             text = "支持钱包支付"
             position = 11
             startGradientBackgroundColor = Color.parseColor("#FFA07A")
             endGradientBackgroundColor = Color.parseColor("#FF0040")
             textMarginImage = 10.dp
-        }
-        val tv6Config1 = TagConfig(Type.TEXT_IMAGE).apply {
+        }.addTextImageTag {
             imageResource = R.mipmap.icon_1
             text = "钻石会员"
             position = 5
@@ -346,8 +339,6 @@ class MainActivity : AppCompatActivity() {
             endGradientBackgroundColor = Color.parseColor("#FF0040")
             textMarginImage = 4.dp
         }
-        text_image_tv6.addTag(tv6Config)
-        text_image_tv6.addTag(tv6Config1)
     }
 
     /**
@@ -382,19 +373,16 @@ class MainActivity : AppCompatActivity() {
         url_tv4.addTag(tv4Config)
 
         //4.5 支持多个
-        val tv5Config = TagConfig(Type.URL).apply {
+        url_tv5.addUrlTag {
             imageUrl = "https://i.postimg.cc/28pNrtMf/20140710033452506.png"
             marginLeft = 20.dp
             marginRight = 10.dp
-        }
-        val tv5Config1 = TagConfig(Type.URL).apply {
+        }.addUrlTag {
             imageUrl = "https://i.postimg.cc/5ydL218z/20130513035745587.gif"
             position = 5
             width = 40.dp
             height = 50.dp
         }
-        url_tv5.addTag(tv5Config)
-        url_tv5.addTag(tv5Config1)
     }
 
     /**
@@ -480,7 +468,8 @@ class MainActivity : AppCompatActivity() {
         list.add(
             ItemBean(
                 "华为智选 NZone s7pro 5G手机 【S7 Pro+】星空蓝8+128GB 官方标配",
-                "https://img14.360buyimg.com/n0/jfs/t1/144481/18/22264/36775/61ac564cEb081b02c/67f89db3846cbb59.jpg")
+                "https://img14.360buyimg.com/n0/jfs/t1/144481/18/22264/36775/61ac564cEb081b02c/67f89db3846cbb59.jpg"
+            )
         )
 
         list.add(
@@ -497,7 +486,8 @@ class MainActivity : AppCompatActivity() {
         list.add(
             ItemBean(
                 "华为智选 NZone s7pro 5G手机 【S7 Pro+】星空蓝8+128GB 官方标配",
-                "https://img14.360buyimg.com/n0/jfs/t1/204262/20/17633/41667/61ac564bEef77131c/4f64d67793fde772.jpg")
+                "https://img14.360buyimg.com/n0/jfs/t1/204262/20/17633/41667/61ac564bEef77131c/4f64d67793fde772.jpg"
+            )
         )
 
         list.add(
@@ -517,7 +507,7 @@ class MainActivity : AppCompatActivity() {
                 "华为nova8se 麒麟710A芯片 搭载HarmonyOS系统 幻夜黑 8GB+128GB（66W充电套装+耳机套装）",
                 "https://img14.360buyimg.com/n0/jfs/t1/112159/2/24025/88731/625ed1f3E0c9e092d/bc0200a21ea5ab66.jpg",
                 TagConfig(Type.TEXT).apply {
-                    text="新品"
+                    text = "新品"
                     startGradientBackgroundColor = Color.parseColor("#F6D242")
                     endGradientBackgroundColor = Color.parseColor("#FF52E5")
                     radius = 5.dp.toFloat()

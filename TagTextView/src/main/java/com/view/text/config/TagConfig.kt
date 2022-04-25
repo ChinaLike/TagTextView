@@ -8,7 +8,6 @@ import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
 import androidx.annotation.DrawableRes
 import com.core.util.dp
-import com.core.util.sp
 
 /**
  * 每一个标签Item的配置

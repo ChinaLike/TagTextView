@@ -6,7 +6,6 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
-import com.core.util.DensityUtil
 import com.view.text.R
 import com.view.text.addTag
 import com.view.text.config.Align
@@ -35,7 +34,7 @@ open class TagTextView @JvmOverloads constructor(
         with(context.obtainStyledAttributes(attrs, R.styleable.TagTextView)) {
             //自定义View
             var customLayout: View? = null
-            val type = getInt(R.styleable.TagTextView_tvtType, -1)
+            val type = getInt(R.styleable.TagTextView_tvt_type, -1)
             config = when (type) {
                 Type.TEXT.ordinal -> TagConfig(Type.TEXT)
                 Type.IMAGE.ordinal -> TagConfig(Type.IMAGE)
@@ -50,67 +49,67 @@ open class TagTextView @JvmOverloads constructor(
 
             for (i in 0 until indexCount) {
                 when (val attr = getIndex(i)) {
-                    R.styleable.TagTextView_tvtRadius -> {
+                    R.styleable.TagTextView_tvt_radius -> {
                         config?.radius = getDimension(attr, 0F)
                     }
-                    R.styleable.TagTextView_tvtLeftTopRadius -> {
+                    R.styleable.TagTextView_tvt_left_top_radius -> {
                         config?.leftTopRadius = getDimension(attr, 0F)
                     }
-                    R.styleable.TagTextView_tvtLeftBottomRadius -> {
+                    R.styleable.TagTextView_tvt_left_bottom_radius -> {
                         config?.leftBottomRadius = getDimension(attr, 0F)
                     }
-                    R.styleable.TagTextView_tvtRightTopRadius -> {
+                    R.styleable.TagTextView_tvt_right_top_radius -> {
                         config?.rightTopRadius = getDimension(attr, 0F)
                     }
-                    R.styleable.TagTextView_tvtRightBottomRadius -> {
+                    R.styleable.TagTextView_tvt_right_bottom_radius -> {
                         config?.rightBottomRadius = getDimension(attr, 0F)
                     }
-                    R.styleable.TagTextView_tvtPadding -> {
+                    R.styleable.TagTextView_tvt_padding -> {
                         config?.padding = getDimension(attr, 0F).toInt()
                     }
-                    R.styleable.TagTextView_tvtTopPadding -> {
+                    R.styleable.TagTextView_tvt_top_padding -> {
                         config?.topPadding = getDimension(attr, 0F).toInt()
                     }
-                    R.styleable.TagTextView_tvtRightPadding -> {
+                    R.styleable.TagTextView_tvt_right_padding -> {
                         config?.rightPadding = getDimension(attr, 0F).toInt()
                     }
-                    R.styleable.TagTextView_tvtBottomPadding -> {
+                    R.styleable.TagTextView_tvt_bottom_padding -> {
                         config?.bottomPadding = getDimension(attr, 0F).toInt()
                     }
-                    R.styleable.TagTextView_tvtLeftPadding -> {
+                    R.styleable.TagTextView_tvt_left_padding -> {
                         config?.leftPadding = getDimension(attr, 0F).toInt()
                     }
-                    R.styleable.TagTextView_tvtBackgroundColor -> {
+                    R.styleable.TagTextView_tvt_background_color -> {
                         config?.backgroundColor = getColor(attr, Color.TRANSPARENT)
                     }
-                    R.styleable.TagTextView_tvtStartGradientBackgroundColor -> {
+                    R.styleable.TagTextView_tvt_start_gradient_background_color -> {
                         config?.startGradientBackgroundColor = getColor(attr, Color.TRANSPARENT)
                     }
-                    R.styleable.TagTextView_tvtEndGradientBackgroundColor -> {
+                    R.styleable.TagTextView_tvt_end_gradient_background_color -> {
                         config?.endGradientBackgroundColor = getColor(attr, Color.TRANSPARENT)
                     }
-                    R.styleable.TagTextView_tvtStrokeWidth -> {
+                    R.styleable.TagTextView_tvt_stroke_width -> {
                         config?.strokeWidth = getDimension(attr, 0F).toInt()
                     }
-                    R.styleable.TagTextView_tvtStrokeColor -> {
+                    R.styleable.TagTextView_tvt_stroke_color -> {
                         config?.strokeColor = getColor(attr, Color.GRAY)
                     }
-                    R.styleable.TagTextView_tvtTextSize -> {
+                    R.styleable.TagTextView_tvt_text_size -> {
                         val textSize = getDimension(attr, 0F)
                         if (textSize != 0F) {
                             config?.textSize = textSize
                         }
                     }
-                    R.styleable.TagTextView_tvtTextColor -> {
+                    R.styleable.TagTextView_tvt_text_color -> {
                         config?.textColor = getColor(attr, Color.GRAY)
                     }
-                    R.styleable.TagTextView_tvtWidth -> {
+                    R.styleable.TagTextView_tvt_width -> {
                         config?.width = getDimension(attr, 0F).toInt()
                     }
-                    R.styleable.TagTextView_tvtHeight -> {
+                    R.styleable.TagTextView_tvt_height -> {
                         config?.height = getDimension(attr, 0F).toInt()
                     }
-                    R.styleable.TagTextView_tvtAlign -> {
+                    R.styleable.TagTextView_tvt_align -> {
                         val alignValue = getInt(attr, -1)
                         if (alignValue != -1) {
                             when (alignValue) {
@@ -127,34 +126,34 @@ open class TagTextView @JvmOverloads constructor(
                         }
                         config?.align = align
                     }
-                    R.styleable.TagTextView_tvtText -> {
+                    R.styleable.TagTextView_tvt_text -> {
                         config?.text = getString(attr) ?: ""
                     }
-                    R.styleable.TagTextView_tvtImageResource -> {
+                    R.styleable.TagTextView_tvt_image_resource -> {
                         config?.imageDrawable = getDrawable(attr)
                     }
-                    R.styleable.TagTextView_tvtPosition -> {
+                    R.styleable.TagTextView_tvt_position -> {
                         position = getInt(attr, 0)
                         config?.position = position
                     }
-                    R.styleable.TagTextView_tvtMarginLeft -> {
+                    R.styleable.TagTextView_tvt_margin_left -> {
                         marginLeft = getDimension(attr, 0F).toInt()
                         config?.marginLeft = marginLeft
                     }
-                    R.styleable.TagTextView_tvtMarginRight -> {
+                    R.styleable.TagTextView_tvt_margin_right -> {
                         marginRight = getDimension(attr, 0F).toInt()
                         config?.marginRight = marginRight
                     }
-                    R.styleable.TagTextView_tvtTextMarginImage -> {
+                    R.styleable.TagTextView_tvt_text_margin_image -> {
                         config?.textMarginImage = getDimension(attr, 0F).toInt()
                     }
-                    R.styleable.TagTextView_tvtLayout -> {
+                    R.styleable.TagTextView_tvt_layout -> {
                         val resourceId = getResourceId(attr, 0)
                         if (resourceId != 0) {
                             customLayout = inflate(context, resourceId, null)
                         }
                     }
-                    R.styleable.TagTextView_tvtImageAlignText -> {
+                    R.styleable.TagTextView_tvt_image_align_text -> {
                         val imageAlignText = getInt(attr, Orientation.LEFT.ordinal)
                         config?.imageAlignText = when (imageAlignText) {
                             Orientation.TOP.ordinal -> Orientation.TOP
@@ -163,13 +162,13 @@ open class TagTextView @JvmOverloads constructor(
                             else -> Orientation.LEFT
                         }
                     }
-                    R.styleable.TagTextView_tvtImageWidth -> {
+                    R.styleable.TagTextView_tvt_image_width -> {
                         config?.imageWidth = getDimension(
                             attr,
                             ViewGroup.LayoutParams.WRAP_CONTENT.toFloat()
                         ).toInt()
                     }
-                    R.styleable.TagTextView_tvtImageHeight -> {
+                    R.styleable.TagTextView_tvt_image_height -> {
                         config?.imageHeight = getDimension(
                             attr,
                             ViewGroup.LayoutParams.WRAP_CONTENT.toFloat()

@@ -15,7 +15,6 @@ import android.text.style.ReplacementSpan
 import android.text.style.StrikethroughSpan
 import android.text.style.UnderlineSpan
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import com.view.text.config.Align
@@ -38,7 +37,7 @@ private const val TAG: String = "T"
  * 添加标签
  * @param [config] 标签配置
  */
-fun TextView.addTag(config: TagConfig) {
+fun TextView.addTag(config: TagConfig): TextView = apply {
     verifyText(this)
     val builder = createSpannableStringBuilder(this, config.position)
     val newPosition = insertPlaceholder(builder, config.position)
@@ -53,6 +52,46 @@ fun TextView.addTag(config: TagConfig) {
 }
 
 /**
+ * 添加文本标签
+ * @param [block] 配置
+ */
+fun TextView.addTextTag(block: TagConfig.() -> Unit): TextView = apply {
+    val tagConfig = TagConfig(Type.TEXT)
+    block(tagConfig)
+    addTag(tagConfig)
+}
+
+/**
+ * 添加图标标签
+ * @param [block] 配置
+ */
+fun TextView.addImageTag(block: TagConfig.() -> Unit): TextView = apply {
+    val tagConfig = TagConfig(Type.IMAGE)
+    block(tagConfig)
+    addTag(tagConfig)
+}
+
+/**
+ * 添加图文标签
+ * @param [block] 配置
+ */
+fun TextView.addTextImageTag(block: TagConfig.() -> Unit): TextView = apply {
+    val tagConfig = TagConfig(Type.TEXT_IMAGE)
+    block(tagConfig)
+    addTag(tagConfig)
+}
+
+/**
+ * 添加网络标签
+ * @param [block] 配置
+ */
+fun TextView.addUrlTag(block: TagConfig.() -> Unit): TextView = apply {
+    val tagConfig = TagConfig(Type.URL)
+    block(tagConfig)
+    addTag(tagConfig)
+}
+
+/**
  * 添加自定义标签
  * @param [view] 标签View
  * @param [position] 标签显示位置
@@ -64,7 +103,7 @@ fun TextView.addTag(
     align: Align = Align.CENTER,
     marginLeft: Int = 0,
     marginRight: Int = 0
-) {
+): TextView = apply {
     verifyText(this)
     val builder = createSpannableStringBuilder(this, position)
     val newPosition = insertPlaceholder(builder, position)
@@ -87,30 +126,31 @@ fun TextView.addTag(
  * @param [isFirst] 是否匹配第一个，true是，false匹配最后一个
  */
 @JvmOverloads
-fun TextView.setUnderline(underlineText: String? = null, isFirst: Boolean = true) {
-    var startIndex: Int = 0
-    var endIndex: Int = 0
-    if (underlineText.isNullOrEmpty()) {
-        endIndex = text.length
-    } else {
-        startIndex = if (isFirst) {
-            text.indexOf(underlineText)
+fun TextView.setUnderline(underlineText: String? = null, isFirst: Boolean = true): TextView =
+    apply {
+        var startIndex: Int = 0
+        var endIndex: Int = 0
+        if (underlineText.isNullOrEmpty()) {
+            endIndex = text.length
         } else {
-            text.lastIndexOf(underlineText)
+            startIndex = if (isFirst) {
+                text.indexOf(underlineText)
+            } else {
+                text.lastIndexOf(underlineText)
+            }
+            endIndex = startIndex + underlineText.length
         }
-        endIndex = startIndex + underlineText.length
+        setUnderline(startIndex, endIndex)
     }
-    setUnderline(startIndex, endIndex)
-}
 
 /**
  * 设置下划线
  * @param [startIndex] 指定开始位置
  * @param [endIndex] 指定结束位置
  */
-fun TextView.setUnderline(startIndex: Int, endIndex: Int) {
+fun TextView.setUnderline(startIndex: Int, endIndex: Int): TextView = apply {
     if (startIndex < 0 || endIndex <= 0 || endIndex < startIndex) {
-        return
+        return this
     }
     val builder = SpannableStringBuilder(text)
     builder.setSpan(UnderlineSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -123,30 +163,31 @@ fun TextView.setUnderline(startIndex: Int, endIndex: Int) {
  * @param [isFirst] 是否匹配第一个，true是，false匹配最后一个
  */
 @JvmOverloads
-fun TextView.setDeleteLine(deleteLineText: String? = null, isFirst: Boolean = true) {
-    var startIndex: Int = 0
-    var endIndex: Int = 0
-    if (deleteLineText.isNullOrEmpty()) {
-        endIndex = text.length
-    } else {
-        startIndex = if (isFirst) {
-            text.indexOf(deleteLineText)
+fun TextView.setDeleteLine(deleteLineText: String? = null, isFirst: Boolean = true): TextView =
+    apply {
+        var startIndex: Int = 0
+        var endIndex: Int = 0
+        if (deleteLineText.isNullOrEmpty()) {
+            endIndex = text.length
         } else {
-            text.lastIndexOf(deleteLineText)
+            startIndex = if (isFirst) {
+                text.indexOf(deleteLineText)
+            } else {
+                text.lastIndexOf(deleteLineText)
+            }
+            endIndex = startIndex + deleteLineText.length
         }
-        endIndex = startIndex + deleteLineText.length
+        setDeleteLine(startIndex, endIndex)
     }
-    setDeleteLine(startIndex, endIndex)
-}
 
 /**
  * 设置文本删除线
  * @param [startIndex] 指定开始位置
  * @param [endIndex] 指定结束位置
  */
-fun TextView.setDeleteLine(startIndex: Int, endIndex: Int) {
+fun TextView.setDeleteLine(startIndex: Int, endIndex: Int): TextView = apply {
     if (startIndex < 0 || endIndex <= 0 || endIndex < startIndex) {
-        return
+        return this
     }
     val builder = SpannableStringBuilder(text)
     builder.setSpan(StrikethroughSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -168,7 +209,7 @@ fun TextView.setSpecificTextColor(
     isFirst: Boolean = true,
     isUnderlineText: Boolean = false,
     click: () -> Unit = {}
-) {
+): TextView = apply {
     var startIndex: Int = 0
     var endIndex: Int = 0
     if (specificText.isNullOrEmpty()) {
@@ -199,9 +240,9 @@ fun TextView.setSpecificTextColor(
     endIndex: Int,
     isUnderlineText: Boolean = false,
     click: () -> Unit = {}
-) {
+): TextView = apply {
     if (startIndex < 0 || endIndex <= 0 || endIndex < startIndex) {
-        return
+        return this
     }
     val builder = SpannableStringBuilder(text)
     movementMethod = ClickableMovementMethod.getInstance()
@@ -228,10 +269,10 @@ fun TextView.setURLSpan(
     linkText: String,
     @ColorInt color: Int? = null,
     isUnderlineText: Boolean = false
-) {
+): TextView = apply {
     val textLength = text.length
     if (textLength == 0 || startIndex < 0 || endIndex <= 0 || endIndex < startIndex || startIndex >= textLength || endIndex > textLength) {
-        return
+        return this
     }
     val builder = SpannableStringBuilder(text)
     movementMethod = ClickableMovementMethod.getInstance()
@@ -301,7 +342,10 @@ private fun createSpan(textView: TextView, config: TagConfig): ReplacementSpan {
             config.imageUrl ?: throw NullPointerException("当type=Type.URL时,必须设置imageUrl")
         ).apply {
             setAlign(config.align)
-            setDrawableSize(config.width?:textView.textSize.toInt(), config.height?:textView.textSize.toInt())
+            setDrawableSize(
+                config.width ?: textView.textSize.toInt(),
+                config.height ?: textView.textSize.toInt()
+            )
             setMarginHorizontal(config.marginLeft, config.marginRight)
         }
         Type.IMAGE -> {
