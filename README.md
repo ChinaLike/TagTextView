@@ -85,7 +85,7 @@ SDK主要用于在TextView的指定位置添加文本、图片、图文、网络
 <table>
 <thead>
   <tr>
-    <th style="width:200pt;text-color:white">API</th>
+    <th style="width:200pt;color:white;background-color:#409cff">API</th>
     <th style="width:200pt">类型</th>
     <th style="width:200pt">默认值</th>
     <th style="width:200pt">描述</th>
