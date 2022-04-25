@@ -82,23 +82,15 @@ SDK主要用于在TextView的指定位置添加文本、图片、图文、网络
 
 ### TagConfig属性
 
-<style type="text/css">
-.tg  {border-collapse:collapse;border-color:#9ABAD9;border-spacing:0;}
-.tg td{background-color:#EBF5FF;border-color:#9ABAD9;border-style:solid;border-width:1px;color:#444;
-  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{background-color:#409cff;border-color:#9ABAD9;border-style:solid;border-width:1px;color:#fff;
-  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-</style>
-<table class="tg">
+<table>
 <thead>
   <tr>
-    <th class="tg-0pky">API</th>
-    <th class="tg-0pky">类型</th>
-    <th class="tg-0pky">默认值</th>
-    <th class="tg-0pky">描述</th>
-    <th class="tg-0pky">版本说明</th>
-    <th class="tg-0pky">说明</th>
+    <th style="width:200pt;text-color:white">API</th>
+    <th style="width:200pt">类型</th>
+    <th style="width:200pt">默认值</th>
+    <th style="width:200pt">描述</th>
+    <th style="width:200pt">版本说明</th>
+    <th style="width:200pt">说明</th>
   </tr>
 </thead>
 <tbody>
