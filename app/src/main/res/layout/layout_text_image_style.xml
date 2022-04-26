@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:divider="@drawable/divider_10dp"
+    android:orientation="vertical"
+    android:showDividers="middle">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/titleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3.文本+图片 标签样式(type=Type.TEXT_IMAGE)" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:text="这里设置背景样式、文字样式、位置、大小等和type=Type.TEXT一致，这里只举例不一样的地方"
+        android:textSize="12sp"
+        android:textColor="#FF0040"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/subTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.1 默认样式" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_image_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="荣耀V40轻奢版 5G 超级快充 6400万超清四摄 8GB+128GB钛空银 移动联通电信5G 双卡双待手机" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/subTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.2 设置图片在文字的那个方向" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_image_tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="荣耀V40轻奢版 5G 超级快充 6400万超清四摄 8GB+128GB钛空银 移动联通电信5G 双卡双待手机" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/subTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.3 设置图片大小" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_image_tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="荣耀V40轻奢版 5G 超级快充 6400万超清四摄 8GB+128GB钛空银 移动联通电信5G 双卡双待手机" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/subTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.4 设置图片和文字的距离" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_image_tv4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="荣耀V40轻奢版 5G 超级快充 6400万超清四摄 8GB+128GB钛空银 移动联通电信5G 双卡双待手机" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/subTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.5 自定义显示位置" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_image_tv5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="荣耀V40轻奢版 5G 超级快充 6400万超清四摄 8GB+128GB钛空银 移动联通电信5G 双卡双待手机" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/subTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.6 支持多个" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_image_tv6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="荣耀V40轻奢版 5G 超级快充 6400万超清四摄 8GB+128GB钛空银 移动联通电信5G 双卡双待手机" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="bottom"
+    android:orientation="horizontal">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:text="全网最低"
+        android:background="@drawable/custom_tag_bg"
+        android:textColor="@color/white"
+        android:paddingVertical="2dp"
+        android:paddingHorizontal="5dp"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:text="只有你才会信"
+        android:textColor="#FF0040"
+        android:textSize="6sp"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
