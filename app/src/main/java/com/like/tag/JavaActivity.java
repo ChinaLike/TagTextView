@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.view.text.config.LinkType;
 import com.view.text.config.Orientation;
 import com.view.text.config.TagConfig;
 import com.view.text.config.Type;
+import com.view.text.view.TagTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,8 @@ public class JavaActivity extends AppCompatActivity {
         textImageStyle();
         //网络图片
         urlStyle();
+        //在XML使用
+        xmlStyle();
         //扩展方法
         exFun();
         //列表中的使用
@@ -191,6 +195,24 @@ public class JavaActivity extends AppCompatActivity {
         View view = LayoutInflater.from(this).inflate(R.layout.custom_text_view, null);
         TextViewExKt.addTag(findViewById(R.id.text_tv13), view, 5);
 
+        //1.14 替换指定字符串为标签形式
+        TextView text_tv14 = findViewById(R.id.text_tv14);
+        TagConfig tv14Config = new TagConfig(Type.TEXT);
+        tv14Config.setText("超级快充");
+        tv14Config.setStartGradientBackgroundColor(Color.parseColor("#ABDCFF"));
+        tv14Config.setEndGradientBackgroundColor(Color.parseColor("#0396FF"));
+        tv14Config.setRadius((float) DensityUtilKt.getDp(5));
+        TextViewExKt.replaceTag(text_tv14, "超级快充", tv14Config);
+
+        TagConfig tv14Config1 = new TagConfig(Type.TEXT);
+        tv14Config1.setText("移动5G");
+        tv14Config1.setStartGradientBackgroundColor(Color.parseColor("#FEC163"));
+        tv14Config1.setEndGradientBackgroundColor(Color.parseColor("#DE4313"));
+        tv14Config1.setMarginLeft(DensityUtilKt.getDp(20));
+        TextViewExKt.replaceTag(text_tv14, 40, 48, tv14Config1);
+
+        TextViewExKt.replaceTag(text_tv14, "荣耀", view);
+
     }
 
     /**
@@ -207,14 +229,14 @@ public class JavaActivity extends AppCompatActivity {
         tv2Config.setImageResource(R.mipmap.icon_new2);
         tv2Config.setWidth(DensityUtilKt.getDp(80));
         tv2Config.setHeight(DensityUtilKt.getDp(40));
-        TextViewExKt.addTag(findViewById(R.id.image_tv2), tv1Config);
+        TextViewExKt.addTag(findViewById(R.id.image_tv2), tv2Config);
 
         //2.3 自定义边距
         TagConfig tv3Config = new TagConfig(Type.IMAGE);
         tv3Config.setImageResource(R.mipmap.icon_new3);
         tv3Config.setMarginLeft(DensityUtilKt.getDp(15));
         tv3Config.setMarginRight(DensityUtilKt.getDp(10));
-        TextViewExKt.addTag(findViewById(R.id.image_tv3), tv1Config);
+        TextViewExKt.addTag(findViewById(R.id.image_tv3), tv3Config);
 
         //2.4 自定义对其方式,底部对其
         TagConfig tv4Config = new TagConfig(Type.IMAGE);
@@ -222,13 +244,13 @@ public class JavaActivity extends AppCompatActivity {
         tv4Config.setHeight(DensityUtilKt.getDp(15));
         tv4Config.setWidth(DensityUtilKt.getDp(100));
         tv4Config.setAlign(Align.BOTTOM);
-        TextViewExKt.addTag(findViewById(R.id.image_tv4), tv1Config);
+        TextViewExKt.addTag(findViewById(R.id.image_tv4), tv4Config);
 
         //2.5 自定义位置
         TagConfig tv5Config = new TagConfig(Type.IMAGE);
         tv5Config.setImageResource(R.mipmap.icon_new3);
         tv5Config.setPosition(5);
-        TextViewExKt.addTag(findViewById(R.id.image_tv5), tv1Config);
+        TextViewExKt.addTag(findViewById(R.id.image_tv5), tv5Config);
 
         //2.6 支持多个图片
         TagConfig tv6Config = new TagConfig(Type.IMAGE);
@@ -364,6 +386,21 @@ public class JavaActivity extends AppCompatActivity {
 
         TextViewExKt.addTag(findViewById(R.id.url_tv5), tv5Config);
         TextViewExKt.addTag(findViewById(R.id.url_tv5), tv5Config1);
+    }
+
+    /**
+     * 5.在XML中使用
+     */
+    private void xmlStyle() {
+        //5.5 只使用View，标签在代码设置
+        TagTextView xml_tv5 = findViewById(R.id.xml_tv5);
+        TagConfig tv5Config = new TagConfig(Type.TEXT);
+        tv5Config.setText("新品");
+        tv5Config.setStartGradientBackgroundColor(Color.parseColor("#CE9FFC"));
+        tv5Config.setEndGradientBackgroundColor(Color.parseColor("#7367F0"));
+        tv5Config.setRadius((float) DensityUtilKt.getDp(10));
+        xml_tv5.addTag(tv5Config);
+
     }
 
     /**

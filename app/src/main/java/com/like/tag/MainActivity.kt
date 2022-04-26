@@ -18,6 +18,8 @@ import kotlinx.android.synthetic.main.layout_recycler_view.*
 import kotlinx.android.synthetic.main.layout_text_image_style.*
 import kotlinx.android.synthetic.main.layout_text_style.*
 import kotlinx.android.synthetic.main.layout_url_style.*
+import kotlinx.android.synthetic.main.layout_url_style.url_tv5
+import kotlinx.android.synthetic.main.layout_xml.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         textImageStyle()
         //网络图片
         urlStyle()
+        //在XML使用
+        xmlStyle()
         //扩展方法
         exFun()
         //列表中的使用
@@ -205,6 +209,19 @@ class MainActivity : AppCompatActivity() {
         //1.13 支持自定义View
         val view = LayoutInflater.from(this).inflate(R.layout.custom_text_view, null)
         text_tv13.addTag(view, position = 5)
+
+        //1.14 替换指定字符串为标签形式
+        text_tv14.replaceTag("超级快充", TagConfig(Type.TEXT).apply {
+            text = "超级快充"
+            startGradientBackgroundColor = Color.parseColor("#ABDCFF")
+            endGradientBackgroundColor = Color.parseColor("#0396FF")
+            radius = 5.dp.toFloat()
+        }).replaceTag(40,48, TagConfig(Type.TEXT).apply {
+            text = "移动5G"
+            startGradientBackgroundColor = Color.parseColor("#FEC163")
+            endGradientBackgroundColor = Color.parseColor("#DE4313")
+            marginLeft = 20.dp
+        }).replaceTag("荣耀", LayoutInflater.from(this).inflate(R.layout.custom_tag_view,null))
     }
 
     /**
@@ -383,6 +400,20 @@ class MainActivity : AppCompatActivity() {
             width = 40.dp
             height = 50.dp
         }
+    }
+
+    /**
+     * 5.在XML中使用
+     */
+    private fun xmlStyle() {
+        //5.5 只使用View，标签在代码设置
+        xml_tv5.addTag(TagConfig(Type.TEXT).apply {
+            text = "新品"
+            startGradientBackgroundColor = Color.parseColor("#CE9FFC")
+            endGradientBackgroundColor = Color.parseColor("#7367F0")
+            radius = 10.dp.toFloat()
+        })
+
     }
 
     /**

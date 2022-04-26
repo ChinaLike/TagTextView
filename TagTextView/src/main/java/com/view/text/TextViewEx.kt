@@ -7,6 +7,7 @@ import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.nfc.Tag
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -49,6 +50,129 @@ fun TextView.addTag(config: TagConfig): TextView = apply {
         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
     )
     text = builder
+}
+
+/**
+ * 替换标签
+ * 1.[config]中设置position无效
+ * @param [tagText] 需要替换的文本
+ * @param [config] 标签配置
+ * @param [isFirst] 是否匹配第一个
+ */
+@JvmOverloads
+fun TextView.replaceTag(tagText: String, config: TagConfig, isFirst: Boolean = true): TextView =
+    apply {
+        verifyText(this)
+        val startIndex = if (isFirst) text.indexOf(tagText) else text.lastIndexOf(tagText)
+        if (startIndex == -1) {
+            return this
+        }
+        config.position = startIndex
+        val builder = createSpannableStringBuilder(this, config.position)
+        val imageSpan = createSpan(this, config)
+        builder.setSpan(
+            imageSpan,
+            startIndex,
+            startIndex + tagText.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        text = builder
+    }
+
+/**
+ * 替换标签
+ * @param [tagText] 需要替换的文本
+ * @param [view] 自定义标签
+ * @param [isFirst] 是否匹配第一个
+ * @param [align] 标签对齐方式
+ * @param [marginLeft] 标签距离左侧距离
+ * @param [marginRight] 标签距离右侧距离
+ */
+@JvmOverloads
+fun TextView.replaceTag(
+    tagText: String,
+    view: View,
+    isFirst: Boolean = true,
+    align: Align = Align.CENTER,
+    marginLeft: Int = 0,
+    marginRight: Int = 0
+): TextView = apply {
+    verifyText(this)
+    val startIndex = if (isFirst) text.indexOf(tagText) else text.lastIndexOf(tagText)
+    if (startIndex == -1) {
+        return this
+    }
+    val builder = createSpannableStringBuilder(this, startIndex)
+    val imageSpan = CenterImageSpan(createDrawable(view)).apply {
+        setAlign(align)
+        setMarginHorizontal(marginLeft, marginRight)
+    }
+    builder.setSpan(
+        imageSpan,
+        startIndex,
+        startIndex + tagText.length,
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+    text = builder
+}
+
+/**
+ * 替换标签
+ * 1.[config]中设置position无效
+ * @param [startIndex] 开始下标
+ * @param [endIndex] 结束下标
+ * @param [config] 标签配置
+ */
+@JvmOverloads
+fun TextView.replaceTag(startIndex: Int, endIndex: Int, config: TagConfig): TextView = apply {
+    verifyText(this)
+    if (verifyPosition(startIndex, endIndex)) {
+        config.position = startIndex
+        val builder = createSpannableStringBuilder(this, config.position)
+        val imageSpan = createSpan(this, config)
+        builder.setSpan(
+            imageSpan,
+            startIndex,
+            endIndex,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        text = builder
+    }
+}
+
+/**
+ * 替换标签
+ * @param [startIndex] 开始位置
+ * @param [endIndex] 结束位置
+ * @param [view] 自定义标签
+ * @param [align] 标签对齐方式
+ * @param [marginLeft] 标签距离左侧距离
+ * @param [marginRight] 标签距离右侧距离
+ */
+@JvmOverloads
+fun TextView.replaceTag(
+    startIndex: Int,
+    endIndex: Int,
+    view: View,
+    align: Align = Align.CENTER,
+    marginLeft: Int = 0,
+    marginRight: Int = 0
+): TextView = apply {
+    verifyText(this)
+    if (verifyPosition(startIndex, endIndex)) {
+        val builder = createSpannableStringBuilder(this, startIndex)
+        val imageSpan = CenterImageSpan(createDrawable(view)).apply {
+            setAlign(align)
+            setMarginHorizontal(marginLeft, marginRight)
+        }
+        builder.setSpan(
+            imageSpan,
+            startIndex,
+            endIndex,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        text = builder
+    }
 }
 
 /**
@@ -149,12 +273,11 @@ fun TextView.setUnderline(underlineText: String? = null, isFirst: Boolean = true
  * @param [endIndex] 指定结束位置
  */
 fun TextView.setUnderline(startIndex: Int, endIndex: Int): TextView = apply {
-    if (startIndex < 0 || endIndex <= 0 || endIndex < startIndex) {
-        return this
+    if (verifyPosition(startIndex, endIndex)) {
+        val builder = SpannableStringBuilder(text)
+        builder.setSpan(UnderlineSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        text = builder
     }
-    val builder = SpannableStringBuilder(text)
-    builder.setSpan(UnderlineSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-    text = builder
 }
 
 /**
@@ -186,12 +309,11 @@ fun TextView.setDeleteLine(deleteLineText: String? = null, isFirst: Boolean = tr
  * @param [endIndex] 指定结束位置
  */
 fun TextView.setDeleteLine(startIndex: Int, endIndex: Int): TextView = apply {
-    if (startIndex < 0 || endIndex <= 0 || endIndex < startIndex) {
-        return this
+    if (verifyPosition(startIndex, endIndex)) {
+        val builder = SpannableStringBuilder(text)
+        builder.setSpan(StrikethroughSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        text = builder
     }
-    val builder = SpannableStringBuilder(text)
-    builder.setSpan(StrikethroughSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-    text = builder
 }
 
 /**
@@ -241,15 +363,14 @@ fun TextView.setSpecificTextColor(
     isUnderlineText: Boolean = false,
     click: () -> Unit = {}
 ): TextView = apply {
-    if (startIndex < 0 || endIndex <= 0 || endIndex < startIndex) {
-        return this
+    if (verifyPosition(startIndex, endIndex)) {
+        val builder = SpannableStringBuilder(text)
+        movementMethod = ClickableMovementMethod.getInstance()
+        builder.setSpan(ClickableSpan(color, isUnderlineText).apply {
+            onClick = click
+        }, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        text = builder
     }
-    val builder = SpannableStringBuilder(text)
-    movementMethod = ClickableMovementMethod.getInstance()
-    builder.setSpan(ClickableSpan(color, isUnderlineText).apply {
-        onClick = click
-    }, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-    text = builder
 }
 
 /**
@@ -271,26 +392,26 @@ fun TextView.setURLSpan(
     isUnderlineText: Boolean = false
 ): TextView = apply {
     val textLength = text.length
-    if (textLength == 0 || startIndex < 0 || endIndex <= 0 || endIndex < startIndex || startIndex >= textLength || endIndex > textLength) {
-        return this
+    if (textLength > 0 && verifyPosition(startIndex, endIndex)) {
+        val builder = SpannableStringBuilder(text)
+        movementMethod = ClickableMovementMethod.getInstance()
+        val url = when (type) {
+            LinkType.EMAIL -> "mailto:"
+            LinkType.GEO -> "geo:"
+            LinkType.HTTP -> ""
+            LinkType.MMS -> "mms:"
+            LinkType.SMS -> "sms:"
+            LinkType.TEL -> "tel:"
+        }
+        builder.setSpan(
+            URLSpan("$url${linkText}", color, isUnderlineText),
+            startIndex,
+            endIndex,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        text = builder
     }
-    val builder = SpannableStringBuilder(text)
-    movementMethod = ClickableMovementMethod.getInstance()
-    val url = when (type) {
-        LinkType.EMAIL -> "mailto:"
-        LinkType.GEO -> "geo:"
-        LinkType.HTTP -> ""
-        LinkType.MMS -> "mms:"
-        LinkType.SMS -> "sms:"
-        LinkType.TEL -> "tel:"
-    }
-    builder.setSpan(
-        URLSpan("$url${linkText}", color, isUnderlineText),
-        startIndex,
-        endIndex,
-        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-    )
-    text = builder
+
 }
 
 /**
@@ -315,17 +436,18 @@ private fun createSpannableStringBuilder(
  * @param [position] 用户设置插入的位置，这个值根据具体情况需要重新调整
  * @return 新的position
  */
-private fun insertPlaceholder(builder: SpannableStringBuilder, position: Int): Int {
+@JvmOverloads
+private fun insertPlaceholder(builder: SpannableStringBuilder, position: Int,tag:String = TAG): Int {
     val endIndex = builder.toString().length
     val spans = builder.getSpans(0, endIndex, ReplacementSpan::class.java)
     var newPosition = position
     spans.forEach {
         val startIndex = builder.getSpanStart(it)
         if (newPosition >= startIndex) {
-            newPosition += TAG.length
+            newPosition += tag.length
         }
     }
-    builder.insert(newPosition, TAG)
+    builder.insert(newPosition, tag)
     return newPosition
 }
 
@@ -430,6 +552,16 @@ private fun verifyText(textView: TextView) {
     if (TextUtils.isEmpty(textView.text)) {
         throw NullPointerException("请优先设置TextView的text")
     }
+}
+
+/**
+ * 校验位置
+ * @param [startIndex] 开始下标
+ * @param [endIndex] 结束下标
+ * @return true 合格
+ */
+private fun TextView.verifyPosition(startIndex: Int, endIndex: Int): Boolean {
+    return !(startIndex < 0 || endIndex <= startIndex || endIndex > text.length || startIndex >= text.length)
 }
 
 /**

@@ -9,6 +9,7 @@ SDK主要用于在TextView的指定位置添加文本、图片、图文、网络
 ## API特色
 
 + 支持在文本的任意位置添加各种不同标签
++ 支持指定位置、文本替换为指定标签
 + 支持网络标签
 + 支持Gif标签
 + 支持自定义布局文件
@@ -185,6 +186,66 @@ Java使用参考[JavaActivity](https://github.com/ChinaLike/TagTextView/blob/mai
     + 属性介绍
     
         block: 标签自定义参数
+        
+- replaceTag(tagText: String, config: TagConfig, isFirst: Boolean = true)
+
+    + 替换标签
+    
+    + 属性介绍
+    
+        tagText:需要替换的文本
+        
+        config:标签配置
+        
+        isFirst:是否匹配第一个
+    
+- replaceTag(tagText: String, view: View, isFirst: Boolean = true, align: Align = Align.CENTER, marginLeft: Int = 0, marginRight: Int = 0)
+
+    + 替换标签
+    
+    + 属性介绍
+    
+         tagText:需要替换的文本
+         
+         view:自定义标签
+         
+         isFirst:是否匹配第一个
+         
+         align:标签对齐方式
+         
+         marginLeft:标签距离左侧距离
+         
+         marginRight:标签距离右侧距离
+  
+- replaceTag(startIndex: Int, endIndex: Int, config: TagConfig)
+
+    + 替换标签
+    
+    + 属性介绍
+    
+         startIndex:开始下标
+         
+         endIndex:结束下标
+         
+         config:标签配置
+
+- replaceTag( startIndex: Int, endIndex: Int, view: View, align: Align = Align.CENTER, marginLeft: Int = 0, marginRight: Int = 0 )
+
+    + 替换标签
+    
+    + 属性介绍
+    
+         startIndex:开始位置
+         
+         endIndex:结束位置
+         
+         view:自定义标签
+         
+         align:标签对齐方式
+         
+         marginLeft:标签距离左侧距离
+         
+         marginRight:标签距离右侧距离
 
 -  setUnderline(underlineText: String? = null, isFirst: Boolean = true) 
 
