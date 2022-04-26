@@ -10,37 +10,45 @@ SDK主要用于在TextView的指定位置添加文本、图片、图文、网络
 
 + 支持在文本的任意位置添加各种不同标签
 + 支持网络标签
++ 支持Gif标签
 + 支持自定义布局文件
 + 支持指定文本点击响应
 + 支持下划线
 + 支持删除线
 + 支持超链
++ 支持Kotlin、Java
 
 ## 如何使用
 
 > Step 1.先在 build.gradle(Project:XXX) 的 repositories 添加:
-
+    
+    ```
 	allprojects {
 		repositories {
 			...
 			maven { url "https://jitpack.io" }
 		}
 	}
+	```
+
 > Step 2. 然后在 build.gradle(Module:XXX) 的 dependencies 添加:
 
+    ```
 	dependencies {
            implementation 'com.github.ChinaLike:TagTextView:0.1.0'
            // 如果支持网络图片标签，需要添加Glide库
            //implementation "com.github.bumptech.glide:glide:4.11.0"
 	}
-	
+	```
+
 > Step 3. 如果支持网络标签，需要在`AndroidManifest.xml`中添加:
 
     ```
         <uses-permission android:name="android.permission.INTERNET" />
     ```
-	
-详细使用请参照[Wiki](https://github.com/ChinaLike/TagTextView/wiki/TagTextView%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3#%E7%A4%BA%E4%BE%8B%E4%BB%8B%E7%BB%8D)
+详细用法可参考[Demo](https://github.com/ChinaLike/TagTextView/tree/main/app/src/main/java/com/like/tag)	
+Kotlin使用参考[MainActivity](https://github.com/ChinaLike/TagTextView/blob/main/app/src/main/java/com/like/tag/MainActivity.kt)文件
+Java使用参考[JavaActivity](https://github.com/ChinaLike/TagTextView/blob/main/app/src/main/java/com/like/tag/JavaActivity.java)文件
 
 ## API说明
 
