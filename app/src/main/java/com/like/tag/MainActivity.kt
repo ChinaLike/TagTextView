@@ -429,11 +429,6 @@ class MainActivity : AppCompatActivity() {
         ex_tv1.setUnderline(27,30){
             Toast.makeText(this, "27至30文字下标被点击", Toast.LENGTH_SHORT).show()
         }
-        ex_tv1.setUnderline(31,39,object :OnTagClickListener{
-            override fun onClick() {
-                Toast.makeText(this@MainActivity, "31至39文字下标被点击", Toast.LENGTH_SHORT).show()
-            }
-        })
 
         //设置删除线
         ex_tv2.setDeleteLine("荣耀V40轻奢版")//指定字符串，且默认匹配第一个
@@ -446,12 +441,6 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "双卡双待手机", Toast.LENGTH_SHORT).show()
         }
 
-        ex_tv2.setDeleteLine(40,44,Color.GREEN,object :OnTagClickListener{
-            override fun onClick() {
-                Toast.makeText(this@MainActivity, "40至44文字下标被点击", Toast.LENGTH_SHORT).show()
-            }
-        })
-
         //指定文本颜色
         ex_tv3.setSpecificTextColor(Color.parseColor("#FF0040"), "荣耀V40轻奢版")//指定字符串，且默认匹配第一个
         ex_tv3.setSpecificTextColor(Color.parseColor("#3813C2"), "5G", false)//指定字符串，且默认匹配最后一个
@@ -461,17 +450,6 @@ class MainActivity : AppCompatActivity() {
         ex_tv3.setSpecificTextColor(Color.parseColor("#4C83FF"), 12, 16) {
             Toast.makeText(this, "超级快充被点击", Toast.LENGTH_SHORT).show()
         }//指定下标，可响应点击事件
-        ex_tv3.setSpecificTextColor(
-            Color.parseColor("#C346C2"),
-            "双卡双待",
-            true,
-            true,
-            object : OnTagClickListener {
-                override fun onClick() {
-                    Toast.makeText(this@MainActivity, "双卡双待被点击", Toast.LENGTH_SHORT).show()
-                }
-            }) //指定文本，并设置下划线，可响应点击事件
-
 
         //设置超链
         ex_tv4.text = "电话链接-邮箱链接-网络链接-短信链接-彩信链接-地图链接"
