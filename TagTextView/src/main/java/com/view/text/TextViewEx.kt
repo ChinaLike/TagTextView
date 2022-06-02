@@ -4,11 +4,9 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
-import android.nfc.Tag
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -273,25 +271,6 @@ fun TextView.setUnderline(
         setUnderline(startIndex, endIndex, click)
     }
 
-
-/**
- * 设置下划线
- * @param [underlineText] 需要添加下划线的文本,不传或者为空就全部文本添加下划线
- * @param [isFirst] 是否匹配第一个，true是，false匹配最后一个
- * @param [onTagClickListener] 点击事件
- */
-@JvmOverloads
-fun TextView.setUnderline(
-    underlineText: String? = null,
-    isFirst: Boolean = true,
-    onTagClickListener: OnTagClickListener?
-): TextView =
-    apply {
-        setUnderline(underlineText, isFirst) {
-            onTagClickListener?.onClick()
-        }
-    }
-
 /**
  * 设置下划线
  * @param [startIndex] 指定开始位置
@@ -311,24 +290,6 @@ fun TextView.setUnderline(startIndex: Int, endIndex: Int, click: () -> Unit = {}
             }, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
             text = builder
-        }
-    }
-
-/**
- * 设置下划线
- * @param [startIndex] 指定开始位置
- * @param [endIndex] 指定结束位置
- * @param [onTagClickListener] 点击事件
- */
-@JvmOverloads
-fun TextView.setUnderline(
-    startIndex: Int,
-    endIndex: Int,
-    onTagClickListener: OnTagClickListener?
-): TextView =
-    apply {
-        setUnderline(startIndex, endIndex) {
-            onTagClickListener?.onClick()
         }
     }
 
@@ -364,26 +325,6 @@ fun TextView.setDeleteLine(
 
 /**
  * 设置文本删除线
- * @param [deleteLineText] 需要添加删除线的文本,不传或者为空就全部文本添加删除线
- * @param [isFirst] 是否匹配第一个，true是，false匹配最后一个
- * @param [color] 删除线文本颜色
- * @param [onTagClickListener] 点击事件
- */
-@JvmOverloads
-fun TextView.setDeleteLine(
-    deleteLineText: String? = null,
-    isFirst: Boolean = true,
-    @ColorInt color: Int? = null,
-    onTagClickListener: OnTagClickListener?
-): TextView =
-    apply {
-        setDeleteLine(deleteLineText, isFirst, color) {
-            onTagClickListener?.onClick()
-        }
-    }
-
-/**
- * 设置文本删除线
  * @param [startIndex] 指定开始位置
  * @param [endIndex] 指定结束位置
  * @param [color] 删除线文本颜色
@@ -406,25 +347,6 @@ fun TextView.setDeleteLine(
         }, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         text = builder
-    }
-}
-
-/**
- * 设置文本删除线
- * @param [startIndex] 指定开始位置
- * @param [endIndex] 指定结束位置
- * @param [color] 删除线文本颜色
- * @param [onTagClickListener] 点击事件
- */
-@JvmOverloads
-fun TextView.setDeleteLine(
-    startIndex: Int,
-    endIndex: Int,
-    @ColorInt color: Int? = null,
-    onTagClickListener: OnTagClickListener?
-): TextView = apply {
-    setDeleteLine(startIndex, endIndex, color) {
-        onTagClickListener?.onClick()
     }
 }
 
@@ -462,27 +384,6 @@ fun TextView.setSpecificTextColor(
 /**
  * 指定文字颜色
  * @param [color] 文字颜色
- * @param [specificText] 指定文字
- * @param [isFirst] 是否匹配第一个，true是，false匹配最后一个
- * @param [isUnderlineText] 是否添加下划线
- * @param [onTagClickListener] 点击事件
- */
-@JvmOverloads
-fun TextView.setSpecificTextColor(
-    @ColorInt color: Int,
-    specificText: String,
-    isFirst: Boolean =true,
-    isUnderlineText: Boolean = false,
-    onTagClickListener: OnTagClickListener?
-): TextView = apply {
-    setSpecificTextColor(color, specificText, isFirst, isUnderlineText) {
-        onTagClickListener?.onClick()
-    }
-}
-
-/**
- * 指定文字颜色
- * @param [color] 文字颜色
  * @param [startIndex] 开始下标
  * @param [endIndex] 结束下标
  * @param [isUnderlineText] 是否添加下划线
@@ -503,27 +404,6 @@ fun TextView.setSpecificTextColor(
             onClick = click
         }, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         text = builder
-    }
-}
-
-/**
- * 指定文字颜色
- * @param [color] 文字颜色
- * @param [startIndex] 开始下标
- * @param [endIndex] 结束下标
- * @param [isUnderlineText] 是否添加下划线
- * @param [onTagClickListener] 点击事件
- */
-@JvmOverloads
-fun TextView.setSpecificTextColor(
-    @ColorInt color: Int,
-    startIndex: Int,
-    endIndex: Int,
-    isUnderlineText: Boolean =false,
-    onTagClickListener: OnTagClickListener?
-): TextView = apply {
-    setSpecificTextColor(color, startIndex, endIndex, isUnderlineText) {
-        onTagClickListener?.onClick()
     }
 }
 
