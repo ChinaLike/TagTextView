@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatTextView
+import com.view.text.OnTagClickListener
 import com.view.text.R
 import com.view.text.config.*
 import com.view.text.addImageTag as addImageTagKx
@@ -251,39 +252,124 @@ open class TagTextView @JvmOverloads constructor(
      * 设置下划线
      * @param [underlineText] 需要添加下划线的文本,不传或者为空就全部文本添加下划线
      * @param [isFirst] 是否匹配第一个，true是，false匹配最后一个
+     * @param [click] 点击事件
      */
     @JvmOverloads
-    fun setUnderline(underlineText: String? = null, isFirst: Boolean = true): TagTextView = apply {
-        setUnderlineKx(underlineText, isFirst)
+    fun setUnderline(
+        underlineText: String? = null,
+        isFirst: Boolean = true,
+        click: () -> Unit = {}
+    ): TagTextView = apply {
+        setUnderlineKx(underlineText, isFirst, click)
+    }
+
+    /**
+     * 设置下划线
+     * @param [underlineText] 需要添加下划线的文本,不传或者为空就全部文本添加下划线
+     * @param [isFirst] 是否匹配第一个，true是，false匹配最后一个
+     * @param [onTagClickListener] 点击事件
+     */
+    @JvmOverloads
+    fun setUnderline(
+        underlineText: String? = null,
+        isFirst: Boolean = true,
+        onTagClickListener: OnTagClickListener?
+    ): TagTextView = apply {
+        setUnderlineKx(underlineText, isFirst, onTagClickListener)
     }
 
     /**
      * 设置下划线
      * @param [startIndex] 指定开始位置
      * @param [endIndex] 指定结束位置
+     * @param [click] 点击事件
      */
-    fun setUnderline(startIndex: Int, endIndex: Int): TagTextView = apply {
-        setUnderlineKx(startIndex, endIndex)
+    @JvmOverloads
+    fun setUnderline(startIndex: Int, endIndex: Int, click: () -> Unit = {}): TagTextView = apply {
+        setUnderlineKx(startIndex, endIndex, click)
+    }
+
+    /**
+     * 设置下划线
+     * @param [startIndex] 指定开始位置
+     * @param [endIndex] 指定结束位置
+     * @param [onTagClickListener] 点击事件
+     */
+    @JvmOverloads
+    fun setUnderline(
+        startIndex: Int,
+        endIndex: Int,
+        onTagClickListener: OnTagClickListener?
+    ): TagTextView = apply {
+        setUnderlineKx(startIndex, endIndex, onTagClickListener)
     }
 
     /**
      * 设置文本删除线
      * @param [deleteLineText] 需要添加删除线的文本,不传或者为空就全部文本添加删除线
      * @param [isFirst] 是否匹配第一个，true是，false匹配最后一个
+     * @param [color] 删除线文本颜色
+     * @param [click] 点击事件
      */
     @JvmOverloads
-    fun setDeleteLine(deleteLineText: String? = null, isFirst: Boolean = true): TagTextView =
+    fun setDeleteLine(
+        deleteLineText: String? = null,
+        isFirst: Boolean = true,
+        @ColorInt color: Int? = null,
+        click: () -> Unit = {}
+    ): TagTextView =
         apply {
-            setDeleteLineKx(deleteLineText, isFirst)
+            setDeleteLineKx(deleteLineText, isFirst, color, click)
+        }
+
+    /**
+     * 设置文本删除线
+     * @param [deleteLineText] 需要添加删除线的文本,不传或者为空就全部文本添加删除线
+     * @param [isFirst] 是否匹配第一个，true是，false匹配最后一个
+     * @param [color] 删除线文本颜色
+     * @param [onTagClickListener] 点击事件
+     */
+    @JvmOverloads
+    fun setDeleteLine(
+        deleteLineText: String? = null,
+        isFirst: Boolean = true,
+        @ColorInt color: Int? = null,
+        onTagClickListener: OnTagClickListener?
+    ): TagTextView =
+        apply {
+            setDeleteLineKx(deleteLineText, isFirst, color, onTagClickListener)
         }
 
     /**
      * 设置文本删除线
      * @param [startIndex] 指定开始位置
      * @param [endIndex] 指定结束位置
+     * @param [color] 删除线文本颜色
+     * @param [click] 点击事件
      */
-    fun setDeleteLine(startIndex: Int, endIndex: Int): TagTextView = apply {
-        setDeleteLineKx(startIndex, endIndex)
+    fun setDeleteLine(
+        startIndex: Int,
+        endIndex: Int,
+        @ColorInt color: Int? = null,
+        click: () -> Unit = {}
+    ): TagTextView = apply {
+        setDeleteLineKx(startIndex, endIndex, color, click)
+    }
+
+    /**
+     * 设置文本删除线
+     * @param [startIndex] 指定开始位置
+     * @param [endIndex] 指定结束位置
+     * @param [color] 删除线文本颜色
+     * @param [onTagClickListener] 点击事件
+     */
+    fun setDeleteLine(
+        startIndex: Int,
+        endIndex: Int,
+        @ColorInt color: Int? = null,
+        onTagClickListener: OnTagClickListener?
+    ): TagTextView = apply {
+        setDeleteLineKx(startIndex, endIndex, color, onTagClickListener)
     }
 
     /**
@@ -308,6 +394,24 @@ open class TagTextView @JvmOverloads constructor(
     /**
      * 指定文字颜色
      * @param [color] 文字颜色
+     * @param [specificText] 指定文字
+     * @param [isFirst] 是否匹配第一个，true是，false匹配最后一个
+     * @param [isUnderlineText] 是否添加下划线
+     * @param [onTagClickListener] 点击事件
+     */
+    fun setSpecificTextColor(
+        @ColorInt color: Int,
+        specificText: String,
+        isFirst: Boolean,
+        isUnderlineText: Boolean,
+        onTagClickListener: OnTagClickListener?
+    ): TagTextView = apply {
+        setSpecificTextColorKx(color, specificText, isFirst, isUnderlineText, onTagClickListener)
+    }
+
+    /**
+     * 指定文字颜色
+     * @param [color] 文字颜色
      * @param [startIndex] 开始下标
      * @param [endIndex] 结束下标
      * @param [isUnderlineText] 是否添加下划线
@@ -322,6 +426,24 @@ open class TagTextView @JvmOverloads constructor(
         click: () -> Unit = {}
     ): TagTextView = apply {
         setSpecificTextColorKx(color, startIndex, endIndex, isUnderlineText, click)
+    }
+
+    /**
+     * 指定文字颜色
+     * @param [color] 文字颜色
+     * @param [startIndex] 开始下标
+     * @param [endIndex] 结束下标
+     * @param [isUnderlineText] 是否添加下划线
+     * @param [onTagClickListener] 点击事件
+     */
+    fun setSpecificTextColor(
+        @ColorInt color: Int,
+        startIndex: Int,
+        endIndex: Int,
+        isUnderlineText: Boolean,
+        onTagClickListener: OnTagClickListener?
+    ): TagTextView = apply {
+        setSpecificTextColorKx(color, startIndex, endIndex, isUnderlineText, onTagClickListener)
     }
 
     /**

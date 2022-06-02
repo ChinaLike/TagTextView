@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
@@ -248,9 +249,14 @@ fun TextView.addTag(
  * 设置下划线
  * @param [underlineText] 需要添加下划线的文本,不传或者为空就全部文本添加下划线
  * @param [isFirst] 是否匹配第一个，true是，false匹配最后一个
+ * @param [click] 点击事件
  */
 @JvmOverloads
-fun TextView.setUnderline(underlineText: String? = null, isFirst: Boolean = true): TextView =
+fun TextView.setUnderline(
+    underlineText: String? = null,
+    isFirst: Boolean = true,
+    click: () -> Unit = {}
+): TextView =
     apply {
         var startIndex: Int = 0
         var endIndex: Int = 0
@@ -264,29 +270,82 @@ fun TextView.setUnderline(underlineText: String? = null, isFirst: Boolean = true
             }
             endIndex = startIndex + underlineText.length
         }
-        setUnderline(startIndex, endIndex)
+        setUnderline(startIndex, endIndex, click)
+    }
+
+
+/**
+ * 设置下划线
+ * @param [underlineText] 需要添加下划线的文本,不传或者为空就全部文本添加下划线
+ * @param [isFirst] 是否匹配第一个，true是，false匹配最后一个
+ * @param [onTagClickListener] 点击事件
+ */
+@JvmOverloads
+fun TextView.setUnderline(
+    underlineText: String? = null,
+    isFirst: Boolean = true,
+    onTagClickListener: OnTagClickListener?
+): TextView =
+    apply {
+        setUnderline(underlineText, isFirst) {
+            onTagClickListener?.onClick()
+        }
     }
 
 /**
  * 设置下划线
  * @param [startIndex] 指定开始位置
  * @param [endIndex] 指定结束位置
+ * @param [click] 点击事件
  */
-fun TextView.setUnderline(startIndex: Int, endIndex: Int): TextView = apply {
-    if (verifyPosition(startIndex, endIndex)) {
-        val builder = SpannableStringBuilder(text)
-        builder.setSpan(UnderlineSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        text = builder
+@JvmOverloads
+fun TextView.setUnderline(startIndex: Int, endIndex: Int, click: () -> Unit = {}): TextView =
+    apply {
+        if (verifyPosition(startIndex, endIndex)) {
+            val builder = SpannableStringBuilder(text)
+            builder.setSpan(UnderlineSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+            movementMethod = ClickableMovementMethod.getInstance()
+            builder.setSpan(ClickableSpan(currentTextColor, true).apply {
+                onClick = click
+            }, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+            text = builder
+        }
     }
-}
+
+/**
+ * 设置下划线
+ * @param [startIndex] 指定开始位置
+ * @param [endIndex] 指定结束位置
+ * @param [onTagClickListener] 点击事件
+ */
+@JvmOverloads
+fun TextView.setUnderline(
+    startIndex: Int,
+    endIndex: Int,
+    onTagClickListener: OnTagClickListener?
+): TextView =
+    apply {
+        setUnderline(startIndex, endIndex) {
+            onTagClickListener?.onClick()
+        }
+    }
 
 /**
  * 设置文本删除线
  * @param [deleteLineText] 需要添加删除线的文本,不传或者为空就全部文本添加删除线
  * @param [isFirst] 是否匹配第一个，true是，false匹配最后一个
+ * @param [color] 删除线文本颜色
+ * @param [click] 点击事件
  */
 @JvmOverloads
-fun TextView.setDeleteLine(deleteLineText: String? = null, isFirst: Boolean = true): TextView =
+fun TextView.setDeleteLine(
+    deleteLineText: String? = null,
+    isFirst: Boolean = true,
+    @ColorInt color: Int? = null,
+    click: () -> Unit = {}
+): TextView =
     apply {
         var startIndex: Int = 0
         var endIndex: Int = 0
@@ -300,19 +359,72 @@ fun TextView.setDeleteLine(deleteLineText: String? = null, isFirst: Boolean = tr
             }
             endIndex = startIndex + deleteLineText.length
         }
-        setDeleteLine(startIndex, endIndex)
+        setDeleteLine(startIndex, endIndex, color, click)
+    }
+
+/**
+ * 设置文本删除线
+ * @param [deleteLineText] 需要添加删除线的文本,不传或者为空就全部文本添加删除线
+ * @param [isFirst] 是否匹配第一个，true是，false匹配最后一个
+ * @param [color] 删除线文本颜色
+ * @param [onTagClickListener] 点击事件
+ */
+@JvmOverloads
+fun TextView.setDeleteLine(
+    deleteLineText: String? = null,
+    isFirst: Boolean = true,
+    @ColorInt color: Int? = null,
+    onTagClickListener: OnTagClickListener?
+): TextView =
+    apply {
+        setDeleteLine(deleteLineText, isFirst, color) {
+            onTagClickListener?.onClick()
+        }
     }
 
 /**
  * 设置文本删除线
  * @param [startIndex] 指定开始位置
  * @param [endIndex] 指定结束位置
+ * @param [color] 删除线文本颜色
+ * @param [click] 点击事件
  */
-fun TextView.setDeleteLine(startIndex: Int, endIndex: Int): TextView = apply {
+@JvmOverloads
+fun TextView.setDeleteLine(
+    startIndex: Int,
+    endIndex: Int,
+    @ColorInt color: Int? = null,
+    click: () -> Unit = {}
+): TextView = apply {
     if (verifyPosition(startIndex, endIndex)) {
         val builder = SpannableStringBuilder(text)
         builder.setSpan(StrikethroughSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        movementMethod = ClickableMovementMethod.getInstance()
+        builder.setSpan(ClickableSpan(color ?: currentTextColor, false).apply {
+            onClick = click
+        }, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
         text = builder
+    }
+}
+
+/**
+ * 设置文本删除线
+ * @param [startIndex] 指定开始位置
+ * @param [endIndex] 指定结束位置
+ * @param [color] 删除线文本颜色
+ * @param [onTagClickListener] 点击事件
+ */
+@JvmOverloads
+fun TextView.setDeleteLine(
+    startIndex: Int,
+    endIndex: Int,
+    @ColorInt color: Int? = null,
+    onTagClickListener: OnTagClickListener?
+): TextView = apply {
+    setDeleteLine(startIndex, endIndex, color) {
+        onTagClickListener?.onClick()
     }
 }
 
@@ -350,6 +462,27 @@ fun TextView.setSpecificTextColor(
 /**
  * 指定文字颜色
  * @param [color] 文字颜色
+ * @param [specificText] 指定文字
+ * @param [isFirst] 是否匹配第一个，true是，false匹配最后一个
+ * @param [isUnderlineText] 是否添加下划线
+ * @param [onTagClickListener] 点击事件
+ */
+@JvmOverloads
+fun TextView.setSpecificTextColor(
+    @ColorInt color: Int,
+    specificText: String,
+    isFirst: Boolean =true,
+    isUnderlineText: Boolean = false,
+    onTagClickListener: OnTagClickListener?
+): TextView = apply {
+    setSpecificTextColor(color, specificText, isFirst, isUnderlineText) {
+        onTagClickListener?.onClick()
+    }
+}
+
+/**
+ * 指定文字颜色
+ * @param [color] 文字颜色
  * @param [startIndex] 开始下标
  * @param [endIndex] 结束下标
  * @param [isUnderlineText] 是否添加下划线
@@ -370,6 +503,27 @@ fun TextView.setSpecificTextColor(
             onClick = click
         }, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         text = builder
+    }
+}
+
+/**
+ * 指定文字颜色
+ * @param [color] 文字颜色
+ * @param [startIndex] 开始下标
+ * @param [endIndex] 结束下标
+ * @param [isUnderlineText] 是否添加下划线
+ * @param [onTagClickListener] 点击事件
+ */
+@JvmOverloads
+fun TextView.setSpecificTextColor(
+    @ColorInt color: Int,
+    startIndex: Int,
+    endIndex: Int,
+    isUnderlineText: Boolean =false,
+    onTagClickListener: OnTagClickListener?
+): TextView = apply {
+    setSpecificTextColor(color, startIndex, endIndex, isUnderlineText) {
+        onTagClickListener?.onClick()
     }
 }
 
@@ -437,7 +591,11 @@ private fun createSpannableStringBuilder(
  * @return 新的position
  */
 @JvmOverloads
-private fun insertPlaceholder(builder: SpannableStringBuilder, position: Int,tag:String = TAG): Int {
+private fun insertPlaceholder(
+    builder: SpannableStringBuilder,
+    position: Int,
+    tag: String = TAG
+): Int {
     val endIndex = builder.toString().length
     val spans = builder.getSpans(0, endIndex, ReplacementSpan::class.java)
     var newPosition = position

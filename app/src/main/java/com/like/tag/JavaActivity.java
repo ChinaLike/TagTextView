@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.core.util.DensityUtilKt;
+import com.view.text.OnTagClickListener;
 import com.view.text.TextViewExKt;
 import com.view.text.config.Align;
 import com.view.text.config.LinkType;
@@ -412,13 +413,36 @@ public class JavaActivity extends AppCompatActivity {
         AppCompatTextView ex_tv1 = findViewById(R.id.ex_tv1);
         TextViewExKt.setUnderline(ex_tv1, "荣耀V40轻奢版");//指定字符串，且默认匹配第一个
         TextViewExKt.setUnderline(ex_tv1, "5G", false);//指定字符串，且默认匹配最后一个
-        TextViewExKt.setUnderline(ex_tv1, 17, 26);
+        TextViewExKt.setUnderline(ex_tv1, 17, 26,()->{
+            Toast.makeText(this, "17至26下标文字被点击", Toast.LENGTH_SHORT).show();
+        });
+        TextViewExKt.setUnderline(ex_tv1, 27,30,()->{
+            Toast.makeText(this, "27至30文字下标被点击", Toast.LENGTH_SHORT).show();
+        });
+        TextViewExKt.setUnderline(ex_tv1, 31, 39, new OnTagClickListener() {
+            @Override
+            public void onClick() {
+                Toast.makeText(JavaActivity.this, "31至39文字下标被点击", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         //设置删除线
         AppCompatTextView ex_tv2 = findViewById(R.id.ex_tv2);
         TextViewExKt.setDeleteLine(ex_tv2, "荣耀V40轻奢版");//指定字符串，且默认匹配第一个
         TextViewExKt.setDeleteLine(ex_tv2, "5G", false);//指定字符串，且默认匹配最后一个
         TextViewExKt.setDeleteLine(ex_tv2, 17, 26);
+        TextViewExKt.setDeleteLine(ex_tv2, 27, 36,Color.RED,()->{
+            Toast.makeText(this, "27至36文字下标被点击", Toast.LENGTH_SHORT).show();
+        });
+        TextViewExKt.setDeleteLine(ex_tv2, "双卡双待手机",false,Color.BLUE,()->{
+            Toast.makeText(this, "27至36文字下标被点击", Toast.LENGTH_SHORT).show();
+        });
+        TextViewExKt.setDeleteLine(ex_tv2, 40, 44, Color.GREEN, new OnTagClickListener() {
+            @Override
+            public void onClick() {
+                Toast.makeText(JavaActivity.this, "40至44文字下标被点击", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         //指定文本颜色
         AppCompatTextView ex_tv3 = findViewById(R.id.ex_tv3);
@@ -427,10 +451,6 @@ public class JavaActivity extends AppCompatActivity {
         });
         TextViewExKt.setSpecificTextColor(ex_tv3, Color.parseColor("#FF0040"), "荣耀V40轻奢版");//指定字符串，且默认匹配第一个
         TextViewExKt.setSpecificTextColor(ex_tv3, Color.parseColor("#3813C2"), "5G", false);//指定字符串，且默认匹配最后一个
-        TextViewExKt.setSpecificTextColor(ex_tv3, Color.parseColor("#C346C2"), "双卡双待", true, false, () -> {
-            Toast.makeText(this, "双卡双待被点击", Toast.LENGTH_SHORT).show();
-            return null;
-        });//指定文本，并设置下划线，可响应点击事件
         TextViewExKt.setSpecificTextColor(ex_tv3, Color.parseColor("#FFC600"), "移动联通电信", false, false, () -> {
             Toast.makeText(this, "移动联通电信被点击", Toast.LENGTH_SHORT).show();
             return null;
@@ -439,6 +459,13 @@ public class JavaActivity extends AppCompatActivity {
             Toast.makeText(this, "超级快充被点击", Toast.LENGTH_SHORT).show();
             return null;
         });//指定下标，可响应点击事件
+
+        TextViewExKt.setSpecificTextColor(ex_tv3, Color.parseColor("#C346C2"), "双卡双待", true, true, new OnTagClickListener() {
+            @Override
+            public void onClick() {
+                Toast.makeText(JavaActivity.this, "双卡双待被点击", Toast.LENGTH_SHORT).show();
+            }
+        });//指定文本，并设置下划线，可响应点击事件
 
         //设置超链
         AppCompatTextView ex_tv4 = findViewById(R.id.ex_tv4);
