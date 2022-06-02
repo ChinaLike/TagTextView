@@ -36,7 +36,7 @@ SDK主要用于在TextView的指定位置添加文本、图片、图文、网络
 
     ```
 	dependencies {
-           implementation 'com.github.ChinaLike:TagTextView:0.1.0'
+           implementation 'com.github.ChinaLike:TagTextView:参照顶部最新版本'
            // 如果支持网络图片标签，需要添加Glide库
            //implementation "com.github.bumptech.glide:glide:4.11.0"
 	}
