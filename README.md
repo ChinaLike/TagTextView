@@ -13,7 +13,7 @@ SDK主要用于在TextView的指定位置添加文本、图片、图文、网络
 + 支持网络标签
 + 支持Gif标签
 + 支持自定义布局文件
-+ 支持指定文本点击响应
++ 支持点击响应事件
 + 支持下划线
 + 支持删除线
 + 支持超链
@@ -77,7 +77,7 @@ Java使用参考[JavaActivity](https://github.com/ChinaLike/TagTextView/blob/mai
 | `tvt_text_color`                      | 文本字体颜色         | Color.WHITE      | `tvt_type`为text、textImage有效                                                                                               |
 | `tvt_width`                           | 标签宽度             |                  | `tvt_type`为text、textImage有效                                                                                               |
 | `tvt_height`                          | 标签高度             |                  | `tvt_type`为text、textImage有效                                                                                               |
-| `tvt_align`                           | 标签与文本对其方式   | Align.CENTER     | baseline-基线对其，center-中心对其，bottom-底部对其                                                                           |
+| `tvt_align`                           | 标签与文本对齐方式   | Align.CENTER     | baseline-基线对齐，center-中心对齐，bottom-底部对齐，top-顶部对齐                                                                           |
 | `tvt_text`                            | 标签文本             |                  | `tvt_type`为text、textImage有效                                                                                               |
 | `tvt_image_resource`                  | 标签图片             |                  | `tvt_type`为image、textImage有效                                                                                              |
 | `tvt_position`                        | 标签显示位置         | 0                | 默认在文本最前面                                                                                                              |
@@ -117,7 +117,7 @@ Java使用参考[JavaActivity](https://github.com/ChinaLike/TagTextView/blob/mai
 | imageAlignText               | 图片在文字的那一个方向   | Orientation.LEFT                          |                                                                    |
 | imageWidth                   | 图片的宽度               |                                           | 不设置图片自适应                                                   |
 | imageHeight                  | 图片的高度               |                                           | 不设置图片自适应                                                   |
-| align                        | 标签的对其方式           | Align.CENTER                              |                                                                    |
+| align                        | 标签的对齐方式           | Align.CENTER                              |                                                                    |
 | text                         | 标签文本                 |                                           | type为TYPE.TEXT、TYPE.TEXT_IMAGE有效                               |
 | imageResource                | 标签图片                 |                                           | type为TYPE.IMAGE、TYPE.TEXT_IMAGE有效                              |
 | imageDrawable                | 标签图片                 |                                           | type为TYPE.IMAGE、TYPE.TEXT_IMAGE有效                              |
@@ -130,15 +130,17 @@ Java使用参考[JavaActivity](https://github.com/ChinaLike/TagTextView/blob/mai
 
 ### 方法
 
-- addTag(config:TagConfig)
+- addTag(config:TagConfig, onClickListener: (() -> Unit)? = null)
     
     + 添加标签
     
     + 属性介绍
     
         config:标签的样式配置,参考[TagConfig](#TagConfig属性)
+
+        onClickListener:点击事件响应,默认：null
     
-- addTag(view:View,position:Int,align:Align,marginLeft:Int,marginRight:Int)
+- addTag(view:View,position = 0:Int,align:Align = Align.CENTER ,marginLeft:Int = 0,marginRight:Int = 0,onClickListener: (() -> Unit)? = null)
 
     + 添加自定义标签
     
@@ -148,11 +150,13 @@ Java使用参考[JavaActivity](https://github.com/ChinaLike/TagTextView/blob/mai
         
         position:显示位置，默认：0
         
-        align:对其方式，默认：Align.CENTER
+        align:对齐方式，默认：Align.CENTER
         
         marginLeft:标签距离左侧距离，默认：0
         
         marginRight:标签距离右侧距离，默认：0
+
+        onClickListener:点击事件，默认：null
     
 - addTextTag(block: TagConfig.() -> Unit)
 
@@ -161,6 +165,16 @@ Java使用参考[JavaActivity](https://github.com/ChinaLike/TagTextView/blob/mai
     + 属性介绍
     
         block:标签自定义参数
+
+- addTextTag(block: TagConfig.() -> Unit,onClickListener: () -> Unit)
+
+    + 添加文本标签
+
+    + 属性介绍
+
+      block:标签自定义参数
+
+      onClickListener:点击事件
     
 - addImageTag(block: TagConfig.() -> Unit)
 
@@ -168,7 +182,17 @@ Java使用参考[JavaActivity](https://github.com/ChinaLike/TagTextView/blob/mai
     
     + 属性介绍
     
+        block: 标签自定义参数 
+
+- addImageTag(block: TagConfig.() -> Unit,onClickListener: () -> Unit)
+
+    + 添加图标标签
+    
+    + 属性介绍
+    
         block: 标签自定义参数
+
+        onClickListener:点击事件
     
 - addTextImageTag(block: TagConfig.() -> Unit)
 
@@ -178,6 +202,16 @@ Java使用参考[JavaActivity](https://github.com/ChinaLike/TagTextView/blob/mai
     
         block: 标签自定义参数
 
+
+- addTextImageTag(block: TagConfig.() -> Unit,onClickListener: () -> Unit)
+
+    + 添加图文标签
+
+    + 属性介绍
+
+      block: 标签自定义参数
+
+      onClickListener:点击事件
     
 - addUrlTag(block: TagConfig.() -> Unit)
 
@@ -186,8 +220,18 @@ Java使用参考[JavaActivity](https://github.com/ChinaLike/TagTextView/blob/mai
     + 属性介绍
     
         block: 标签自定义参数
+
+- addUrlTag(block: TagConfig.() -> Unit,onClickListener: () -> Unit)
+
+    + 添加图文标签
+
+    + 属性介绍
+
+      block: 标签自定义参数
+
+      onClickListener:点击事件
         
-- replaceTag(tagText: String, config: TagConfig, isFirst: Boolean = true)
+- replaceTag(tagText: String, config: TagConfig, isFirst: Boolean = true, onClickListener: (() -> Unit)? = null)
 
     + 替换标签
     
@@ -197,9 +241,11 @@ Java使用参考[JavaActivity](https://github.com/ChinaLike/TagTextView/blob/mai
         
         config:标签配置
         
-        isFirst:是否匹配第一个
+        isFirst:是否匹配第一个,默认：true
+
+        onClickListener:点击事件,默认：null
     
-- replaceTag(tagText: String, view: View, isFirst: Boolean = true, align: Align = Align.CENTER, marginLeft: Int = 0, marginRight: Int = 0)
+- replaceTag(tagText: String, view: View, isFirst: Boolean = true, align: Align = Align.CENTER, marginLeft: Int = 0, marginRight: Int = 0, onClickListener: (() -> Unit)? = null)
 
     + 替换标签
     
@@ -209,15 +255,17 @@ Java使用参考[JavaActivity](https://github.com/ChinaLike/TagTextView/blob/mai
          
          view:自定义标签
          
-         isFirst:是否匹配第一个
+         isFirst:是否匹配第一个,默认：false
          
-         align:标签对齐方式
+         align:标签对齐方式,默认：Align.CENTER
          
-         marginLeft:标签距离左侧距离
+         marginLeft:标签距离左侧距离,默认：0
          
-         marginRight:标签距离右侧距离
+         marginRight:标签距离右侧距离,默认：0
+
+         onClickListener:点击事件,默认：null
   
-- replaceTag(startIndex: Int, endIndex: Int, config: TagConfig)
+- replaceTag(startIndex: Int, endIndex: Int, config: TagConfig, onClickListener: (() -> Unit)? = null)
 
     + 替换标签
     
@@ -229,7 +277,9 @@ Java使用参考[JavaActivity](https://github.com/ChinaLike/TagTextView/blob/mai
          
          config:标签配置
 
-- replaceTag( startIndex: Int, endIndex: Int, view: View, align: Align = Align.CENTER, marginLeft: Int = 0, marginRight: Int = 0 )
+         onClickListener:点击事件,默认：null
+
+- replaceTag( startIndex: Int, endIndex: Int, view: View, align: Align = Align.CENTER, marginLeft: Int = 0, marginRight: Int = 0 , onClickListener: (() -> Unit)? = null)
 
     + 替换标签
     
@@ -241,11 +291,13 @@ Java使用参考[JavaActivity](https://github.com/ChinaLike/TagTextView/blob/mai
          
          view:自定义标签
          
-         align:标签对齐方式
+         align:标签对齐方式,默认：Align.CENTER
          
-         marginLeft:标签距离左侧距离
+         marginLeft:标签距离左侧距离,默认：0
          
-         marginRight:标签距离右侧距离
+         marginRight:标签距离右侧距离,默认：0
+
+         onClickListener:点击事件,默认：null
 
 -  setUnderline(underlineText: String? = null, isFirst: Boolean = true) 
 

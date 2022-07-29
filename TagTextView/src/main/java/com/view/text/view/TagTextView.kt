@@ -129,6 +129,9 @@ open class TagTextView @JvmOverloads constructor(
                                 Align.BOTTOM.ordinal -> {
                                     align = Align.BOTTOM
                                 }
+                                Align.TOP.ordinal ->{
+                                    align = Align.TOP
+                                }
                             }
                         }
                         config?.align = align

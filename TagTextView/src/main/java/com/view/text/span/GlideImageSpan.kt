@@ -197,7 +197,7 @@ class GlideImageSpan(val view: TextView, val url: Any) : ReplacementSpan() {
     private var align: Align = Align.CENTER
 
     /**
-     * 设置图片垂直对其方式
+     * 设置图片垂直对齐方式
      * 图片默认垂直居中对齐文字: [Align.CENTER]
      */
     fun setAlign(align: Align) = apply {

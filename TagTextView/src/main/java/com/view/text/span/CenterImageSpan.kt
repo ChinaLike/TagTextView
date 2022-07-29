@@ -79,6 +79,10 @@ class CenterImageSpan : ImageSpan {
                     fm.ascent = -bounds.bottom + fm.descent
                     fm.descent = 0
                 }
+                Align.TOP ->{
+                    fm.ascent = -bounds.top +fm.ascent
+                    fm.descent = fm.ascent + imageHeight
+                }
             }
             fm.top = fm.ascent
             fm.bottom = fm.descent
@@ -100,10 +104,16 @@ class CenterImageSpan : ImageSpan {
         canvas.save()
         val bounds = drawable.bounds
         var transY = bottom - bounds.bottom
-        if (align == Align.BASELINE) {
-            transY -= paint.fontMetricsInt.descent
-        } else if (align == Align.CENTER) {
-            transY -= (bottom - top) / 2 - (bounds.bottom - bounds.top) / 2
+        when (align) {
+            Align.BASELINE -> {
+                transY -= paint.fontMetricsInt.descent
+            }
+            Align.CENTER -> {
+                transY -= (bottom - top) / 2 - (bounds.bottom - bounds.top) / 2
+            }
+            Align.TOP -> {
+                transY = top  - (paint.fontMetricsInt.top - paint.fontMetricsInt.ascent)
+            }
         }
         canvas.translate(x + marginLeft, transY.toFloat())
         drawable.draw(canvas)
@@ -113,7 +123,7 @@ class CenterImageSpan : ImageSpan {
     private var align: Align = Align.CENTER
 
     /**
-     * 设置图片垂直对其方式
+     * 设置图片垂直对齐方式
      * 图片默认垂直居中对齐文字: [Align.CENTER]
      */
     fun setAlign(align: Align) = apply {

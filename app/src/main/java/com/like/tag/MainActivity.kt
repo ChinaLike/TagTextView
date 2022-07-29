@@ -60,7 +60,9 @@ class MainActivity : AppCompatActivity() {
         val tv1Config = TagConfig(Type.TEXT).apply {
             text = "新品"
         }
-        text_tv1.addTag(tv1Config)
+        text_tv1.addTag(tv1Config) {
+            Toast.makeText(this, "新品图标被点击了", Toast.LENGTH_SHORT).show()
+        }
 
         //1.2 自定义背景颜色
         val tv2Config = TagConfig(Type.TEXT).apply {
@@ -148,7 +150,7 @@ class MainActivity : AppCompatActivity() {
         }
         text_tv9.addTag(tv9Config)
 
-        //1.10 对其方式,底部对其
+        //1.10 对齐方式,底部对齐
         val tv10Config = TagConfig(Type.TEXT).apply {
             text = "新品"
             align = Align.BOTTOM
@@ -171,10 +173,12 @@ class MainActivity : AppCompatActivity() {
         text_tv11.addTag(tv11Config)
 
         //1.12 添加多个文本标签
-        text_tv12.addTextTag {
+        text_tv12.addTextTag({
             text = "新品"
             startGradientBackgroundColor = Color.parseColor("#F0E68C")
             endGradientBackgroundColor = Color.parseColor("#FFD700")
+        }) {
+            Toast.makeText(this, "新品图标被点击了", Toast.LENGTH_SHORT).show()
         }
         text_tv12.addTextTag {
             text = "精品"
@@ -215,12 +219,28 @@ class MainActivity : AppCompatActivity() {
             startGradientBackgroundColor = Color.parseColor("#ABDCFF")
             endGradientBackgroundColor = Color.parseColor("#0396FF")
             radius = 5.dp.toFloat()
-        }).replaceTag(40,48, TagConfig(Type.TEXT).apply {
+        }, onClickListener = {
+            Toast.makeText(this, "超级快充被点击了", Toast.LENGTH_SHORT).show()
+        }).replaceTag(40, 48, TagConfig(Type.TEXT).apply {
             text = "移动5G"
             startGradientBackgroundColor = Color.parseColor("#FEC163")
             endGradientBackgroundColor = Color.parseColor("#DE4313")
             marginLeft = 20.dp
-        }).replaceTag("荣耀", LayoutInflater.from(this).inflate(R.layout.custom_tag_view,null))
+        }).replaceTag("荣耀", LayoutInflater.from(this).inflate(R.layout.custom_tag_view, null))
+
+        //1.15 对齐方式,底部对齐
+        val tv15Config = TagConfig(Type.TEXT).apply {
+            text = "有问题？"
+            align = Align.TOP
+            height = 50.dp
+            width = 70.dp
+            startGradientBackgroundColor = Color.parseColor("#FFA07A")
+            endGradientBackgroundColor = Color.parseColor("#FF0040")
+            position = text_tv15.text.toString().length
+        }
+        text_tv15.addTag(tv15Config) {
+            Toast.makeText(this, "这里是解释", Toast.LENGTH_LONG).show()
+        }
     }
 
     /**
@@ -231,7 +251,9 @@ class MainActivity : AppCompatActivity() {
         val tv1Config = TagConfig(Type.IMAGE).apply {
             imageResource = R.mipmap.icon_new1
         }
-        image_tv1.addTag(tv1Config)
+        image_tv1.addTag(tv1Config) {
+            Toast.makeText(this, "被点击了", Toast.LENGTH_SHORT).show()
+        }
 
         //2.2 自定义大小
         val tv2Config = TagConfig(Type.IMAGE).apply {
@@ -249,7 +271,7 @@ class MainActivity : AppCompatActivity() {
         }
         image_tv3.addTag(tv3Config)
 
-        //2.4 自定义对其方式,底部对其
+        //2.4 自定义对齐方式,底部对齐
         val tv4Config = TagConfig(Type.IMAGE).apply {
             imageResource = R.mipmap.icon_new1
             height = 50.dp
@@ -277,6 +299,16 @@ class MainActivity : AppCompatActivity() {
             imageResource = R.mipmap.icon_new3
             position = 11
         }
+
+        //图片在顶部
+        image_tv7.addImageTag({
+            align = Align.TOP
+            imageResource = R.mipmap.question
+            position = image_tv7.text.toString().length
+            marginLeft = 10.dp
+        }) {
+            Toast.makeText(this, "你要问什么问题呢", Toast.LENGTH_LONG).show()
+        }
     }
 
     /**
@@ -288,7 +320,9 @@ class MainActivity : AppCompatActivity() {
             imageResource = R.mipmap.icon_1
             text = "钻石会员"
         }
-        text_image_tv1.addTag(tv1Config)
+        text_image_tv1.addTag(tv1Config) {
+            Toast.makeText(this, "被点击了", Toast.LENGTH_SHORT).show()
+        }
 
         //3.2 设置图片在文字的那个方向
         val tv2Config = TagConfig(Type.TEXT_IMAGE).apply {
@@ -365,7 +399,9 @@ class MainActivity : AppCompatActivity() {
         val tv1Config = TagConfig(Type.URL).apply {
             imageUrl = "https://i.postimg.cc/DyjsBr3v/image.png"
         }
-        url_tv1.addTag(tv1Config)
+        url_tv1.addTag(tv1Config) {
+            Toast.makeText(this, "网络标签被点击了", Toast.LENGTH_SHORT).show()
+        }
 
         //4.2 自定义大小
         val tv2Config = TagConfig(Type.URL).apply {
@@ -423,10 +459,10 @@ class MainActivity : AppCompatActivity() {
         //设置下划线
         ex_tv1.setUnderline("荣耀V40轻奢版")//指定字符串，且默认匹配第一个
         ex_tv1.setUnderline("5G", false)//指定字符串，且默认匹配最后一个
-        ex_tv1.setUnderline(17,26){
+        ex_tv1.setUnderline(17, 26) {
             Toast.makeText(this, "17至26下标文字被点击", Toast.LENGTH_SHORT).show()
         }
-        ex_tv1.setUnderline(27,30){
+        ex_tv1.setUnderline(27, 30) {
             Toast.makeText(this, "27至30文字下标被点击", Toast.LENGTH_SHORT).show()
         }
 
@@ -434,10 +470,10 @@ class MainActivity : AppCompatActivity() {
         ex_tv2.setDeleteLine("荣耀V40轻奢版")//指定字符串，且默认匹配第一个
         ex_tv2.setDeleteLine("5G", false)//指定字符串，且默认匹配最后一个
         ex_tv2.setDeleteLine(17, 26)
-        ex_tv2.setDeleteLine(27, 36,Color.RED){
+        ex_tv2.setDeleteLine(27, 36, Color.RED) {
             Toast.makeText(this, "27至36文字下标被点击", Toast.LENGTH_SHORT).show()
         }
-        ex_tv2.setDeleteLine("双卡双待手机",false,Color.BLUE){
+        ex_tv2.setDeleteLine("双卡双待手机", false, Color.BLUE) {
             Toast.makeText(this, "双卡双待手机", Toast.LENGTH_SHORT).show()
         }
 

@@ -148,7 +148,7 @@ data class TagConfig(val type: Type) {
     var imageHeight: Int? = null
 
     /**
-     * 标签对其方式
+     * 标签对齐方式
      */
     var align: Align = Align.CENTER
 

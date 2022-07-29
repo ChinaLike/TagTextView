@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
@@ -11,6 +12,7 @@ import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.TextUtils
+import android.text.method.LinkMovementMethod
 import android.text.style.ReplacementSpan
 import android.text.style.StrikethroughSpan
 import android.text.style.UnderlineSpan
@@ -36,8 +38,10 @@ private const val TAG: String = "T"
 /**
  * 添加标签
  * @param [config] 标签配置
+ * @param [onClickListener] 监听事件
  */
-fun TextView.addTag(config: TagConfig): TextView = apply {
+@JvmOverloads
+fun TextView.addTag(config: TagConfig, onClickListener: (() -> Unit)? = null): TextView = apply {
     verifyText(this)
     val builder = createSpannableStringBuilder(this, config.position)
     val newPosition = insertPlaceholder(builder, config.position)
@@ -48,6 +52,7 @@ fun TextView.addTag(config: TagConfig): TextView = apply {
         newPosition + TAG.length,
         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
     )
+    setClickListener(builder, newPosition, newPosition + TAG.length, onClickListener)
     text = builder
 }
 
@@ -57,9 +62,15 @@ fun TextView.addTag(config: TagConfig): TextView = apply {
  * @param [tagText] 需要替换的文本
  * @param [config] 标签配置
  * @param [isFirst] 是否匹配第一个
+ * @param [onClickListener] 点击事件
  */
 @JvmOverloads
-fun TextView.replaceTag(tagText: String, config: TagConfig, isFirst: Boolean = true): TextView =
+fun TextView.replaceTag(
+    tagText: String,
+    config: TagConfig,
+    isFirst: Boolean = true,
+    onClickListener: (() -> Unit)? = null
+): TextView =
     apply {
         verifyText(this)
         val startIndex = if (isFirst) text.indexOf(tagText) else text.lastIndexOf(tagText)
@@ -75,6 +86,7 @@ fun TextView.replaceTag(tagText: String, config: TagConfig, isFirst: Boolean = t
             startIndex + tagText.length,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
+        setClickListener(builder, startIndex, startIndex + tagText.length, onClickListener)
         text = builder
     }
 
@@ -86,6 +98,7 @@ fun TextView.replaceTag(tagText: String, config: TagConfig, isFirst: Boolean = t
  * @param [align] 标签对齐方式
  * @param [marginLeft] 标签距离左侧距离
  * @param [marginRight] 标签距离右侧距离
+ * @param [onClickListener] 点击事件
  */
 @JvmOverloads
 fun TextView.replaceTag(
@@ -94,7 +107,8 @@ fun TextView.replaceTag(
     isFirst: Boolean = true,
     align: Align = Align.CENTER,
     marginLeft: Int = 0,
-    marginRight: Int = 0
+    marginRight: Int = 0,
+    onClickListener: (() -> Unit)? = null
 ): TextView = apply {
     verifyText(this)
     val startIndex = if (isFirst) text.indexOf(tagText) else text.lastIndexOf(tagText)
@@ -112,6 +126,7 @@ fun TextView.replaceTag(
         startIndex + tagText.length,
         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
     )
+    setClickListener(builder, startIndex, startIndex + tagText.length, onClickListener)
     text = builder
 }
 
@@ -121,9 +136,15 @@ fun TextView.replaceTag(
  * @param [startIndex] 开始下标
  * @param [endIndex] 结束下标
  * @param [config] 标签配置
+ * @param [onClickListener] 点击事件
  */
 @JvmOverloads
-fun TextView.replaceTag(startIndex: Int, endIndex: Int, config: TagConfig): TextView = apply {
+fun TextView.replaceTag(
+    startIndex: Int,
+    endIndex: Int,
+    config: TagConfig,
+    onClickListener: (() -> Unit)? = null
+): TextView = apply {
     verifyText(this)
     if (verifyPosition(startIndex, endIndex)) {
         config.position = startIndex
@@ -135,6 +156,7 @@ fun TextView.replaceTag(startIndex: Int, endIndex: Int, config: TagConfig): Text
             endIndex,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
+        setClickListener(builder, startIndex, endIndex, onClickListener)
         text = builder
     }
 }
@@ -147,6 +169,7 @@ fun TextView.replaceTag(startIndex: Int, endIndex: Int, config: TagConfig): Text
  * @param [align] 标签对齐方式
  * @param [marginLeft] 标签距离左侧距离
  * @param [marginRight] 标签距离右侧距离
+ * @param [onClickListener] 点击事件
  */
 @JvmOverloads
 fun TextView.replaceTag(
@@ -155,7 +178,8 @@ fun TextView.replaceTag(
     view: View,
     align: Align = Align.CENTER,
     marginLeft: Int = 0,
-    marginRight: Int = 0
+    marginRight: Int = 0,
+    onClickListener: (() -> Unit)? = null
 ): TextView = apply {
     verifyText(this)
     if (verifyPosition(startIndex, endIndex)) {
@@ -170,6 +194,7 @@ fun TextView.replaceTag(
             endIndex,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
+        setClickListener(builder, startIndex, endIndex, onClickListener)
         text = builder
     }
 }
@@ -185,6 +210,17 @@ fun TextView.addTextTag(block: TagConfig.() -> Unit): TextView = apply {
 }
 
 /**
+ * 添加文本标签
+ * @param [block] 配置
+ * @param [onClickListener] 监听事件
+ */
+fun TextView.addTextTag(block: TagConfig.() -> Unit,onClickListener: () -> Unit): TextView = apply {
+    val tagConfig = TagConfig(Type.TEXT)
+    block(tagConfig)
+    addTag(tagConfig,onClickListener)
+}
+
+/**
  * 添加图标标签
  * @param [block] 配置
  */
@@ -192,6 +228,17 @@ fun TextView.addImageTag(block: TagConfig.() -> Unit): TextView = apply {
     val tagConfig = TagConfig(Type.IMAGE)
     block(tagConfig)
     addTag(tagConfig)
+}
+
+/**
+ * 添加图标标签
+ * @param [block] 配置
+ * @param [onClickListener] 监听事件
+ */
+fun TextView.addImageTag(block: TagConfig.() -> Unit,onClickListener: () -> Unit): TextView = apply {
+    val tagConfig = TagConfig(Type.IMAGE)
+    block(tagConfig)
+    addTag(tagConfig,onClickListener)
 }
 
 /**
@@ -205,6 +252,17 @@ fun TextView.addTextImageTag(block: TagConfig.() -> Unit): TextView = apply {
 }
 
 /**
+ * 添加图文标签
+ * @param [block] 配置
+ * @param [onClickListener] 监听事件
+ */
+fun TextView.addTextImageTag(block: TagConfig.() -> Unit,onClickListener: () -> Unit): TextView = apply {
+    val tagConfig = TagConfig(Type.TEXT_IMAGE)
+    block(tagConfig)
+    addTag(tagConfig,onClickListener)
+}
+
+/**
  * 添加网络标签
  * @param [block] 配置
  */
@@ -215,9 +273,24 @@ fun TextView.addUrlTag(block: TagConfig.() -> Unit): TextView = apply {
 }
 
 /**
+ * 添加网络标签
+ * @param [block] 配置
+ * @param [onClickListener] 监听事件
+ */
+fun TextView.addUrlTag(block: TagConfig.() -> Unit,onClickListener: () -> Unit): TextView = apply {
+    val tagConfig = TagConfig(Type.URL)
+    block(tagConfig)
+    addTag(tagConfig,onClickListener)
+}
+
+/**
  * 添加自定义标签
  * @param [view] 标签View
  * @param [position] 标签显示位置
+ * @param [align] 标签对齐方式
+ * @param [marginLeft] 左边距
+ * @param [marginRight] 右边距
+ * @param [onClickListener] 点击事件
  */
 @JvmOverloads
 fun TextView.addTag(
@@ -225,7 +298,8 @@ fun TextView.addTag(
     position: Int = 0,
     align: Align = Align.CENTER,
     marginLeft: Int = 0,
-    marginRight: Int = 0
+    marginRight: Int = 0,
+    onClickListener: (() -> Unit)? = null
 ): TextView = apply {
     verifyText(this)
     val builder = createSpannableStringBuilder(this, position)
@@ -240,6 +314,7 @@ fun TextView.addTag(
         newPosition + TAG.length,
         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
     )
+    setClickListener(builder, newPosition, newPosition + TAG.length, onClickListener)
     text = builder
 }
 
@@ -520,7 +595,7 @@ private fun createSpan(textView: TextView, config: TagConfig): ReplacementSpan {
                     CenterImageSpan(textView.context, config.imageBitmap!!)
                 }
                 else -> {
-                    throw NullPointerException("当type=Type.IMAGE时，必须设置【imageResource】、【imageDrawable】、【imageBitmap】其中一项")
+                    throw NullPointerException("当type=Type.IMAGE时，必须设置【imageResource】、【imageDrawable】、【imageBitmap】齐中一项")
                 }
             }.apply {
                 setAlign(config.align)
@@ -617,6 +692,26 @@ private fun View.convertViewToBitmap(): Bitmap {
     draw(canvas)
     canvas.save()
     return bitmap
+}
+
+/**
+ * 设置点击事件
+ */
+private fun TextView.setClickListener(
+    builder: SpannableStringBuilder,
+    startIndex: Int,
+    endIndex: Int,
+    onClickListener: (() -> Unit)?
+) {
+    if (onClickListener != null) {
+        builder.setSpan(
+            ClickableSpan(Color.TRANSPARENT).apply { onClick = onClickListener },
+            startIndex,
+            endIndex,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        movementMethod = LinkMovementMethod.getInstance()
+    }
 }
 
 

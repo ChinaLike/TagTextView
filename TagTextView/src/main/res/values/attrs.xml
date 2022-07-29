@@ -30,6 +30,7 @@
             <enum name="baseline" value="0"/>
             <enum name="center" value="1"/>
             <enum name="bottom" value="2"/>
+            <enum name="top" value="3"/>
         </attr>
         <attr name="tvt_text" format="string"/>
         <attr name="tvt_image_resource" format="reference"/>

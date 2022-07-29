@@ -23,6 +23,9 @@ import com.view.text.view.TagTextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
+
 public class JavaActivity extends AppCompatActivity {
 
     @Override
@@ -52,7 +55,10 @@ public class JavaActivity extends AppCompatActivity {
         //1.1 默认样式
         TagConfig tv1Config = new TagConfig(Type.TEXT);
         tv1Config.setText("新品");
-        TextViewExKt.addTag(findViewById(R.id.text_tv1), tv1Config);
+        TextViewExKt.addTag(findViewById(R.id.text_tv1), tv1Config, () -> {
+            Toast.makeText(JavaActivity.this, "新品图标被点击了", Toast.LENGTH_SHORT).show();
+            return null;
+        });
 
 
         //1.2 自定义背景颜色
@@ -132,7 +138,7 @@ public class JavaActivity extends AppCompatActivity {
         tv9Config.setEndGradientBackgroundColor(Color.parseColor("#FF0040"));
         TextViewExKt.addTag(findViewById(R.id.text_tv9), tv9Config);
 
-        //1.10 对其方式,底部对其
+        //1.10 对齐方式,底部对齐
         TagConfig tv10Config = new TagConfig(Type.TEXT);
         tv10Config.setText("新品");
         tv10Config.setAlign(Align.BOTTOM);
@@ -187,7 +193,10 @@ public class JavaActivity extends AppCompatActivity {
         tv12Config2.setPosition(6);
 
 
-        TextViewExKt.addTag(findViewById(R.id.text_tv12), tv12Config);
+        TextViewExKt.addTag(findViewById(R.id.text_tv12), tv12Config, () -> {
+            Toast.makeText(JavaActivity.this, "新品图标被点击了", Toast.LENGTH_SHORT).show();
+            return null;
+        });
         TextViewExKt.addTag(findViewById(R.id.text_tv12), tv12Config1);
         TextViewExKt.addTag(findViewById(R.id.text_tv12), tv12Config2);
 
@@ -202,7 +211,10 @@ public class JavaActivity extends AppCompatActivity {
         tv14Config.setStartGradientBackgroundColor(Color.parseColor("#ABDCFF"));
         tv14Config.setEndGradientBackgroundColor(Color.parseColor("#0396FF"));
         tv14Config.setRadius((float) DensityUtilKt.getDp(5));
-        TextViewExKt.replaceTag(text_tv14, "超级快充", tv14Config);
+        TextViewExKt.replaceTag(text_tv14, "超级快充", tv14Config, true, () -> {
+            Toast.makeText(JavaActivity.this, "超级快充被点击了", Toast.LENGTH_SHORT).show();
+            return null;
+        });
 
         TagConfig tv14Config1 = new TagConfig(Type.TEXT);
         tv14Config1.setText("移动5G");
@@ -213,6 +225,21 @@ public class JavaActivity extends AppCompatActivity {
 
         TextViewExKt.replaceTag(text_tv14, "荣耀", view);
 
+
+        //1.15 对齐方式,底部对齐
+        TextView text_tv15 = findViewById(R.id.text_tv15);
+        TagConfig tv15Config = new TagConfig(Type.TEXT);
+        tv15Config.setText("有问题？");
+        tv15Config.setAlign(Align.TOP);
+        tv15Config.setWidth(DensityUtilKt.getDp(70));
+        tv15Config.setHeight(DensityUtilKt.getDp(50));
+        tv15Config.setStartGradientBackgroundColor(Color.parseColor("#FFA07A"));
+        tv15Config.setEndGradientBackgroundColor(Color.parseColor("#FF0040"));
+        tv15Config.setPosition(text_tv15.getText().toString().length());
+        TextViewExKt.addTag(text_tv15, tv15Config, () -> {
+            Toast.makeText(JavaActivity.this, "这里是解释", Toast.LENGTH_LONG).show();
+            return null;
+        });
     }
 
     /**
@@ -222,7 +249,10 @@ public class JavaActivity extends AppCompatActivity {
         //2.1 默认样式
         TagConfig tv1Config = new TagConfig(Type.IMAGE);
         tv1Config.setImageResource(R.mipmap.icon_new1);
-        TextViewExKt.addTag(findViewById(R.id.image_tv1), tv1Config);
+        TextViewExKt.addTag(findViewById(R.id.image_tv1), tv1Config, () -> {
+            Toast.makeText(JavaActivity.this, "被点击了", Toast.LENGTH_SHORT).show();
+            return null;
+        });
 
         //2.2 自定义大小
         TagConfig tv2Config = new TagConfig(Type.IMAGE);
@@ -238,7 +268,7 @@ public class JavaActivity extends AppCompatActivity {
         tv3Config.setMarginRight(DensityUtilKt.getDp(10));
         TextViewExKt.addTag(findViewById(R.id.image_tv3), tv3Config);
 
-        //2.4 自定义对其方式,底部对其
+        //2.4 自定义对齐方式,底部对齐
         TagConfig tv4Config = new TagConfig(Type.IMAGE);
         tv4Config.setImageResource(R.mipmap.icon_new1);
         tv4Config.setHeight(DensityUtilKt.getDp(15));
@@ -265,6 +295,19 @@ public class JavaActivity extends AppCompatActivity {
         TextViewExKt.addTag(findViewById(R.id.image_tv6), tv6Config);
         TextViewExKt.addTag(findViewById(R.id.image_tv6), tv6Config1);
         TextViewExKt.addTag(findViewById(R.id.image_tv6), tv6Config2);
+
+
+        //图片在顶部
+        TextView tv7 = findViewById(R.id.image_tv7);
+        TagConfig tv7Config = new TagConfig(Type.IMAGE);
+        tv7Config.setAlign(Align.TOP);
+        tv7Config.setImageResource(R.mipmap.question);
+        tv7Config.setMarginLeft(DensityUtilKt.getDp(10));
+        tv7Config.setPosition(tv7.getText().toString().length());
+        TextViewExKt.addTag(tv7, tv7Config, () -> {
+            Toast.makeText(JavaActivity.this, "你要问什么问题呢", Toast.LENGTH_LONG).show();
+            return null;
+        });
     }
 
     /**
@@ -275,7 +318,10 @@ public class JavaActivity extends AppCompatActivity {
         TagConfig tv1Config = new TagConfig(Type.TEXT_IMAGE);
         tv1Config.setText("钻石会员");
         tv1Config.setImageResource(R.mipmap.icon_1);
-        TextViewExKt.addTag(findViewById(R.id.text_image_tv1), tv1Config);
+        TextViewExKt.addTag(findViewById(R.id.text_image_tv1), tv1Config, () -> {
+            Toast.makeText(JavaActivity.this, "被点击了", Toast.LENGTH_SHORT).show();
+            return null;
+        });
 
         //3.2 设置图片在文字的那个方向
         TagConfig tv2Config = new TagConfig(Type.TEXT_IMAGE);
@@ -352,7 +398,10 @@ public class JavaActivity extends AppCompatActivity {
         //4.1 默认样式
         TagConfig tv1Config = new TagConfig(Type.URL);
         tv1Config.setImageUrl("https://i.postimg.cc/DyjsBr3v/image.png");
-        TextViewExKt.addTag(findViewById(R.id.url_tv1), tv1Config);
+        TextViewExKt.addTag(findViewById(R.id.url_tv1), tv1Config, () -> {
+            Toast.makeText(JavaActivity.this, "网络标签被点击了", Toast.LENGTH_SHORT).show();
+            return null;
+        });
 
         //4.2 自定义大小
         TagConfig tv2Config = new TagConfig(Type.URL);
