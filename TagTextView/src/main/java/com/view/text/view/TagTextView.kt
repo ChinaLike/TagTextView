@@ -129,7 +129,7 @@ open class TagTextView @JvmOverloads constructor(
                                 Align.BOTTOM.ordinal -> {
                                     align = Align.BOTTOM
                                 }
-                                Align.TOP.ordinal ->{
+                                Align.TOP.ordinal -> {
                                     align = Align.TOP
                                 }
                             }
@@ -197,15 +197,20 @@ open class TagTextView @JvmOverloads constructor(
     /**
      * 添加标签
      * @param [config] 标签配置
+     * @param [onClickListener] 监听事件
      */
-    fun addTag(config: TagConfig): TagTextView = apply {
-        addTagKx(config)
+    fun addTag(config: TagConfig, onClickListener: (() -> Unit)? = null): TagTextView = apply {
+        addTagKx(config, onClickListener)
     }
 
     /**
      * 添加自定义标签
      * @param [view] 标签View
-     * @param [position] 标签显示位置
+     * @param [position] 标签在文本中显示位置
+     * @param [align] 标签与文本显示位置
+     * @param [marginLeft] 标签左边距
+     * @param [marginRight] 标签右边距
+     * @param [onClickListener] 监听事件
      */
     @JvmOverloads
     fun addTag(
@@ -213,9 +218,10 @@ open class TagTextView @JvmOverloads constructor(
         position: Int = 0,
         align: Align = Align.CENTER,
         marginLeft: Int = 0,
-        marginRight: Int = 0
+        marginRight: Int = 0,
+        onClickListener: (() -> Unit)? = null
     ): TagTextView = apply {
-        addTagKx(view, position, align, marginLeft, marginRight)
+        addTagKx(view, position, align, marginLeft, marginRight,onClickListener)
     }
 
     /**
@@ -227,11 +233,29 @@ open class TagTextView @JvmOverloads constructor(
     }
 
     /**
+     * 添加文本标签
+     * @param [block] 配置
+     * @param [onClickListener] 监听事件
+     */
+    fun addTextTag(block: TagConfig.() -> Unit, onClickListener: () -> Unit): TagTextView = apply {
+        addTextTagKx(block, onClickListener)
+    }
+
+    /**
      * 添加图标标签
      * @param [block] 配置
      */
     fun addImageTag(block: TagConfig.() -> Unit): TagTextView = apply {
         addImageTagKx(block)
+    }
+
+    /**
+     * 添加图标标签
+     * @param [block] 配置
+     * @param [onClickListener] 监听事件
+     */
+    fun addImageTag(block: TagConfig.() -> Unit, onClickListener: () -> Unit): TagTextView = apply {
+        addImageTagKx(block, onClickListener)
     }
 
     /**
@@ -243,11 +267,30 @@ open class TagTextView @JvmOverloads constructor(
     }
 
     /**
+     * 添加图文标签
+     * @param [block] 配置
+     * @param [onClickListener] 监听事件
+     */
+    fun addTextImageTag(block: TagConfig.() -> Unit, onClickListener: () -> Unit): TagTextView =
+        apply {
+            addTextImageTagKx(block, onClickListener)
+        }
+
+    /**
      * 添加网络标签
      * @param [block] 配置
      */
     fun addUrlTag(block: TagConfig.() -> Unit): TagTextView = apply {
         addUrlTagKx(block)
+    }
+
+    /**
+     * 添加网络标签
+     * @param [block] 配置
+     * @param [onClickListener] 监听事件
+     */
+    fun addUrlTag(block: TagConfig.() -> Unit, onClickListener: () -> Unit): TagTextView = apply {
+        addUrlTagKx(block, onClickListener)
     }
 
     /**
@@ -375,11 +418,17 @@ open class TagTextView @JvmOverloads constructor(
      * @param [tagText] 需要替换的文本
      * @param [config] 标签配置
      * @param [isFirst] 是否匹配第一个
+     * @param [onClickListener] 监听事件
      */
     @JvmOverloads
-    fun replaceTag(tagText: String, config: TagConfig, isFirst: Boolean = true): TagTextView =
+    fun replaceTag(
+        tagText: String,
+        config: TagConfig,
+        isFirst: Boolean = true,
+        onClickListener: (() -> Unit)? = null
+    ): TagTextView =
         apply {
-            replaceTagKx(tagText, config, isFirst)
+            replaceTagKx(tagText, config, isFirst, onClickListener)
         }
 
     /**
@@ -390,6 +439,7 @@ open class TagTextView @JvmOverloads constructor(
      * @param [align] 标签对齐方式
      * @param [marginLeft] 标签距离左侧距离
      * @param [marginRight] 标签距离右侧距离
+     * @param [onClickListener] 监听事件
      */
     @JvmOverloads
     fun replaceTag(
@@ -398,9 +448,10 @@ open class TagTextView @JvmOverloads constructor(
         isFirst: Boolean = true,
         align: Align = Align.CENTER,
         marginLeft: Int = 0,
-        marginRight: Int = 0
+        marginRight: Int = 0,
+        onClickListener: (() -> Unit)? = null
     ): TagTextView = apply {
-        replaceTagKx(tagText, view, isFirst, align, marginLeft, marginRight)
+        replaceTagKx(tagText, view, isFirst, align, marginLeft, marginRight, onClickListener)
     }
 
     /**
@@ -409,10 +460,16 @@ open class TagTextView @JvmOverloads constructor(
      * @param [startIndex] 开始下标
      * @param [endIndex] 结束下标
      * @param [config] 标签配置
+     * @param [onClickListener] 监听事件
      */
     @JvmOverloads
-    fun replaceTag(startIndex: Int, endIndex: Int, config: TagConfig): TagTextView = apply {
-        replaceTagKx(startIndex, endIndex, config)
+    fun replaceTag(
+        startIndex: Int,
+        endIndex: Int,
+        config: TagConfig,
+        onClickListener: (() -> Unit)? = null
+    ): TagTextView = apply {
+        replaceTagKx(startIndex, endIndex, config, onClickListener)
     }
 
     /**
@@ -423,6 +480,7 @@ open class TagTextView @JvmOverloads constructor(
      * @param [align] 标签对齐方式
      * @param [marginLeft] 标签距离左侧距离
      * @param [marginRight] 标签距离右侧距离
+     * @param [onClickListener] 监听事件
      */
     @JvmOverloads
     fun replaceTag(
@@ -431,8 +489,9 @@ open class TagTextView @JvmOverloads constructor(
         view: View,
         align: Align = Align.CENTER,
         marginLeft: Int = 0,
-        marginRight: Int = 0
+        marginRight: Int = 0,
+        onClickListener: (() -> Unit)? = null
     ): TagTextView = apply {
-        replaceTagKx(startIndex, endIndex, view, align, marginLeft, marginRight)
+        replaceTagKx(startIndex, endIndex, view, align, marginLeft, marginRight, onClickListener)
     }
 }
