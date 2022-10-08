@@ -199,6 +199,7 @@ open class TagTextView @JvmOverloads constructor(
      * @param [config] 标签配置
      * @param [onClickListener] 监听事件
      */
+    @JvmOverloads
     fun addTag(config: TagConfig, onClickListener: (() -> Unit)? = null): TagTextView = apply {
         addTagKx(config, onClickListener)
     }
