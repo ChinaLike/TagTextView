@@ -10,6 +10,7 @@ SDK主要用于在TextView的指定位置添加文本、图片、图文、网络
 
 + 支持在文本的任意位置添加各种不同标签
 + 支持指定位置、文本替换为指定标签
++ 支持设置TextView的行间距
 + 支持网络标签
 + 支持Gif标签
 + 支持自定义布局文件
@@ -86,8 +87,9 @@ Java使用参考[JavaActivity](https://github.com/ChinaLike/TagTextView/blob/mai
 | `tvt_text_margin_image`               | 文本与图片的距离     | 0dp              | `tvt_type`为textImage有效                                                                                                     |
 | `tvt_layout`                          | 自定义View标签       |                  | 不设置`tvt_type`时有效                                                                                                        |
 | `tvt_image_align_text`                | 图片与文字的位置关系 | Orientation.LEFT | `tvt_type`为textImage有效，left-图片在文字的左边（默认），top-图片在文字上边，right-图片在文字的右边，bottom-图片在文字的下边 |
-| `tvt_image_width`                     | 图片的宽度           |                  | `tvt_type`为image、textImage时有效                                                                                            |
-| `tvt_image_height`                    | 图片的高度           |                  | `tvt_type`为image、textImage时有效                                                                                            |
+| `tvt_drawable_zoom_type`              | 图片缩放类型         | DrawableZoomType.ORIGINAL |   |
+| `tvt_image_width`                     | 图片的宽度           |                  | `tvt_type`为url、image、textImage时有效                                                                                            |
+| `tvt_image_height`                    | 图片的高度           |                  | `tvt_type`为url、image、textImage时有效                                                                                            |
 
 ### TagConfig属性
 
@@ -115,8 +117,9 @@ Java使用参考[JavaActivity](https://github.com/ChinaLike/TagTextView/blob/mai
 | strokeWidth                  | 标签的边框宽度           | 0                                         |                                                                    |
 | strokeColor                  | 标签的边框颜色           | Color.GRAY                                | strokeWidth>0有效                                                  |
 | imageAlignText               | 图片在文字的那一个方向   | Orientation.LEFT                          |                                                                    |
-| imageWidth                   | 图片的宽度               |                                           | 不设置图片自适应                                                   |
-| imageHeight                  | 图片的高度               |                                           | 不设置图片自适应                                                   |
+| drawableZoomType             | 图片缩放类型            | DrawableZoomType.ORIGINAL                  |                                                                    |
+| imageWidth                   | 图片的宽度               |                                           |                                                    |
+| imageHeight                  | 图片的高度               |                                           |                                                    |
 | align                        | 标签的对齐方式           | Align.CENTER                              |                                                                    |
 | text                         | 标签文本                 |                                           | type为TYPE.TEXT、TYPE.TEXT_IMAGE有效                               |
 | imageResource                | 标签图片                 |                                           | type为TYPE.IMAGE、TYPE.TEXT_IMAGE有效                              |

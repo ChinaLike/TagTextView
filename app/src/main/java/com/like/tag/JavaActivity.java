@@ -13,7 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.core.util.DensityUtilKt;
 import com.view.text.TextViewExKt;
-import com.view.text.config.Align;
+import com.view.text.annotation.DrawableZoomType;
+import com.view.text.annotation.Align;
 import com.view.text.config.LinkType;
 import com.view.text.config.Orientation;
 import com.view.text.config.TagConfig;
@@ -22,9 +23,6 @@ import com.view.text.view.TagTextView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import kotlin.Unit;
-import kotlin.jvm.functions.Function0;
 
 public class JavaActivity extends AppCompatActivity {
 
@@ -126,6 +124,7 @@ public class JavaActivity extends AppCompatActivity {
         //1.8 固定标签大小
         TagConfig tv8Config = new TagConfig(Type.TEXT);
         tv8Config.setText("新品");
+        tv8Config.setDrawableZoomType(DrawableZoomType.CUSTOM);
         tv8Config.setWidth(DensityUtilKt.getDp(20));
         tv8Config.setHeight(DensityUtilKt.getDp(20));
         tv8Config.setBackgroundColor(Color.parseColor("#40E0D0"));
@@ -141,6 +140,7 @@ public class JavaActivity extends AppCompatActivity {
         //1.10 对齐方式,底部对齐
         TagConfig tv10Config = new TagConfig(Type.TEXT);
         tv10Config.setText("新品");
+        tv10Config.setDrawableZoomType(DrawableZoomType.CUSTOM);
         tv10Config.setAlign(Align.BOTTOM);
         tv10Config.setHeight(DensityUtilKt.getDp(50));
         tv10Config.setWidth(DensityUtilKt.getDp(70));
@@ -211,6 +211,7 @@ public class JavaActivity extends AppCompatActivity {
         tv14Config.setStartGradientBackgroundColor(Color.parseColor("#ABDCFF"));
         tv14Config.setEndGradientBackgroundColor(Color.parseColor("#0396FF"));
         tv14Config.setRadius((float) DensityUtilKt.getDp(5));
+        tv14Config.setAlign(Align.CENTER);
         TextViewExKt.replaceTag(text_tv14, "超级快充", tv14Config, true, () -> {
             Toast.makeText(JavaActivity.this, "超级快充被点击了", Toast.LENGTH_SHORT).show();
             return null;
@@ -221,9 +222,11 @@ public class JavaActivity extends AppCompatActivity {
         tv14Config1.setStartGradientBackgroundColor(Color.parseColor("#FEC163"));
         tv14Config1.setEndGradientBackgroundColor(Color.parseColor("#DE4313"));
         tv14Config1.setMarginLeft(DensityUtilKt.getDp(20));
+        tv14Config1.setAlign(Align.BASELINE);
         TextViewExKt.replaceTag(text_tv14, 40, 48, tv14Config1);
 
-        TextViewExKt.replaceTag(text_tv14, "荣耀", view);
+        View view1 = LayoutInflater.from(this).inflate(R.layout.custom_tag_view, null);
+        TextViewExKt.replaceTag(text_tv14, "荣耀", view1,true,Align.TOP);
 
 
         //1.15 对齐方式,底部对齐
@@ -231,6 +234,7 @@ public class JavaActivity extends AppCompatActivity {
         TagConfig tv15Config = new TagConfig(Type.TEXT);
         tv15Config.setText("有问题？");
         tv15Config.setAlign(Align.TOP);
+        tv15Config.setDrawableZoomType(DrawableZoomType.CUSTOM);
         tv15Config.setWidth(DensityUtilKt.getDp(70));
         tv15Config.setHeight(DensityUtilKt.getDp(50));
         tv15Config.setStartGradientBackgroundColor(Color.parseColor("#FFA07A"));
@@ -257,6 +261,7 @@ public class JavaActivity extends AppCompatActivity {
         //2.2 自定义大小
         TagConfig tv2Config = new TagConfig(Type.IMAGE);
         tv2Config.setImageResource(R.mipmap.icon_new2);
+        tv2Config.setDrawableZoomType(DrawableZoomType.CUSTOM);
         tv2Config.setWidth(DensityUtilKt.getDp(80));
         tv2Config.setHeight(DensityUtilKt.getDp(40));
         TextViewExKt.addTag(findViewById(R.id.image_tv2), tv2Config);
@@ -271,6 +276,7 @@ public class JavaActivity extends AppCompatActivity {
         //2.4 自定义对齐方式,底部对齐
         TagConfig tv4Config = new TagConfig(Type.IMAGE);
         tv4Config.setImageResource(R.mipmap.icon_new1);
+        tv4Config.setDrawableZoomType(DrawableZoomType.CUSTOM);
         tv4Config.setHeight(DensityUtilKt.getDp(15));
         tv4Config.setWidth(DensityUtilKt.getDp(100));
         tv4Config.setAlign(Align.BOTTOM);
@@ -406,8 +412,9 @@ public class JavaActivity extends AppCompatActivity {
         //4.2 自定义大小
         TagConfig tv2Config = new TagConfig(Type.URL);
         tv2Config.setImageUrl("https://i.postimg.cc/KjjS4SFZ/20130527035844363.png");
-        tv2Config.setWidth(DensityUtilKt.getDp(50));
-        tv2Config.setHeight(DensityUtilKt.getDp(50));
+        tv2Config.setDrawableZoomType(DrawableZoomType.CUSTOM);
+        tv2Config.setImageWidth(DensityUtilKt.getDp(50));
+        tv2Config.setImageHeight(DensityUtilKt.getDp(50));
         TextViewExKt.addTag(findViewById(R.id.url_tv2), tv2Config);
 
         //4.3 支持GIF
@@ -429,9 +436,10 @@ public class JavaActivity extends AppCompatActivity {
 
         TagConfig tv5Config1 = new TagConfig(Type.URL);
         tv5Config1.setImageUrl("https://i.postimg.cc/5ydL218z/20130513035745587.gif");
+        tv5Config1.setDrawableZoomType(DrawableZoomType.CUSTOM);
         tv5Config1.setPosition(5);
-        tv5Config1.setWidth(DensityUtilKt.getDp(40));
-        tv5Config1.setHeight(DensityUtilKt.getDp(50));
+        tv5Config1.setImageWidth(DensityUtilKt.getDp(40));
+        tv5Config1.setImageHeight(DensityUtilKt.getDp(50));
 
         TextViewExKt.addTag(findViewById(R.id.url_tv5), tv5Config);
         TextViewExKt.addTag(findViewById(R.id.url_tv5), tv5Config1);

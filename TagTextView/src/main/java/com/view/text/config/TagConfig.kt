@@ -8,6 +8,8 @@ import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
 import androidx.annotation.DrawableRes
 import com.core.util.dp
+import com.view.text.annotation.Align
+import com.view.text.annotation.DrawableZoomType
 
 /**
  * 每一个标签Item的配置
@@ -31,12 +33,12 @@ data class TagConfig(val type: Type) {
     /**
      * 标签的宽度
      */
-    var width: Int? = null
+    var width: Int = 0
 
     /**
      * 标签的高度
      */
-    var height: Int? = null
+    var height: Int = 0
 
     /**
      * 标签的圆角
@@ -138,19 +140,26 @@ data class TagConfig(val type: Type) {
     var imageAlignText: Orientation = Orientation.LEFT
 
     /**
-     * 图片的宽度，不设置为宽度自适应
+     * 图片缩放方式
      */
-    var imageWidth: Int? = null
+    @DrawableZoomType
+    var drawableZoomType: Int = DrawableZoomType.ORIGINAL
 
     /**
-     * 图片的高度，不设置为高度自适应
+     * 图片的宽度，当[drawableZoomType]=[DrawableZoomType.CUSTOM]时需要设置值
      */
-    var imageHeight: Int? = null
+    var imageWidth: Int = 0
+
+    /**
+     * 图片的高度，当[drawableZoomType]=[DrawableZoomType.CUSTOM]时需要设置值
+     */
+    var imageHeight: Int = 0
 
     /**
      * 标签对齐方式
      */
-    var align: Align = Align.CENTER
+    @Align
+    var align: Int = Align.CENTER
 
     /**
      * 文本，[type] 为[Type.TEXT] 或[Type.TEXT_IMAGE]可用
@@ -192,6 +201,16 @@ data class TagConfig(val type: Type) {
      * 设置距离右边
      */
     var marginRight: Int = 0
+
+    /**
+     * 设置距离顶部
+     */
+    var marginTop: Int = 0
+
+    /**
+     * 设置距离底部
+     */
+    var marginBottom: Int = 0
 
     /**
      * 设置文字距离图片的距离，当[type]=[Type.TEXT_IMAGE]时有效

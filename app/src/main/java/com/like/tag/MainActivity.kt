@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.core.util.dp
 import com.core.util.sp
 import com.view.text.*
+import com.view.text.annotation.Align
+import com.view.text.annotation.DrawableZoomType
 import com.view.text.config.*
 import kotlinx.android.synthetic.main.layout_ex_function.*
 import kotlinx.android.synthetic.main.layout_image_style.*
@@ -136,6 +138,7 @@ class MainActivity : AppCompatActivity() {
         //1.8 固定标签大小
         val tv8Config = TagConfig(Type.TEXT).apply {
             text = "新品"
+            drawableZoomType = DrawableZoomType.CUSTOM
             width = 20.dp
             height = 10.dp
             backgroundColor = Color.parseColor("#40E0D0")
@@ -154,6 +157,7 @@ class MainActivity : AppCompatActivity() {
         val tv10Config = TagConfig(Type.TEXT).apply {
             text = "新品"
             align = Align.BOTTOM
+            drawableZoomType = DrawableZoomType.CUSTOM
             height = 50.dp
             width = 70.dp
             startGradientBackgroundColor = Color.parseColor("#FFA07A")
@@ -219,6 +223,7 @@ class MainActivity : AppCompatActivity() {
             startGradientBackgroundColor = Color.parseColor("#ABDCFF")
             endGradientBackgroundColor = Color.parseColor("#0396FF")
             radius = 5.dp.toFloat()
+            align = Align.CENTER
         }, onClickListener = {
             Toast.makeText(this, "超级快充被点击了", Toast.LENGTH_SHORT).show()
         }).replaceTag(40, 48, TagConfig(Type.TEXT).apply {
@@ -226,12 +231,14 @@ class MainActivity : AppCompatActivity() {
             startGradientBackgroundColor = Color.parseColor("#FEC163")
             endGradientBackgroundColor = Color.parseColor("#DE4313")
             marginLeft = 20.dp
-        }).replaceTag("荣耀", LayoutInflater.from(this).inflate(R.layout.custom_tag_view, null))
+            align = Align.BASELINE
+        }).replaceTag("荣耀", LayoutInflater.from(this).inflate(R.layout.custom_tag_view, null), align =  Align.TOP)
 
         //1.15 对齐方式,底部对齐
         val tv15Config = TagConfig(Type.TEXT).apply {
             text = "有问题？"
             align = Align.TOP
+            drawableZoomType = DrawableZoomType.CUSTOM
             height = 50.dp
             width = 70.dp
             startGradientBackgroundColor = Color.parseColor("#FFA07A")
@@ -258,6 +265,7 @@ class MainActivity : AppCompatActivity() {
         //2.2 自定义大小
         val tv2Config = TagConfig(Type.IMAGE).apply {
             imageResource = R.mipmap.icon_new2
+            drawableZoomType = DrawableZoomType.CUSTOM
             width = 80.dp
             height = 40.dp
         }
@@ -274,6 +282,7 @@ class MainActivity : AppCompatActivity() {
         //2.4 自定义对齐方式,底部对齐
         val tv4Config = TagConfig(Type.IMAGE).apply {
             imageResource = R.mipmap.icon_new1
+            drawableZoomType = DrawableZoomType.CUSTOM
             height = 50.dp
             width = 100.dp
             align = Align.BOTTOM
@@ -406,8 +415,9 @@ class MainActivity : AppCompatActivity() {
         //4.2 自定义大小
         val tv2Config = TagConfig(Type.URL).apply {
             imageUrl = "https://i.postimg.cc/KjjS4SFZ/20130527035844363.png"
-            width = 50.dp
-            height = 50.dp
+            drawableZoomType = DrawableZoomType.CUSTOM
+            imageWidth = 50.dp
+            imageHeight = 50.dp
         }
         url_tv2.addTag(tv2Config)
 
@@ -432,8 +442,9 @@ class MainActivity : AppCompatActivity() {
         }.addUrlTag {
             imageUrl = "https://i.postimg.cc/5ydL218z/20130513035745587.gif"
             position = 5
-            width = 40.dp
-            height = 50.dp
+            drawableZoomType = DrawableZoomType.CUSTOM
+            imageWidth = 40.dp
+            imageHeight = 50.dp
         }
     }
 

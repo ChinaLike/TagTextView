@@ -8,7 +8,12 @@ import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatTextView
 import com.view.text.R
-import com.view.text.config.*
+import com.view.text.annotation.Align
+import com.view.text.annotation.DrawableZoomType
+import com.view.text.config.LinkType
+import com.view.text.config.Orientation
+import com.view.text.config.TagConfig
+import com.view.text.config.Type
 import com.view.text.addImageTag as addImageTagKx
 import com.view.text.addTag as addTagKx
 import com.view.text.addTextImageTag as addTextImageTagKx
@@ -50,7 +55,8 @@ open class TagTextView @JvmOverloads constructor(
             }
 
             var position: Int = config?.position ?: 0
-            var align: Align = config?.align ?: Align.CENTER
+            var align: Int = config?.align ?: Align.CENTER
+            var drawableZoomType: Int = config?.align ?: DrawableZoomType.ORIGINAL
             var marginLeft: Int = config?.marginLeft ?: 0
             var marginRight: Int = config?.marginRight ?: 0
 
@@ -117,23 +123,7 @@ open class TagTextView @JvmOverloads constructor(
                         config?.height = getDimension(attr, 0F).toInt()
                     }
                     R.styleable.TagTextView_tvt_align -> {
-                        val alignValue = getInt(attr, -1)
-                        if (alignValue != -1) {
-                            when (alignValue) {
-                                Align.BASELINE.ordinal -> {
-                                    align = Align.BASELINE
-                                }
-                                Align.CENTER.ordinal -> {
-                                    align = Align.CENTER
-                                }
-                                Align.BOTTOM.ordinal -> {
-                                    align = Align.BOTTOM
-                                }
-                                Align.TOP.ordinal -> {
-                                    align = Align.TOP
-                                }
-                            }
-                        }
+                        align = getInt(attr, Align.CENTER)
                         config?.align = align
                     }
                     R.styleable.TagTextView_tvt_text -> {
@@ -171,6 +161,10 @@ open class TagTextView @JvmOverloads constructor(
                             Orientation.BOTTOM.ordinal -> Orientation.BOTTOM
                             else -> Orientation.LEFT
                         }
+                    }
+                    R.styleable.TagTextView_tvt_drawable_zoom_type -> {
+                        drawableZoomType = getInt(attr, DrawableZoomType.ORIGINAL)
+                        config?.drawableZoomType = drawableZoomType
                     }
                     R.styleable.TagTextView_tvt_image_width -> {
                         config?.imageWidth = getDimension(
@@ -217,12 +211,12 @@ open class TagTextView @JvmOverloads constructor(
     fun addTag(
         view: View,
         position: Int = 0,
-        align: Align = Align.CENTER,
+        @Align align: Int = Align.CENTER,
         marginLeft: Int = 0,
         marginRight: Int = 0,
         onClickListener: (() -> Unit)? = null
     ): TagTextView = apply {
-        addTagKx(view, position, align, marginLeft, marginRight,onClickListener)
+        addTagKx(view, position, align, marginLeft, marginRight, onClickListener)
     }
 
     /**
@@ -447,7 +441,7 @@ open class TagTextView @JvmOverloads constructor(
         tagText: String,
         view: View,
         isFirst: Boolean = true,
-        align: Align = Align.CENTER,
+        @Align align: Int = Align.CENTER,
         marginLeft: Int = 0,
         marginRight: Int = 0,
         onClickListener: (() -> Unit)? = null
@@ -488,7 +482,7 @@ open class TagTextView @JvmOverloads constructor(
         startIndex: Int,
         endIndex: Int,
         view: View,
-        align: Align = Align.CENTER,
+        @Align align: Int = Align.CENTER,
         marginLeft: Int = 0,
         marginRight: Int = 0,
         onClickListener: (() -> Unit)? = null

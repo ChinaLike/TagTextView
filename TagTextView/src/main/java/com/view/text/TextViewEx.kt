@@ -19,7 +19,7 @@ import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
-import com.view.text.config.Align
+import com.view.text.annotation.Align
 import com.view.text.config.LinkType
 import com.view.text.config.TagConfig
 import com.view.text.config.Type
@@ -105,7 +105,7 @@ fun TextView.replaceTag(
     tagText: String,
     view: View,
     isFirst: Boolean = true,
-    align: Align = Align.CENTER,
+    @Align align: Int = Align.CENTER,
     marginLeft: Int = 0,
     marginRight: Int = 0,
     onClickListener: (() -> Unit)? = null
@@ -176,7 +176,7 @@ fun TextView.replaceTag(
     startIndex: Int,
     endIndex: Int,
     view: View,
-    align: Align = Align.CENTER,
+    @Align align: Int = Align.CENTER,
     marginLeft: Int = 0,
     marginRight: Int = 0,
     onClickListener: (() -> Unit)? = null
@@ -214,11 +214,12 @@ fun TextView.addTextTag(block: TagConfig.() -> Unit): TextView = apply {
  * @param [block] 配置
  * @param [onClickListener] 监听事件
  */
-fun TextView.addTextTag(block: TagConfig.() -> Unit,onClickListener: () -> Unit): TextView = apply {
-    val tagConfig = TagConfig(Type.TEXT)
-    block(tagConfig)
-    addTag(tagConfig,onClickListener)
-}
+fun TextView.addTextTag(block: TagConfig.() -> Unit, onClickListener: () -> Unit): TextView =
+    apply {
+        val tagConfig = TagConfig(Type.TEXT)
+        block(tagConfig)
+        addTag(tagConfig, onClickListener)
+    }
 
 /**
  * 添加图标标签
@@ -235,11 +236,12 @@ fun TextView.addImageTag(block: TagConfig.() -> Unit): TextView = apply {
  * @param [block] 配置
  * @param [onClickListener] 监听事件
  */
-fun TextView.addImageTag(block: TagConfig.() -> Unit,onClickListener: () -> Unit): TextView = apply {
-    val tagConfig = TagConfig(Type.IMAGE)
-    block(tagConfig)
-    addTag(tagConfig,onClickListener)
-}
+fun TextView.addImageTag(block: TagConfig.() -> Unit, onClickListener: () -> Unit): TextView =
+    apply {
+        val tagConfig = TagConfig(Type.IMAGE)
+        block(tagConfig)
+        addTag(tagConfig, onClickListener)
+    }
 
 /**
  * 添加图文标签
@@ -256,11 +258,12 @@ fun TextView.addTextImageTag(block: TagConfig.() -> Unit): TextView = apply {
  * @param [block] 配置
  * @param [onClickListener] 监听事件
  */
-fun TextView.addTextImageTag(block: TagConfig.() -> Unit,onClickListener: () -> Unit): TextView = apply {
-    val tagConfig = TagConfig(Type.TEXT_IMAGE)
-    block(tagConfig)
-    addTag(tagConfig,onClickListener)
-}
+fun TextView.addTextImageTag(block: TagConfig.() -> Unit, onClickListener: () -> Unit): TextView =
+    apply {
+        val tagConfig = TagConfig(Type.TEXT_IMAGE)
+        block(tagConfig)
+        addTag(tagConfig, onClickListener)
+    }
 
 /**
  * 添加网络标签
@@ -277,10 +280,10 @@ fun TextView.addUrlTag(block: TagConfig.() -> Unit): TextView = apply {
  * @param [block] 配置
  * @param [onClickListener] 监听事件
  */
-fun TextView.addUrlTag(block: TagConfig.() -> Unit,onClickListener: () -> Unit): TextView = apply {
+fun TextView.addUrlTag(block: TagConfig.() -> Unit, onClickListener: () -> Unit): TextView = apply {
     val tagConfig = TagConfig(Type.URL)
     block(tagConfig)
-    addTag(tagConfig,onClickListener)
+    addTag(tagConfig, onClickListener)
 }
 
 /**
@@ -296,7 +299,7 @@ fun TextView.addUrlTag(block: TagConfig.() -> Unit,onClickListener: () -> Unit):
 fun TextView.addTag(
     view: View,
     position: Int = 0,
-    align: Align = Align.CENTER,
+    @Align align: Int = Align.CENTER,
     marginLeft: Int = 0,
     marginRight: Int = 0,
     onClickListener: (() -> Unit)? = null
@@ -571,18 +574,10 @@ private fun insertPlaceholder(
  * @param [config] 配置参数
  */
 private fun createSpan(textView: TextView, config: TagConfig): ReplacementSpan {
-    return when (config.type) {
+    val span = when (config.type) {
         Type.URL -> GlideImageSpan(
-            textView,
-            config.imageUrl ?: throw NullPointerException("当type=Type.URL时,必须设置imageUrl")
-        ).apply {
-            setAlign(config.align)
-            setDrawableSize(
-                config.width ?: textView.textSize.toInt(),
-                config.height ?: textView.textSize.toInt()
-            )
-            setMarginHorizontal(config.marginLeft, config.marginRight)
-        }
+            textView, config.imageUrl ?: throw NullPointerException("当type=Type.URL时,必须设置imageUrl")
+        ).apply { setDrawableSize(config.imageWidth, config.imageHeight) }
         Type.IMAGE -> {
             when {
                 config.imageResource != null -> {
@@ -595,20 +590,29 @@ private fun createSpan(textView: TextView, config: TagConfig): ReplacementSpan {
                     CenterImageSpan(textView.context, config.imageBitmap!!)
                 }
                 else -> {
-                    throw NullPointerException("当type=Type.IMAGE时，必须设置【imageResource】、【imageDrawable】、【imageBitmap】齐中一项")
+                    throw NullPointerException("当type=Type.IMAGE时，必须设置【imageResource】、【imageDrawable】、【imageBitmap】其中一项")
                 }
-            }.apply {
-                setAlign(config.align)
-                setDrawableSize(config.imageWidth, config.imageHeight)
-                setMarginHorizontal(config.marginLeft, config.marginRight)
-            }
+            }.apply { setDrawableSize(config.imageWidth, config.imageHeight) }
         }
-        else -> CenterImageSpan(createDrawable(createItemView(textView.context, config))).apply {
-            setAlign(config.align)
+        else -> CenterImageSpan(
+            createDrawable(
+                createItemView(
+                    textView.context,
+                    config
+                )
+            )
+        ).apply {
+            mNormalSizeText = textView.text.toString()
             setDrawableSize(config.width, config.height)
-            setMarginHorizontal(config.marginLeft, config.marginRight)
         }
+    }.apply {
+        setAlign(config.align)
+        setTextSize(textView.textSize.toInt())
+        setDrawableZoomType(config.drawableZoomType)
+        setMarginHorizontal(config.marginLeft, config.marginRight)
+        setMarginVertical(config.marginTop, config.marginBottom)
     }
+    return span
 }
 
 /**

@@ -4,8 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.14166666666666666" />
+        <entry key="app/src/main/res/layout/adapter_custom_tag.xml" value="0.2046875" />
+        <entry key="app/src/main/res/layout/custom_tag_view.xml" value="0.2046875" />
+        <entry key="app/src/main/res/layout/custom_text_view.xml" value="0.2046875" />
         <entry key="app/src/main/res/layout/layout_image_style.xml" value="0.14166666666666666" />
         <entry key="app/src/main/res/layout/layout_text_style.xml" value="0.1265625" />
+        <entry key="app/src/main/res/layout/layout_xml.xml" value="0.1421875" />
       </map>
     </option>
   </component>
