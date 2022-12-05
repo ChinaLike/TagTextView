@@ -18,6 +18,7 @@
         <attr name="tvt_bottom_padding" format="dimension" />
         <attr name="tvt_left_padding" format="dimension" />
         <attr name="tvt_background_color" format="color" />
+        <attr name="tvt_background_img" format="reference" />
         <attr name="tvt_start_gradient_background_color" format="color"/>
         <attr name="tvt_end_gradient_background_color" format="color"/>
         <attr name="tvt_stroke_width" format="dimension" />

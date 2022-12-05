@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.core.util.DensityUtilKt;
@@ -244,6 +245,16 @@ public class JavaActivity extends AppCompatActivity {
             Toast.makeText(JavaActivity.this, "这里是解释", Toast.LENGTH_LONG).show();
             return null;
         });
+
+        //1.6 自定义背景图片
+        TextView text_tv16 = findViewById(R.id.text_tv16);
+        TagConfig tv16Config = new TagConfig(Type.TEXT);
+        tv16Config.setText("新品");
+        tv16Config.setLeftTopRadius(DensityUtilKt.getDp(10));
+        tv16Config.setWidth(DensityUtilKt.getDp(40));
+        tv16Config.setHeight(DensityUtilKt.getDp(20));
+        tv16Config.setBackgroundDrawable(ContextCompat.getDrawable(this, R.mipmap.custom_img));
+        TextViewExKt.addTag(text_tv16,tv16Config);
     }
 
     /**

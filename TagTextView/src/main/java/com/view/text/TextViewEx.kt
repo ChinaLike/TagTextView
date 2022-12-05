@@ -16,9 +16,15 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ReplacementSpan
 import android.text.style.StrikethroughSpan
 import android.text.style.UnderlineSpan
+import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.view.text.annotation.Align
 import com.view.text.config.LinkType
 import com.view.text.config.TagConfig
@@ -630,26 +636,49 @@ private fun createItemView(context: Context, config: TagConfig): View {
         config.padding ?: config.bottomPadding
     )
     //圆角
-    val cornerRadii = floatArrayOf(
-        config?.radius ?: config.leftTopRadius, config?.radius ?: config.leftTopRadius,
-        config?.radius ?: config.rightTopRadius, config?.radius ?: config.rightTopRadius,
-        config?.radius ?: config.rightBottomRadius, config?.radius ?: config.rightBottomRadius,
-        config?.radius ?: config.leftBottomRadius, config?.radius ?: config.leftBottomRadius
-    )
-    val gradientDrawable = GradientDrawable().apply {
-        setCornerRadii(cornerRadii)
-        this.colors =
-            intArrayOf(
-                config.startGradientBackgroundColor ?: config.backgroundColor,
-                config.endGradientBackgroundColor ?: config.backgroundColor
-            )
-        if (config.strokeWidth > 0) {
-            setStroke(config.strokeWidth, config.strokeColor)
+    if (config?.backgroundDrawable != null) {
+        val backgroundImageView = ShapeableImageView(context).apply {
+            background = config?.backgroundDrawable
+            shapeAppearanceModel = ShapeAppearanceModel.builder().apply {
+                setTopLeftCornerSize(config?.radius ?: config.leftTopRadius)
+                setTopRightCornerSize(config?.radius ?: config.rightTopRadius)
+                setBottomLeftCornerSize(config?.radius ?: config.leftBottomRadius)
+                setBottomRightCornerSize(config?.radius ?: config.rightBottomRadius)
+            }.build()
         }
-        orientation = config.gradientOrientation
+        return FrameLayout(context).apply {
+            addView(
+                backgroundImageView,
+                FrameLayout.LayoutParams(
+                    if (config.width == 0) FrameLayout.LayoutParams.WRAP_CONTENT else config.width,
+                    if (config.height == 0) FrameLayout.LayoutParams.WRAP_CONTENT else config.height
+                )
+            )
+            addView(tagItemView)
+            (tagItemView.layoutParams as? FrameLayout.LayoutParams)?.gravity = Gravity.CENTER
+        }
+    } else {
+        val cornerRadii = floatArrayOf(
+            config?.radius ?: config.leftTopRadius, config?.radius ?: config.leftTopRadius,
+            config?.radius ?: config.rightTopRadius, config?.radius ?: config.rightTopRadius,
+            config?.radius ?: config.rightBottomRadius, config?.radius ?: config.rightBottomRadius,
+            config?.radius ?: config.leftBottomRadius, config?.radius ?: config.leftBottomRadius
+        )
+        val gradientDrawable = GradientDrawable().apply {
+            setCornerRadii(cornerRadii)
+            this.colors =
+                intArrayOf(
+                    config.startGradientBackgroundColor ?: config.backgroundColor,
+                    config.endGradientBackgroundColor ?: config.backgroundColor
+                )
+            if (config.strokeWidth > 0) {
+                setStroke(config.strokeWidth, config.strokeColor)
+            }
+            orientation = config.gradientOrientation
+        }
+        tagItemView.background = gradientDrawable
+        return tagItemView
     }
-    tagItemView.background = gradientDrawable
-    return tagItemView
 }
 
 /**

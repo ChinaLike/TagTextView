@@ -95,6 +95,9 @@ open class TagTextView @JvmOverloads constructor(
                     R.styleable.TagTextView_tvt_background_color -> {
                         config?.backgroundColor = getColor(attr, Color.TRANSPARENT)
                     }
+                    R.styleable.TagTextView_tvt_background_img -> {
+                        config?.backgroundDrawable = getDrawable(attr)
+                    }
                     R.styleable.TagTextView_tvt_start_gradient_background_color -> {
                         config?.startGradientBackgroundColor = getColor(attr, Color.TRANSPARENT)
                     }

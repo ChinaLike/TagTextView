@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.core.util.dp
 import com.core.util.sp
 import com.view.text.*
@@ -232,7 +233,11 @@ class MainActivity : AppCompatActivity() {
             endGradientBackgroundColor = Color.parseColor("#DE4313")
             marginLeft = 20.dp
             align = Align.BASELINE
-        }).replaceTag("荣耀", LayoutInflater.from(this).inflate(R.layout.custom_tag_view, null), align =  Align.TOP)
+        }).replaceTag(
+            "荣耀",
+            LayoutInflater.from(this).inflate(R.layout.custom_tag_view, null),
+            align = Align.TOP
+        )
 
         //1.15 对齐方式,底部对齐
         val tv15Config = TagConfig(Type.TEXT).apply {
@@ -248,6 +253,17 @@ class MainActivity : AppCompatActivity() {
         text_tv15.addTag(tv15Config) {
             Toast.makeText(this, "这里是解释", Toast.LENGTH_LONG).show()
         }
+
+        //1.6 自定义背景图片
+        val tv16Config = TagConfig(Type.TEXT).apply {
+            text = "新品"
+            leftTopRadius = 10.dp.toFloat()
+            width = 40.dp
+            height = 20.dp
+            backgroundDrawable =
+                ContextCompat.getDrawable(this@MainActivity, R.mipmap.custom_img)
+        }
+        text_tv16.addTag(tv16Config)
     }
 
     /**

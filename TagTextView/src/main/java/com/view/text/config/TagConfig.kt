@@ -107,6 +107,11 @@ data class TagConfig(val type: Type) {
     var backgroundColor: Int = Color.GRAY
 
     /**
+     * 背景图片
+     */
+    var backgroundDrawable:Drawable? = null
+
+    /**
      * 开始渐变颜色
      */
     @ColorInt
