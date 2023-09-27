@@ -533,6 +533,25 @@ fun TextView.setURLSpan(
 }
 
 /**
+ * 获取原始文本
+ */
+fun TextView.getOriginalText(): CharSequence {
+    var originalText = text
+    if (!originalText.contains(TAG)) {
+        return originalText
+    }
+    val builder = SpannableStringBuilder(text)
+    val spans = builder.getSpans(0, builder.length, ReplacementSpan::class.java)
+    for (i in spans.indices) {
+        val span = spans[i]
+        val startIndex = builder.getSpanStart(span) - TAG.length * i
+        val endIndex = startIndex + TAG.length
+        originalText = originalText.removeRange(startIndex, endIndex)
+    }
+    return originalText
+}
+
+/**
  * 创建SpannableStringBuilder
  * @param [textView] 文本组件
  * @param [position] 需要添加的下标
@@ -582,24 +601,30 @@ private fun insertPlaceholder(
 private fun createSpan(textView: TextView, config: TagConfig): ReplacementSpan {
     val span = when (config.type) {
         Type.URL -> GlideImageSpan(
-            textView, config.imageUrl ?: throw NullPointerException("当type=Type.URL时,必须设置imageUrl")
+            textView,
+            config.imageUrl ?: throw NullPointerException("当type=Type.URL时,必须设置imageUrl")
         ).apply { setDrawableSize(config.imageWidth, config.imageHeight) }
+
         Type.IMAGE -> {
             when {
                 config.imageResource != null -> {
                     CenterImageSpan(textView.context, config.imageResource!!)
                 }
+
                 config.imageDrawable != null -> {
                     CenterImageSpan(config.imageDrawable!!)
                 }
+
                 config.imageBitmap != null -> {
                     CenterImageSpan(textView.context, config.imageBitmap!!)
                 }
+
                 else -> {
                     throw NullPointerException("当type=Type.IMAGE时，必须设置【imageResource】、【imageDrawable】、【imageBitmap】其中一项")
                 }
             }.apply { setDrawableSize(config.imageWidth, config.imageHeight) }
         }
+
         else -> CenterImageSpan(
             createDrawable(
                 createItemView(

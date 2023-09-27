@@ -19,6 +19,7 @@ import com.view.text.addTag as addTagKx
 import com.view.text.addTextImageTag as addTextImageTagKx
 import com.view.text.addTextTag as addTextTagKx
 import com.view.text.addUrlTag as addUrlTagKx
+import com.view.text.getOriginalText as getOriginalTextKx
 import com.view.text.replaceTag as replaceTagKx
 import com.view.text.setDeleteLine as setDeleteLineKx
 import com.view.text.setSpecificTextColor as setSpecificTextColorKx
@@ -65,97 +66,125 @@ open class TagTextView @JvmOverloads constructor(
                     R.styleable.TagTextView_tvt_radius -> {
                         config?.radius = getDimension(attr, 0F)
                     }
+
                     R.styleable.TagTextView_tvt_left_top_radius -> {
                         config?.leftTopRadius = getDimension(attr, 0F)
                     }
+
                     R.styleable.TagTextView_tvt_left_bottom_radius -> {
                         config?.leftBottomRadius = getDimension(attr, 0F)
                     }
+
                     R.styleable.TagTextView_tvt_right_top_radius -> {
                         config?.rightTopRadius = getDimension(attr, 0F)
                     }
+
                     R.styleable.TagTextView_tvt_right_bottom_radius -> {
                         config?.rightBottomRadius = getDimension(attr, 0F)
                     }
+
                     R.styleable.TagTextView_tvt_padding -> {
                         config?.padding = getDimension(attr, 0F).toInt()
                     }
+
                     R.styleable.TagTextView_tvt_top_padding -> {
                         config?.topPadding = getDimension(attr, 0F).toInt()
                     }
+
                     R.styleable.TagTextView_tvt_right_padding -> {
                         config?.rightPadding = getDimension(attr, 0F).toInt()
                     }
+
                     R.styleable.TagTextView_tvt_bottom_padding -> {
                         config?.bottomPadding = getDimension(attr, 0F).toInt()
                     }
+
                     R.styleable.TagTextView_tvt_left_padding -> {
                         config?.leftPadding = getDimension(attr, 0F).toInt()
                     }
+
                     R.styleable.TagTextView_tvt_background_color -> {
                         config?.backgroundColor = getColor(attr, Color.TRANSPARENT)
                     }
+
                     R.styleable.TagTextView_tvt_background_img -> {
                         config?.backgroundDrawable = getDrawable(attr)
                     }
+
                     R.styleable.TagTextView_tvt_start_gradient_background_color -> {
                         config?.startGradientBackgroundColor = getColor(attr, Color.TRANSPARENT)
                     }
+
                     R.styleable.TagTextView_tvt_end_gradient_background_color -> {
                         config?.endGradientBackgroundColor = getColor(attr, Color.TRANSPARENT)
                     }
+
                     R.styleable.TagTextView_tvt_stroke_width -> {
                         config?.strokeWidth = getDimension(attr, 0F).toInt()
                     }
+
                     R.styleable.TagTextView_tvt_stroke_color -> {
                         config?.strokeColor = getColor(attr, Color.GRAY)
                     }
+
                     R.styleable.TagTextView_tvt_text_size -> {
                         val textSize = getDimension(attr, 0F)
                         if (textSize != 0F) {
                             config?.textSize = textSize
                         }
                     }
+
                     R.styleable.TagTextView_tvt_text_color -> {
                         config?.textColor = getColor(attr, Color.GRAY)
                     }
+
                     R.styleable.TagTextView_tvt_width -> {
                         config?.width = getDimension(attr, 0F).toInt()
                     }
+
                     R.styleable.TagTextView_tvt_height -> {
                         config?.height = getDimension(attr, 0F).toInt()
                     }
+
                     R.styleable.TagTextView_tvt_align -> {
                         align = getInt(attr, Align.CENTER)
                         config?.align = align
                     }
+
                     R.styleable.TagTextView_tvt_text -> {
                         config?.text = getString(attr) ?: ""
                     }
+
                     R.styleable.TagTextView_tvt_image_resource -> {
                         config?.imageDrawable = getDrawable(attr)
                     }
+
                     R.styleable.TagTextView_tvt_position -> {
                         position = getInt(attr, 0)
                         config?.position = position
                     }
+
                     R.styleable.TagTextView_tvt_margin_left -> {
                         marginLeft = getDimension(attr, 0F).toInt()
                         config?.marginLeft = marginLeft
                     }
+
                     R.styleable.TagTextView_tvt_margin_right -> {
                         marginRight = getDimension(attr, 0F).toInt()
                         config?.marginRight = marginRight
                     }
+
                     R.styleable.TagTextView_tvt_text_margin_image -> {
                         config?.textMarginImage = getDimension(attr, 0F).toInt()
                     }
+
                     R.styleable.TagTextView_tvt_layout -> {
                         val resourceId = getResourceId(attr, 0)
                         if (resourceId != 0) {
                             customLayout = inflate(context, resourceId, null)
                         }
                     }
+
                     R.styleable.TagTextView_tvt_image_align_text -> {
                         val imageAlignText = getInt(attr, Orientation.LEFT.ordinal)
                         config?.imageAlignText = when (imageAlignText) {
@@ -165,16 +194,19 @@ open class TagTextView @JvmOverloads constructor(
                             else -> Orientation.LEFT
                         }
                     }
+
                     R.styleable.TagTextView_tvt_drawable_zoom_type -> {
                         drawableZoomType = getInt(attr, DrawableZoomType.ORIGINAL)
                         config?.drawableZoomType = drawableZoomType
                     }
+
                     R.styleable.TagTextView_tvt_image_width -> {
                         config?.imageWidth = getDimension(
                             attr,
                             ViewGroup.LayoutParams.WRAP_CONTENT.toFloat()
                         ).toInt()
                     }
+
                     R.styleable.TagTextView_tvt_image_height -> {
                         config?.imageHeight = getDimension(
                             attr,
@@ -491,5 +523,12 @@ open class TagTextView @JvmOverloads constructor(
         onClickListener: (() -> Unit)? = null
     ): TagTextView = apply {
         replaceTagKx(startIndex, endIndex, view, align, marginLeft, marginRight, onClickListener)
+    }
+
+    /**
+     * 获取文本
+     */
+    fun getOriginalText(): CharSequence {
+        return getOriginalTextKx()
     }
 }

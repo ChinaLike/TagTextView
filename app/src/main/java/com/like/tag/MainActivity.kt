@@ -3,6 +3,7 @@ package com.like.tag
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -66,6 +67,8 @@ class MainActivity : AppCompatActivity() {
         text_tv1.addTag(tv1Config) {
             Toast.makeText(this, "新品图标被点击了", Toast.LENGTH_SHORT).show()
         }
+
+        Log.d("获取Text","${text_tv1.getOriginalText()}")
 
         //1.2 自定义背景颜色
         val tv2Config = TagConfig(Type.TEXT).apply {
@@ -214,6 +217,8 @@ class MainActivity : AppCompatActivity() {
             position = 6
         }
 
+        Log.d("获取Text","${text_tv12.getOriginalText()}")
+
         //1.13 支持自定义View
         val view = LayoutInflater.from(this).inflate(R.layout.custom_text_view, null)
         text_tv13.addTag(view, position = 5)
@@ -254,7 +259,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "这里是解释", Toast.LENGTH_LONG).show()
         }
 
-        //1.6 自定义背景图片
+        //1.16 自定义背景图片
         val tv16Config = TagConfig(Type.TEXT).apply {
             text = "新品"
             leftTopRadius = 10.dp.toFloat()
@@ -264,6 +269,8 @@ class MainActivity : AppCompatActivity() {
                 ContextCompat.getDrawable(this@MainActivity, R.mipmap.custom_img)
         }
         text_tv16.addTag(tv16Config)
+
+        Log.d("获取Text","${text_tv17.getOriginalText()}")
     }
 
     /**
