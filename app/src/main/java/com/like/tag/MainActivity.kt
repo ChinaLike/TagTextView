@@ -2,6 +2,7 @@ package com.like.tag
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -271,6 +272,18 @@ class MainActivity : AppCompatActivity() {
         text_tv16.addTag(tv16Config)
 
         Log.d("获取Text","${text_tv17.getOriginalText()}")
+
+        //1.18 自定义字体
+        val tv18Config = TagConfig(Type.TEXT).apply {
+            text = "520折扣"
+            typeface = Typeface.createFromAsset(assets, "fonts/DIN-Bold.otf")
+            width = 80.dp
+            height = 20.dp
+            backgroundDrawable =
+                ContextCompat.getDrawable(this@MainActivity, R.mipmap.custom_img)
+        }
+        text_tv18.addTag(tv18Config)
+
     }
 
     /**

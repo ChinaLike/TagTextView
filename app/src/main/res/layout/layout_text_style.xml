@@ -348,4 +348,24 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/subTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1.18 自定义字体" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_tv18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="荣耀V40轻奢版 5G 超级快充 6400万超清四摄 8GB+128GB钛空银 移动联通电信5G 双卡双待手机" />
+
+
+    </LinearLayout>
+
 </LinearLayout>

@@ -53,6 +53,7 @@ internal class TagItemView @JvmOverloads constructor(
                 imageView.visibility = View.GONE
                 setTextView(config)
             }
+
             Type.TEXT_IMAGE -> {
                 textView.visibility = View.VISIBLE
                 imageView.visibility = View.VISIBLE
@@ -60,11 +61,13 @@ internal class TagItemView @JvmOverloads constructor(
                 setTextView(config)
                 setMargin(config.textMarginImage)
             }
+
             Type.IMAGE -> {
                 textView.visibility = View.GONE
                 imageView.visibility = View.VISIBLE
                 setImage(config)
             }
+
             else -> {
                 throw IllegalArgumentException("${TagItemView::class.java.simpleName}不支持此类型")
             }
@@ -78,6 +81,9 @@ internal class TagItemView @JvmOverloads constructor(
         text = config.text
         setTextColor(config.textColor)
         setTextSize(TypedValue.COMPLEX_UNIT_PX, config.textSize ?: textSize)
+        if (config.typeface != null) {
+            typeface = config.typeface
+        }
     }
 
     /**
@@ -88,9 +94,11 @@ internal class TagItemView @JvmOverloads constructor(
             config.imageResource != null -> {
                 setImageResource(config.imageResource!!)
             }
+
             config.imageDrawable != null -> {
                 setImageDrawable(config.imageDrawable)
             }
+
             config.imageBitmap != null -> {
                 setImageBitmap(config.imageBitmap)
             }
@@ -116,21 +124,24 @@ internal class TagItemView @JvmOverloads constructor(
             Orientation.LEFT -> {
                 this.orientation = HORIZONTAL
                 addView(imageView)
-                addView(textView,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT)
+                addView(textView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
             }
+
             Orientation.TOP -> {
                 this.orientation = VERTICAL
                 addView(imageView)
-                addView(textView,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT)
+                addView(textView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
             }
+
             Orientation.RIGHT -> {
                 this.orientation = HORIZONTAL
-                addView(textView,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT)
+                addView(textView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
                 addView(imageView)
             }
+
             Orientation.BOTTOM -> {
                 this.orientation = VERTICAL
-                addView(textView,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT)
+                addView(textView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
                 addView(imageView)
             }
         }

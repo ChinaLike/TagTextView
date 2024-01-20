@@ -1,6 +1,7 @@
 package com.like.tag;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -246,7 +247,7 @@ public class JavaActivity extends AppCompatActivity {
             return null;
         });
 
-        //1.6 自定义背景图片
+        //1.16 自定义背景图片
         TextView text_tv16 = findViewById(R.id.text_tv16);
         TagConfig tv16Config = new TagConfig(Type.TEXT);
         tv16Config.setText("新品");
@@ -255,6 +256,16 @@ public class JavaActivity extends AppCompatActivity {
         tv16Config.setHeight(DensityUtilKt.getDp(20));
         tv16Config.setBackgroundDrawable(ContextCompat.getDrawable(this, R.mipmap.custom_img));
         TextViewExKt.addTag(text_tv16,tv16Config);
+
+        //1.18 自定义字体
+        TextView text_tv18 = findViewById(R.id.text_tv18);
+        TagConfig tv18Config = new TagConfig(Type.TEXT);
+        tv18Config.setText("520折扣");
+        tv18Config.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/DIN-Bold.otf"));
+        tv18Config.setWidth(DensityUtilKt.getDp(80));
+        tv18Config.setHeight(DensityUtilKt.getDp(20));
+        tv18Config.setBackgroundDrawable(ContextCompat.getDrawable(this, R.mipmap.custom_img));
+        TextViewExKt.addTag(text_tv18,tv18Config);
     }
 
     /**

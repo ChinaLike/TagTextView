@@ -391,3 +391,7 @@ Java使用参考[JavaActivity](https://github.com/ChinaLike/TagTextView/blob/mai
         color:超链文本的颜色
         
         isUnderlineText:是否显示下划线，默认值false
+
+- getOriginalText():CharSequence
+
+    + 获取原始文本

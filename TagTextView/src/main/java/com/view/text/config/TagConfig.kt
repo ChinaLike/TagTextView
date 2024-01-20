@@ -2,6 +2,7 @@ package com.view.text.config
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import androidx.annotation.ColorInt
@@ -29,6 +30,11 @@ data class TagConfig(val type: Type) {
      */
     @ColorInt
     var textColor: Int = Color.WHITE
+
+    /**
+     * 字体
+     */
+    var typeface:Typeface? = null
 
     /**
      * 标签的宽度
