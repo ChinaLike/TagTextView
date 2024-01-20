@@ -94,43 +94,44 @@ Java使用参考[JavaActivity](https://github.com/ChinaLike/TagTextView/blob/mai
 
 ### TagConfig属性
 
-| API                          | 描述                     | 默认值                                    | 说明                                                               |
-|------------------------------|-------------------------|-------------------------------------------|--------------------------------------------------------------------|
-| type                         | 标签类型                 |                                           | TEXT-文本，IMAGE-图片，TEXT_IMAGE-图文结合，URL-网络链接           |
-| textSize                     | 标签上文本的字体大小       |                                           | 单位PX，不传就和TextView的textSize保持一致                         |
-| textColor                    | 标签上文本的字体颜色       | Color.WHITE                               |                                                                    |
-| width                        | 标签宽度                 |                                           | 不设置自动适应                                                     |
-| height                       | 标签宽度                 |                                           | 不设置自动适应                                                     |
-| radius                       | 标签的圆角               |                                           |                                                                    |
-| leftTopRadius                | 标签左上的圆角            | 2dp                                       |                                                                    |
-| leftBottomRadius             | 标签左下的圆角            | 2dp                                       |                                                                    |
-| rightTopRadius               | 标签右上的圆角            | 2dp                                       |                                                                    |
-| rightBottomRadius            | 标签右下的圆角            | 2dp                                       |                                                                    |
-| padding                      | 标签的内边距              |                                           | 默认值：topPadding=0，rightPadding=5,bottomPadding=0,leftPadding=5 |
-| topPadding                   | 标签的上内边距            | 0dp                                       |                                                                    |
-| rightPadding                 | 标签的右内边距            | 5dp                                       |                                                                    |
-| bottomPadding                | 标签的下内边距            | 0dp                                       |                                                                    |
-| leftPadding                  | 标签的左内边距            | 5dp                                       |                                                                    |
-| backgroundColor              | 标签的背景颜色            | Color.GRAY                                |                                                                    |
-| backgroundDrawable           | 标签的背景图片            |                                           |                                                                    |
-| startGradientBackgroundColor | 标签的渐变开始颜色         |                                           |                                                                    |
-| endGradientBackgroundColor   | 标签的渐变结束颜色         |                                           |                                                                    |
-| gradientOrientation          | 标签的渐变样式            | GradientDrawable .Orientation .LEFT_RIGHT |                                                                    |
-| strokeWidth                  | 标签的边框宽度            | 0                                         |                                                                    |
-| strokeColor                  | 标签的边框颜色            | Color.GRAY                                | strokeWidth>0有效                                                  |
-| imageAlignText               | 图片在文字的那一个方向     | Orientation.LEFT                          |                                                                    |
-| drawableZoomType             | 图片缩放类型              | DrawableZoomType.ORIGINAL                  |                                                                    |
-| imageWidth                   | 图片的宽度               |                                           |                                                    |
-| imageHeight                  | 图片的高度               |                                           |                                                    |
-| align                        | 标签的对齐方式            | Align.CENTER                              |                                                                    |
-| text                         | 标签文本                 |                                           | type为TYPE.TEXT、TYPE.TEXT_IMAGE有效                               |
-| imageResource                | 标签图片                 |                                           | type为TYPE.IMAGE、TYPE.TEXT_IMAGE有效                              |
-| imageDrawable                | 标签图片                 |                                           | type为TYPE.IMAGE、TYPE.TEXT_IMAGE有效                              |
-| imageBitmap                  | 标签图片                 |                                           | type为TYPE.IMAGE、TYPE.TEXT_IMAGE有效                              |
-| imageUrl                     | 标签网络图片链接         |                                           | type为TYPE.URL有效                                                 |
-| position                     | 标签显示位置             | 0                                         | 多次添加依次排序                                                   |
-| marginLeft                   | 标签距离左边距离         | 0dp                                       |                                                                    |
-| marginRight                  | 标签距离右边距离         | 0dp                                       |                                                                    |
+| API                          | 描述           | 默认值                                    | 说明                                                               |
+|------------------------------|--------------|-------------------------------------------|--------------------------------------------------------------------|
+| type                         | 标签类型         |                                           | TEXT-文本，IMAGE-图片，TEXT_IMAGE-图文结合，URL-网络链接           |
+| textSize                     | 标签上文本的字体大小   |                                           | 单位PX，不传就和TextView的textSize保持一致                         |
+| textColor                    | 标签上文本的字体颜色   | Color.WHITE                               |                                                                    |
+| typeface                     | 文本字体样式       |                                           |                                                      |
+| width                        | 标签宽度         |                                           | 不设置自动适应                                                     |
+| height                       | 标签宽度         |                                           | 不设置自动适应                                                     |
+| radius                       | 标签的圆角        |                                           |                                                                    |
+| leftTopRadius                | 标签左上的圆角      | 2dp                                       |                                                                    |
+| leftBottomRadius             | 标签左下的圆角      | 2dp                                       |                                                                    |
+| rightTopRadius               | 标签右上的圆角      | 2dp                                       |                                                                    |
+| rightBottomRadius            | 标签右下的圆角      | 2dp                                       |                                                                    |
+| padding                      | 标签的内边距       |                                           | 默认值：topPadding=0，rightPadding=5,bottomPadding=0,leftPadding=5 |
+| topPadding                   | 标签的上内边距      | 0dp                                       |                                                                    |
+| rightPadding                 | 标签的右内边距      | 5dp                                       |                                                                    |
+| bottomPadding                | 标签的下内边距      | 0dp                                       |                                                                    |
+| leftPadding                  | 标签的左内边距      | 5dp                                       |                                                                    |
+| backgroundColor              | 标签的背景颜色      | Color.GRAY                                |                                                                    |
+| backgroundDrawable           | 标签的背景图片      |                                           |                                                                    |
+| startGradientBackgroundColor | 标签的渐变开始颜色    |                                           |                                                                    |
+| endGradientBackgroundColor   | 标签的渐变结束颜色    |                                           |                                                                    |
+| gradientOrientation          | 标签的渐变样式      | GradientDrawable .Orientation .LEFT_RIGHT |                                                                    |
+| strokeWidth                  | 标签的边框宽度      | 0                                         |                                                                    |
+| strokeColor                  | 标签的边框颜色      | Color.GRAY                                | strokeWidth>0有效                                                  |
+| imageAlignText               | 图片在文字的那一个方向  | Orientation.LEFT                          |                                                                    |
+| drawableZoomType             | 图片缩放类型       | DrawableZoomType.ORIGINAL                  |                                                                    |
+| imageWidth                   | 图片的宽度        |                                           |                                                    |
+| imageHeight                  | 图片的高度        |                                           |                                                    |
+| align                        | 标签的对齐方式      | Align.CENTER                              |                                                                    |
+| text                         | 标签文本         |                                           | type为TYPE.TEXT、TYPE.TEXT_IMAGE有效                               |
+| imageResource                | 标签图片         |                                           | type为TYPE.IMAGE、TYPE.TEXT_IMAGE有效                              |
+| imageDrawable                | 标签图片         |                                           | type为TYPE.IMAGE、TYPE.TEXT_IMAGE有效                              |
+| imageBitmap                  | 标签图片         |                                           | type为TYPE.IMAGE、TYPE.TEXT_IMAGE有效                              |
+| imageUrl                     | 标签网络图片链接     |                                           | type为TYPE.URL有效                                                 |
+| position                     | 标签显示位置       | 0                                         | 多次添加依次排序                                                   |
+| marginLeft                   | 标签距离左边距离     | 0dp                                       |                                                                    |
+| marginRight                  | 标签距离右边距离     | 0dp                                       |                                                                    |
 | textMarginImage              | 标签内文字距离图片的距离 | 0dp                                       | type为Type.TEXT_IMAGE有效                                          |
 
 ### 方法
